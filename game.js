@@ -30,7 +30,7 @@ const KEY_DOWN = 40;
 
 // Loader
 let thingsToLoad = [
-    "images/world_tileset.png",
+    "images/tileset.png",
     "images/player.png",
     "maps/world_map.json"
   ];
@@ -40,7 +40,7 @@ let thingsToLoad = [
 
   //Set the background color and scale the canvas
   //g.backgroundColor = "black";
-  g.scaleToWindow();
+  //g.scaleToWindow();
 
   //Start Hexi
   g.start();
@@ -55,7 +55,7 @@ let thingsToLoad = [
     //Make the world from the Tiled JSON data and the tileset PNG image
     world = g.makeTiledWorld(
       "maps/world_map.json",
-      "images/world_tileset.png"
+      "images/tileset.png"
     );
 
     /*
