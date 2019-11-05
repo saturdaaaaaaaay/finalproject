@@ -28,6 +28,7 @@ const KEY_RIGHT = 39;
 const KEY_UP = 38;
 const KEY_DOWN = 40;
 
+// Loader
 let thingsToLoad = [
     "images/world_tileset.png",
     "images/player.png",
@@ -44,7 +45,7 @@ let thingsToLoad = [
   //Start Hexi
   g.start();
   
-  //Game variables
+  //Game declarations
   let world, camera, player, message, wallMapArray,
     leftArrow, upArrow, downArrow, rightArrow;
   
@@ -119,11 +120,16 @@ let thingsToLoad = [
     rightArrow = g.keyboard(KEY_RIGHT);
     downArrow = g.keyboard(KEY_DOWN);
   
-    //Program the keyboard objects
+    //Program the keyboard objects; moves while the key is pressed, stops when released
     leftArrow.press = () => player.direction = "left";
     upArrow.press = () => player.direction = "up";
     rightArrow.press = () => player.direction = "right";
     downArrow.press = () => player.direction = "down";
+
+    leftArrow.release = () => player.direction = "none";
+    upArrow.release = () => player.direction = "none";
+    rightArrow.release = () => player.direction = "none";
+    downArrow.release = () => player.direction = "none";
   
     //Change the game state to `play`
     g.state = play;
@@ -160,11 +166,11 @@ let thingsToLoad = [
           player.vy = 0;
           break;
       }
-      camera.follow(player);
     }
   
-    //Move the player
+    //Move the player and camera
     g.move(player);
+    camera.follow(player);
   
     //Keep the player contained inside the canvas
     //g.contain(player, g.stage);
