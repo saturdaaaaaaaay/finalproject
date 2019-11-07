@@ -19,17 +19,8 @@ stacked. Also, notice that the tileset images of the player and bomb
 both have custom `name` properties: "player" and "bomb".
 */
 
-// Constants
-const WIDTH = 800;
-const HEIGHT = 600;
-const MOVE_SPEED = 4;
-const KEY_LEFT = 37;
-const KEY_RIGHT = 39;
-const KEY_UP = 38;
-const KEY_DOWN = 40;
-
 // Loader
-let thingsToLoad = [
+thingsToLoad = [
     "images/tileset.png",
     "maps/world_map.json",
     "images/tileset_1.1.png",
@@ -37,7 +28,7 @@ let thingsToLoad = [
   ];
 
   //Create a new Hexi instance, and start it.
-  let g = hexi(WIDTH, HEIGHT, setup, thingsToLoad);
+  g = hexi(WIDTH, HEIGHT, setup, thingsToLoad);
 
   //Set the background color and scale the canvas
   //g.backgroundColor = "black";
@@ -45,10 +36,6 @@ let thingsToLoad = [
 
   //Start Hexi
   g.start();
-
-  //Game declarations
-  let world, camera, player, quest_NPC, reg_NPC, item, message, wallMapArray,
-    leftArrow, upArrow, downArrow, rightArrow;
 
   //The `setup` function to initialize your application
   function setup() {
