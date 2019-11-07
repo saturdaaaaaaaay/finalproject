@@ -47,7 +47,7 @@ let thingsToLoad = [
   g.start();
 
   //Game declarations
-  let world, camera, player, message, wallMapArray,
+  let world, camera, player, quest_NPC, reg_NPC, item, message, wallMapArray,
     leftArrow, upArrow, downArrow, rightArrow;
 
   //The `setup` function to initialize your application
@@ -67,9 +67,9 @@ let thingsToLoad = [
     */
     player = world.getObject("player");
 
-    //quest_NPC = world.getObject("quest_NPC");
-    //reg_NPC = world.getObject("reg_NPC");
-    //item = world.getObject("item");
+    quest_NPC = world.getObject("quest_NPC");
+    reg_NPC = world.getObject("reg_NPC");
+    item = world.getObject("item");
 
     // Add a world camera to follow the player
     camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
