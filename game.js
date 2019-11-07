@@ -31,8 +31,9 @@ const KEY_DOWN = 40;
 // Loader
 let thingsToLoad = [
     "images/tileset.png",
-    "images/player.png",
-    "maps/world_map.json"
+    "maps/world_map.json",
+    "images/tileset_1.1.png",
+    "maps/world_map_1.1.json"
   ];
 
   //Create a new Hexi instance, and start it.
@@ -54,8 +55,8 @@ let thingsToLoad = [
 
     //Make the world from the Tiled JSON data and the tileset PNG image
     world = g.makeTiledWorld(
-      "maps/world_map.json",
-      "images/tileset.png"
+      "maps/world_map_1.1.json",
+      "images/tileset_1.1.png"
     );
 
     /*
@@ -65,6 +66,10 @@ let thingsToLoad = [
     matches the string in the argument.
     */
     player = world.getObject("player");
+
+    //quest_NPC = world.getObject("quest_NPC");
+    //reg_NPC = world.getObject("reg_NPC");
+    //item = world.getObject("item");
 
     // Add a world camera to follow the player
     camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
