@@ -22,4 +22,4 @@ const QUEST_KEY = "q";
 
 //Game declarations
 let g, thingsToLoad, world, camera, player, quest_NPC, reg_NPC, item, message, wallMapArray,
-    leftArrow, upArrow, downArrow, rightArrow;
+    leftArrow, upArrow, downArrow, rightArrow, npcs, items;
