@@ -12,7 +12,7 @@ class Character
   {
     this.xPos = 0;
     this.yPos = 0;
-    this.sprite = g.rectangle(1500, 1500, "green");
+    //this.sprite = g.rectangle(1500, 1500, "green");
     //this.sprite.texture =
   }
 }
