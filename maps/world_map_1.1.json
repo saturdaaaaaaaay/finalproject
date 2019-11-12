@@ -95,10 +95,14 @@
         "tileheight":100,
         "tileproperties":
              {
-               "6":
+              "2":
+                  {
+                   "name":"door"
+                  },
+              "6":
                   {
                    "name":"player"
-                 },
+                  },
               "10":
                   {
                     "name":"quest_NPC"
