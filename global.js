@@ -38,4 +38,6 @@ let g,
     rightArrow,
     interact,
     npcs,
-    items;
+    items,
+    quests,
+    doors;
