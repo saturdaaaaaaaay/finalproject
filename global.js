@@ -20,6 +20,7 @@ const KEY_DOWN_ALT = 83;
 const ACTION_KEY = 32;
 const QUEST_KEY = 81;
 
+//label global variables
 //Game declarations
 let g,
     thingsToLoad,

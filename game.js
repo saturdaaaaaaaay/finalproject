@@ -57,14 +57,18 @@ thingsToLoad = [
     reg_NPC = world.getObject("reg_NPC");
     item = world.getObject("item");
 
-    thomasDiag = new Dialogue("Hey little dude! Welcome to our town.",
+    thomasDiag = new Dialogue("Hey little dude! Welcome to our town. My name is Thomas",
           "Man, my hands are so cold. I wish I hadn’t left my gloves at home.",
           "Thank you so much little dude! I actually found my gloves, but I could still use these.");
     diagTest = new Dialogue("Hi", "", "");
 
-    qNPC = new QuestNPC("Thomas", quest_NPC, thomasDiag);
-    rNPC = new RegNPC("Mia", reg_NPC, diagTest);
+
     item1 = new Item("Gloves", item);
+
+    let quest = new Quest (item1, QUEST_AVAILABLE);
+
+    qNPC = new QuestNPC("Thomas", quest_NPC, thomasDiag, quest);
+    rNPC = new RegNPC("Mia", reg_NPC, diagTest);
 
     // Add a world camera to follow the player
     camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
@@ -232,10 +236,12 @@ thingsToLoad = [
       player.vx = 0;
       player.vy = 0;
     }
+    let interactionLast = null;
     if (!playerVsNPC.hit)
     {
       qNPC.interact();
     }
+
 /*
     //Let the player pick up bombs
     let playerVsBomb = g.hitTestTile(player, bombMapArray, 5, world, "every");

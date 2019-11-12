@@ -23,16 +23,17 @@ class NPC
 
 class QuestNPC extends NPC
 {
-  constructor(name, object, dialogue)
+  constructor(name, object, dialogue, quest)
   {
     super(name, object, dialogue);
-    //this.quest = quest;
+    this.quest = quest;
     //this.item = item;
   }
   interact()
   {
     console.log(this.dialogue.greeting);
     console.log(this.dialogue.needExp);
+    this.quest.getItem().interact();
   }
   checkIfQuestActive()
   {
@@ -63,7 +64,7 @@ class Item
   }
   interact()
   {
-    console.log("hi");
+    console.log(this.name);
   }
 }
 
