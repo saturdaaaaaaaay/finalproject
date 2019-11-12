@@ -21,8 +21,7 @@ both have custom `name` properties: "player" and "bomb".
 
 // Loader
 thingsToLoad = [
-    "images/tileset.png",
-    "maps/world_map.json",
+    "maps/building.json",
     "images/tileset_1.1.png",
     "maps/world_map_1.1.json"
   ];
@@ -88,6 +87,7 @@ thingsToLoad = [
     //bomb layer's `data` array
 
     //bombMapArray = bombLayer.data;
+    doorMapArray = world.getObject("doorLayer").data;
 
     /*
     You can use `world.getObjects` (with an "s") to get an array of all
@@ -98,9 +98,7 @@ thingsToLoad = [
     */
 
     //bombSprites = world.getObjects("bomb");
-
-    //`bombSprites` is now an array that contains all the bomb sprites
-    //in the world
+    doors = world.getObjects("door");
 
     //Give the `player` a `direction` property
     player.direction = "";
@@ -111,6 +109,8 @@ thingsToLoad = [
     upArrow = g.keyboard(KEY_UP);
     rightArrow = g.keyboard(KEY_RIGHT);
     downArrow = g.keyboard(KEY_DOWN);
+    interact = g.keyboard(ACTION_KEY);
+    questkey = g.keyboard(QUEST_KEY);
 
     //Program the keyboard objects; moves while the key is pressed, stops when released
     leftArrow.press = () => player.direction = "left";
@@ -123,8 +123,25 @@ thingsToLoad = [
     rightArrow.release = () => player.direction = "none";
     downArrow.release = () => player.direction = "none";
 
+    // Player attempts interaction
+    interact.press = function() {
+      console.log("interaction");
+      checkForDoor();
+    };
+
+    questkey.press = function() {
+      console.log("quests");
+    };
+
     //Change the game state to `play`
     g.state = play;
+  }
+
+  function checkForDoor() {
+    let playerVsDoor = g.hitTestTile(player, doorMapArray, 3, world, "center");
+    if (playerVsDoor.hit) {
+      console.log("go inside building");
+    }
   }
 
   //The `play` function contains all the game logic and runs in a loop
