@@ -42,3 +42,5 @@ let g,
     items,
     quests,
     doors;
+
+let thomasDiag, diagTest, npcArray, qNPC, rNPC, item1;

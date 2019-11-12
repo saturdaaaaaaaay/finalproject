@@ -57,6 +57,15 @@ thingsToLoad = [
     reg_NPC = world.getObject("reg_NPC");
     item = world.getObject("item");
 
+    thomasDiag = new Dialogue("Hey little dude! Welcome to our town.",
+          "Man, my hands are so cold. I wish I hadn’t left my gloves at home.",
+          "Thank you so much little dude! I actually found my gloves, but I could still use these.");
+    diagTest = new Dialogue("Hi", "", "");
+
+    qNPC = new QuestNPC("Thomas", quest_NPC, thomasDiag);
+    rNPC = new RegNPC("Mia", reg_NPC, diagTest);
+    item1 = new Item("Gloves", item);
+
     // Add a world camera to follow the player
     camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
     camera.centerOver(player);
@@ -73,6 +82,7 @@ thingsToLoad = [
     */
 
     wallMapArray = world.getObject("wallLayer").data;
+    npcArray = world.getObject("npcLayer").data;
 
     /*
     We also need a reference to the bomb layer. All Tiled Editor layers are
@@ -209,17 +219,22 @@ thingsToLoad = [
     */
 
     let playerVsFloor = g.hitTestTile(player, wallMapArray, 0, world, "every");
+    let playerVsNPC = g.hitTestTile(player, npcArray, 0, world, "every");
 
     //If every corner point on the player isn't touching a floor tile (array gridIDNumber: 0) then
     //prevent the player from moving
     //
-    if (!playerVsFloor.hit) {
+    if (!playerVsFloor.hit || !playerVsNPC.hit) {
 
       //To prevent the player from moving, subtract its velocity from its position
       player.x -= player.vx;
       player.y -= player.vy;
       player.vx = 0;
       player.vy = 0;
+    }
+    if (!playerVsNPC.hit)
+    {
+      qNPC.interact();
     }
 /*
     //Let the player pick up bombs

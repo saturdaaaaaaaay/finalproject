@@ -6,39 +6,73 @@ let Sprite = PIXI.Sprite;
 let sound = PIXI.sound;
 let Texture = PIXI.Texture;
 
-class Character
+
+class NPC
 {
-  constructor(g)
+  constructor(name, object, dialogue)
   {
-    this.xPos = 0;
-    this.yPos = 0;
-    //this.sprite = g.rectangle(1500, 1500, "green");
-    //this.sprite.texture =
+    this.name = name;
+    this.object = object;
+    this.dialogue = dialogue;
+  }
+  interact()
+  {
+    console.log("hi");
   }
 }
 
-class PC extends Character
+class QuestNPC extends NPC
 {
-  constructor()
+  constructor(name, object, dialogue)
   {
-
+    super(name, object, dialogue);
+    //this.quest = quest;
+    //this.item = item;
+  }
+  interact()
+  {
+    console.log(this.dialogue.greeting);
+    console.log(this.dialogue.needExp);
+  }
+  checkIfQuestActive()
+  {
+    //if item is active
+    //display needExp
+    //if item is not active
+    //display greeting + needExp
+    //if item is completed
+    //display thanks
   }
 }
 
-class NPC extends Character
+class RegNPC extends NPC
 {
-
+  constructor(name, object, dialogue)
+  {
+    super(name, object);
+  }
 }
 
 class Item
 {
-  constructor(itemID)
+  constructor(name, object, state)
   {
-    this.itemID = itemID;
+    this.name = name;
+    this.object = object;
+    this.state = state;
+  }
+  interact()
+  {
+    console.log("hi");
   }
 }
 
 class Dialogue
 {
-
+  constructor(greeting, needExp, thanks)
+  {
+    this.greeting = greeting;
+    this.needExp = needExp;
+    this.thanks = thanks;
+  }
 }
