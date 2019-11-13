@@ -21,27 +21,52 @@ const ACTION_KEY = 32;
 const QUEST_KEY = 81;
 
 //label global variables
+
 //Game declarations
 let g,
     thingsToLoad,
     world,
     building,
-    camera,
-    player,
+    camera;
+
+//sprites (objects from world)
+let player,
     quest_NPC,
     reg_NPC,
     item,
-    message,
-    wallMapArray,
-    doorMapArray,
-    leftArrow,
+    doors;
+
+//map arrays
+let wallMapArray,
+    npcArray,
+    doorMapArray;
+
+//keycodes
+let leftArrow,
     upArrow,
     downArrow,
     rightArrow,
-    interact,
-    npcs,
-    items,
-    quests,
-    doors;
+    interact;
 
-let thomasDiag, diagTest, npcArray, qNPC, rNPC, item1;
+//dialogue
+let thomasDiag,
+    diagTest;
+
+//objects made from classes
+let qNPC,
+    rNPC,
+    item1,
+    quest1;
+
+//object arrays
+let questArray = [];
+let questNPCArray = [];
+let regNPCArray = [];
+
+let counter = 0; //temporary counter for displaying quests
+
+//stuff I couldn't find in code (delete if not needed)
+let items, //
+    message,//
+    quests,
+    npcs; //

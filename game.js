@@ -5,18 +5,6 @@ Hexi supports game maps and levels created using the popular Tiled
 Editor level designer:
 
 www.mapeditor.org
-
-To prepare your Tiled Editor game world for use in Hexi, give any significant thing a
-`name` property. Anything with a `name` property in Tiled Editor can
-be accessed in your code by its string name, as you'll see ahead. Tiled Editor layers have a
-`name` property by default, and you can assign custom `name`
-properties to tiles and objects.
-
-Open `maps/timeBomPanic.tmx` file in Tiled Editor and take a careful
-look at how it's been structured. Notice how sprites have been
-organized into layers, and how those layers have been named and
-stacked. Also, notice that the tileset images of the player and bomb
-both have custom `name` properties: "player" and "bomb".
 */
 
 // Loader
@@ -45,30 +33,11 @@ thingsToLoad = [
       "images/tileset_1.1.png"
     );
 
-    /*
-    Get a reference to the `player` sprite.
-    Use `world.getObject` to do this. `getObject` searches for and
-    returns a sprite in the `world` that has a `name` property that
-    matches the string in the argument.
-    */
-    player = world.getObject("player");
-
-    quest_NPC = world.getObject("quest_NPC");
-    reg_NPC = world.getObject("reg_NPC");
-    item = world.getObject("item");
-
-    thomasDiag = new Dialogue("Hey little dude! Welcome to our town. My name is Thomas",
-          "Man, my hands are so cold. I wish I hadn’t left my gloves at home.",
-          "Thank you so much little dude! I actually found my gloves, but I could still use these.");
-    diagTest = new Dialogue("Hi", "", "");
-
-
-    item1 = new Item("Gloves", item);
-
-    let quest = new Quest (item1, QUEST_AVAILABLE);
-
-    qNPC = new QuestNPC("Thomas", quest_NPC, thomasDiag, quest);
-    rNPC = new RegNPC("Mia", reg_NPC, diagTest);
+    setupSprites();
+    setupDialogue();
+    setupItems();
+    setupQuests();
+    setupNPCs();
 
     // Add a world camera to follow the player
     camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
@@ -94,13 +63,6 @@ thingsToLoad = [
     all have a `children` array that lets' you access all the sprites on
     that layer, if you even need to do that.
     */
-
-    //bombLayer = world.getObject("bombLayer");
-
-    //Get a reference to the level's bomb layer array. This is the
-    //bomb layer's `data` array
-
-    //bombMapArray = bombLayer.data;
     doorMapArray = world.getObject("doorLayer").data;
 
     /*
@@ -111,8 +73,7 @@ thingsToLoad = [
     array:
     */
 
-    //bombSprites = world.getObjects("bomb");
-    doors = world.getObjects("door");
+
 
     //Give the `player` a `direction` property
     player.direction = "";
@@ -149,6 +110,50 @@ thingsToLoad = [
 
     //Change the game state to `play`
     g.state = play;
+  }
+
+  function setupSprites()
+  {
+    /*
+    Get a reference to the `player` sprite.
+    Use `world.getObject` to do this. `getObject` searches for and
+    returns a sprite in the `world` that has a `name` property that
+    matches the string in the argument.
+    */
+    player = world.getObject("player");
+
+    quest_NPC = world.getObject("quest_NPC");
+    reg_NPC = world.getObject("reg_NPC");
+    item = world.getObject("item");
+
+    doors = world.getObjects("door");
+  }
+
+  function setupDialogue()
+  {
+    thomasDiag = new Dialogue("Hey little dude! Welcome to our town. My name is Thomas",
+          "Man, my hands are so cold. I wish I hadn’t left my gloves at home.",
+          "Thank you so much little dude! I actually found my gloves, but I could still use these.");
+    diagTest = new Dialogue("Nice to meet you! I'm Mia.", "", "");
+  }
+
+  function setupItems()
+  {
+    item1 = new Item("Gloves", item);
+  }
+
+  function setupQuests()
+  {
+    quest1 = new Quest (item1, QUEST_AVAILABLE);
+  }
+
+  function setupNPCs()
+  {
+    qNPC = new QuestNPC("Thomas", quest_NPC, thomasDiag, quest1);
+    rNPC = new RegNPC("Mia", reg_NPC, diagTest);
+
+    questNPCArray.push(qNPC);
+    regNPCArray.push(rNPC);
   }
 
   function checkForDoor() {
@@ -222,6 +227,7 @@ thingsToLoad = [
 
     */
 
+    //checks for collision with wall or NPC
     let playerVsFloor = g.hitTestTile(player, wallMapArray, 0, world, "every");
     let playerVsNPC = g.hitTestTile(player, npcArray, 0, world, "every");
 
@@ -236,10 +242,58 @@ thingsToLoad = [
       player.vx = 0;
       player.vy = 0;
     }
-    let interactionLast = null;
+
+    let tempItem = null; //set up tempItem (catches NPC quest if NPC has a quest)
+    //if collided with an NPC...
     if (!playerVsNPC.hit)
     {
-      qNPC.interact();
+      //checks if collided with Quest NPC
+      var i = 0;
+      var qFound = false;
+      while (i < questNPCArray.length && !qFound)
+      {
+        //compares index of collision object with index of quest sprite
+        if (playerVsNPC.index == questNPCArray[i].object.index)
+        {
+          tempItem = questNPCArray[i].interact();
+          qFound = true;
+        }
+        i++;
+      }
+      //catches Quest NPC's quest and adds to quest array
+      if (tempItem != null)
+      {
+        questArray.push(tempItem);
+      }
+
+
+
+      //checks if collided with Regular NPC
+      i = 0;
+      var rFound = false;
+      while (i < regNPCArray.length && !rFound)
+      {
+        //compares index of collision boject with index of regular sprite
+        if (playerVsNPC.index == regNPCArray[i].object.index)
+        {
+          tempItem = regNPCArray[i].interact(); //interact with NPC
+          rFound = true;
+        }
+        i++;
+      }
+    }
+
+    tempItem = null; //reset tempItem
+
+    //display quests
+    if (questArray.length > 0 && counter == 0)
+    {
+      var i;
+      for (i = 0; i < questArray.length; i++)
+      {
+        console.log(questArray[i].display());
+      }
+      counter = 1;
     }
 
 /*

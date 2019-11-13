@@ -24,4 +24,9 @@
    getState() {
      return this.questState;
    }
+
+   display()
+   {
+     return "Get " + this.questItem.name;
+   }
  }
