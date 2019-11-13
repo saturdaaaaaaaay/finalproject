@@ -36,36 +36,64 @@
          "width":9,
          "x":0,
          "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":9,
+         "id":5,
+         "name":"playerLayer",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":9,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":5,
+ "nextlayerid":6,
  "nextobjectid":1,
  "orientation":"orthogonal",
  "renderorder":"right-up",
  "tiledversion":"1.2.5",
  "tileheight":100,
  "tilesets":[
-       {
-              "firstgid":1,
-              "source":"\/images\/tileset.png",
-              "imageheight":100,
-              "imagewidth":1300,
-              "margin":0,
-              "name":"tileset",
-              "properties":
-                   {
-      
-                   },
-              "spacing":0,
-              "tileheight":100,
-              "tileproperties":
-                   {
-                     "6":
-                        {
-                         "name":"player"
-                        }
-                   },
-              "tilewidth":100
-             }],
+  {
+   "firstgid":1,
+   "source":"\/images\/tileset_1.1.png",
+   "imageheight":100,
+   "imagewidth":1300,
+   "margin":0,
+   "name":"tileset_1.1",
+   "properties":
+   {
+
+   },
+   "spacing":0,
+   "tileheight":100,
+   "tileproperties":
+   {
+    "2":
+    {
+     "name":"door"
+    },
+    "6":
+    {
+     "name":"player"
+    },
+    "10":
+    {
+     "name":"quest_NPC"
+    },
+    "11":
+    {
+     "name":"reg_NPC"
+    },
+    "12":
+    {
+     "name":"item"
+    }
+   },
+   "tilewidth":100
+  }],
  "tilewidth":100,
  "type":"map",
  "version":1.2,
