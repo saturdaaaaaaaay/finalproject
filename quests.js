@@ -5,12 +5,12 @@
  const QUEST_ACTIVE = 3000;
  const QUEST_AVAILABLE = 3001;
  const QUEST_COMPLETE = 3002;
- 
+
  class Quest {
 
-   constructor() {
-     this.questItem = null;
-     this.questState = QUEST_AVAILABLE;
+   constructor(questItem, questState) {
+     this.questItem = questItem;
+     this.questState = questState;
    }
 
    changeState(NEW_STATE) {
@@ -23,5 +23,19 @@
 
    getState() {
      return this.questState;
+   }
+
+   display()
+   {
+     let state = "";
+     if (this.questState == QUEST_ACTIVE)
+     {
+       state = "still active"
+     }
+     else
+     {
+       state = "completed";
+     }
+     return "Get " + this.questItem.name + "\t" + state;
    }
  }

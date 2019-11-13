@@ -20,7 +20,72 @@ const KEY_DOWN_ALT = 83;
 const ACTION_KEY = 32;
 const QUEST_KEY = 81;
 
+//label global variables
+
 //Game declarations
+let g,
+    thingsToLoad,
+    world,
+    building,
+    camera;
+
+//sprites (objects from world)
+let player,
+    quest_NPC,
+    reg_NPC,
+    item,
+    doors;
+
+//map arrays
+let wallMapArray,
+    npcArray,
+    doorMapArray;
+
+//keycodes
+let leftArrow,
+    upArrow,
+    downArrow,
+    rightArrow,
+    interact;
+
+//dialogue
+let thomasDiag,
+    diagTest;
+
+//objects made from classes
+let qNPC,
+    rNPC,
+    item1,
+    quest1;
+
+//object arrays
+let questArray = [];
+let questNPCArray = [];
+let regNPCArray = [];
+let questTextArray = [];
+let dialogueArray = [];
+
+let gameScene,
+    dialogueScene,
+    menuScene,
+    questListScene;
+
+let menuText,
+    questListText,
+    cancelText,
+    emptyQuestText;
+
+let backgroundRect; //= g.rectangle(300, 300, "green");
+
+let counter = 0; //temporary counter for displaying quests
+
+//stuff I couldn't find in code (delete if not needed)
+let items, //
+    message,//
+    quests,
+    npcs; //
+
+/*
 let g,
     thingsToLoad,           // loader
     world,                  // game world
@@ -43,3 +108,4 @@ let g,
     items,
     quests,
     doors;
+ */
