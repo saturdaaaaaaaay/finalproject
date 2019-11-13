@@ -22,22 +22,23 @@ const QUEST_KEY = 81;
 
 //Game declarations
 let g,
-    thingsToLoad,
-    world,
-    building,
-    camera,
+    thingsToLoad,           // loader
+    world,                  // game world
+    world_state,
+    building,               // "world" inside a building
+    camera,                 // world camera
     player,
     quest_NPC,
     reg_NPC,
     item,
     message,
-    wallMapArray,
-    doorMapArray,
-    leftArrow,
-    upArrow,
-    downArrow,
-    rightArrow,
-    interact,
+    wallMapArray,           // array of wall tiles from the map
+    doorMapArray,           // array of door tiles from the map
+    leftArrow,              // left key event
+    upArrow,                // up key event
+    downArrow,              // down key event
+    rightArrow,             // right key event
+    interact,               // interact key event
     npcs,
     items,
     quests,
