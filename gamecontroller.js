@@ -68,7 +68,7 @@ class QuestNPC extends NPC
     if (!this.gaveQuest)
     {
       this.gaveQuest = true;
-      //this.quest.changeState(QUEST_ACTIVE);
+      this.quest.changeState(QUEST_ACTIVE);
       return this.quest;
     }
 

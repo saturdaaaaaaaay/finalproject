@@ -62,6 +62,20 @@ let qNPC,
 let questArray = [];
 let questNPCArray = [];
 let regNPCArray = [];
+let questTextArray = [];
+let dialogueArray = [];
+
+let gameScene,
+    dialogueScene,
+    menuScene,
+    questListScene;
+
+let menuText,
+    questListText,
+    cancelText,
+    emptyQuestText;
+
+let backgroundRect; //= g.rectangle(300, 300, "green");
 
 let counter = 0; //temporary counter for displaying quests
 

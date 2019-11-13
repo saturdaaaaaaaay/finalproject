@@ -38,7 +38,7 @@ thingsToLoad = [
     setupItems();
     setupQuests();
     setupNPCs();
-
+    setupScenes();
     // Add a world camera to follow the player
     camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
     camera.centerOver(player);
@@ -156,7 +156,148 @@ thingsToLoad = [
     regNPCArray.push(rNPC);
   }
 
-  function checkForDoor() {
+  function setupScenes()
+  {
+    gameScene = g.group();
+    menuScene = g.group();
+    dialogueScene = g.group();
+    questListScene = g.group();
+
+    dialogueScene.visible = false;
+    menuScene.visible = false;
+    questListScene.visible = false;
+    gameScene.visible = true;
+    setupGameScene();
+    setupMenuScene();
+    setupQuestListScene();
+  }
+
+  function setupGameScene()
+  {
+    menuText = g.text("Menu", "18px Futura", "red", 20, 20);
+    menuText.x = 750;
+    menuText.y = 0;//g.canvas.height / 2 - 18;
+
+    gameScene.addChild(menuText);
+
+    menuText.interactive = true;
+    menuText.buttonMode = true;
+
+    //when clicked, will display menu scene
+    menuText.on('mousedown', dispMenu);
+  }
+
+  function setupMenuScene()
+  {
+    backgroundRect = g.rectangle(300, 300, "black");
+    g.stage.putCenter(backgroundRect, 0, 0);
+    //backgroundRect.x = g.canvas.width / 2;
+    //backgroundRect.y = g.canvas.height / 2;
+
+    menuScene.addChild(backgroundRect);
+
+    questListText = g.text("Quest List", "18px Futura", "red", 20, 20);
+    questListText.x = g.canvas.width/2;
+    questListText.y = g.canvas.height / 2 - 18;
+    cancelText = g.text("Cancel", "18px Futura", "red", 20, 20);
+    cancelText.x = 400;
+    cancelText.y = 400;
+
+    menuScene.addChild(questListText);
+    menuScene.addChild(cancelText);
+
+    questListText.interactive = true;
+    questListText.buttonMode = true;
+    cancelText.interactive = true;
+    cancelText.buttonMode = true;
+
+    //when clicked, will display menu scene
+    questListText.on('mousedown', dispQuestList);
+    cancelText.on('mousedown', dispGame);
+  }
+
+  function setupQuestListScene()
+  {
+    questListScene.removeChildren(); //reset scene graph
+    backgroundRect = g.rectangle(300, 300, "black");
+    g.stage.putCenter(backgroundRect, 0, 0);
+
+    questListScene.addChild(backgroundRect);
+
+    if (questArray.length > 0)
+    {
+      questTextArray.push(g.text(questArray[0].display(), "18px Futura", "red", 20, 20));
+
+      var i, currentQuest;
+      for (i = 0; i < questTextArray.length; i++)
+      {
+        currentQuest = questTextArray[i];
+        questListScene.addChild(currentQuest);
+        //g.stage.putCenter(currentQuest, 0, -100);
+        currentQuest.x = 300;
+        currentQuest.y = 300;
+      }
+    }
+    else
+    {
+      emptyQuestText = g.text("No quests available", "18px Futura", "red", 20, 20);
+
+      questListScene.addChild(emptyQuestText);
+      emptyQuestText.x = 300;
+      emptyQuestText.y = 300;
+    }
+
+    cancelText = g.text("Cancel", "18px Futura", "red", 20, 20);
+    cancelText.x = 400;
+    cancelText.y = 400;
+
+    questListScene.addChild(cancelText);
+
+    cancelText.interactive = true;
+    cancelText.buttonMode = true;
+
+    //when clicked, will display menu scene
+    cancelText.on('mousedown', dispMenu);
+  }
+
+  function setupDialogueScene()
+  {
+
+  }
+
+  function dispGame()
+  {
+    g.state = play;
+    gameScene.visible = true;
+
+    menuScene.visible = false;
+    dialogueScene = false;
+  }
+
+  function dispMenu()
+  {
+    g.state = dispMenu;
+    menuScene.visible = true;
+
+    dialogueScene.visible = false;
+    gameScene.visible = false;
+    questListScene.visible = false;
+  }
+
+  function dispQuestList()
+  {
+    g.state = dispQuestList;
+
+    setupQuestListScene();
+    questListScene.visible = true;
+
+    menuScene.visible = false;
+    dialogueScene.visible = false;
+    gameScene.visible = false;
+  }
+
+  function checkForDoor()
+  {
     let playerVsDoor = g.hitTestTile(player, doorMapArray, 3, world, "center");
     if (playerVsDoor.hit) {
       console.log("go inside building");

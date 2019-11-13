@@ -27,6 +27,15 @@
 
    display()
    {
-     return "Get " + this.questItem.name;
+     let state = "";
+     if (this.questState == QUEST_ACTIVE)
+     {
+       state = "still active"
+     }
+     else
+     {
+       state = "completed";
+     }
+     return "Get " + this.questItem.name + "\t" + state;
    }
  }
