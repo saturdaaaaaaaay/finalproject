@@ -1,22 +1,5 @@
 /*
-Learn how to import and use data from Tiled Editor.
 
-Hexi supports game maps and levels created using the popular Tiled
-Editor level designer:
-
-www.mapeditor.org
-
-To prepare your Tiled Editor game world for use in Hexi, give any significant thing a
-`name` property. Anything with a `name` property in Tiled Editor can
-be accessed in your code by its string name, as you'll see ahead. Tiled Editor layers have a
-`name` property by default, and you can assign custom `name`
-properties to tiles and objects.
-
-Open `maps/timeBomPanic.tmx` file in Tiled Editor and take a careful
-look at how it's been structured. Notice how sprites have been
-organized into layers, and how those layers have been named and
-stacked. Also, notice that the tileset images of the player and bomb
-both have custom `name` properties: "player" and "bomb".
 */
 
 // Loader
@@ -26,82 +9,16 @@ thingsToLoad = [
     "maps/world_map_1.1.json"
   ];
 
-  //Create a new Hexi instance, and start it.
+  // Create a new Hexi instance, and start it.
   g = hexi(WIDTH, HEIGHT, setup, thingsToLoad);
 
-  //Set the background color and scale the canvas
-  //g.backgroundColor = "black";
-  //g.scaleToWindow();
-
-  //Start Hexi
+  // Start Hexi
   g.start();
 
-  //The `setup` function to initialize your application
+  // Setup the app
   function setup() {
-
-    //Make the world from the Tiled JSON data and the tileset PNG image
-    world = g.makeTiledWorld(
-      "maps/world_map_1.1.json",
-      "images/tileset_1.1.png"
-    );
-
-    /*
-    Get a reference to the `player` sprite.
-    Use `world.getObject` to do this. `getObject` searches for and
-    returns a sprite in the `world` that has a `name` property that
-    matches the string in the argument.
-    */
-    player = world.getObject("player");
-
-    quest_NPC = world.getObject("quest_NPC");
-    reg_NPC = world.getObject("reg_NPC");
-    item = world.getObject("item");
-
-    // Add a world camera to follow the player
-    camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
-    camera.centerOver(player);
-
-    /*
-    Each Tiled Editor layer has a `name` that can be accessed in your
-    game code using
-    `world.getObject` Tiled Editor's `tilelayers` have a `data` property
-    that is an array containing all the grid index numbers (`gid`) of
-    the tiles in that array. In this example we want to access all the
-    wall sprites. In Tiled Editor, all the wall sprites were added to
-    a tile layer called `wallLayer`. We can access the `wallLayer`'s
-    `data` array of sprites like this:
-    */
-
-    wallMapArray = world.getObject("wallLayer").data;
-
-    /*
-    We also need a reference to the bomb layer. All Tiled Editor layers are
-    created as `groups` by Hexi's `makeTiledWorld` method. That means they
-    all have a `children` array that lets' you access all the sprites on
-    that layer, if you even need to do that.
-    */
-
-    //bombLayer = world.getObject("bombLayer");
-
-    //Get a reference to the level's bomb layer array. This is the
-    //bomb layer's `data` array
-
-    //bombMapArray = bombLayer.data;
-    doorMapArray = world.getObject("doorLayer").data;
-
-    /*
-    You can use `world.getObjects` (with an "s") to get an array of all
-    the things in the world that have the same `name` properties. There
-    are 5 bombs in the world, all which have share the same `name`
-    property: "bomb". Here's how you can access to all of them in an
-    array:
-    */
-
-    //bombSprites = world.getObjects("bomb");
-    doors = world.getObjects("door");
-
-    //Give the `player` a `direction` property
-    player.direction = "";
+    world_state = "world"
+    loadMap(world_state);
 
     //Configure Hexi's built in arrow keys to assign the player a direction
     //Create some keyboard objects
@@ -140,8 +57,56 @@ thingsToLoad = [
   function checkForDoor() {
     let playerVsDoor = g.hitTestTile(player, doorMapArray, 3, world, "center");
     if (playerVsDoor.hit) {
-      console.log("go inside building");
+      switch(world_state) {
+        case "building":
+          world_state = "world";
+          break;
+        case "world":
+          world_state = "building";
+          break;
+      }
+      loadMap(world_state);
     }
+  }
+  
+  function loadMap(MAP) {
+    switch(MAP) {
+      case "building":
+        // Make a map of inside a building
+        world = g.makeTiledWorld(
+            "maps/building.json",
+            "images/tileset_1.1.png"
+        );
+        break;
+      case "world":
+        world = g.makeTiledWorld(
+            "maps/world_map_1.1.json",
+            "images/tileset_1.1.png"
+        );
+        
+        // Setup the npc and item sprites
+        quest_NPC = world.getObject("quest_NPC");
+        reg_NPC = world.getObject("reg_NPC");
+        item = world.getObject("item");
+        break;
+    }
+    
+    // Setup the player
+    player = world.getObject("player");
+    //Give the `player` a `direction` property
+    player.direction = "";
+
+    // Add a camera to follow the player in both outside and inside worlds
+    camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
+    camera.centerOver(player);
+    
+    loadWallsAndDoors(world);
+  }
+  
+  function loadWallsAndDoors(MAP) {
+    wallMapArray = MAP.getObject("wallLayer").data;
+    doorMapArray = MAP.getObject("doorLayer").data;
+    doors = MAP.getObjects("door");
   }
 
   //The `play` function contains all the game logic and runs in a loop
