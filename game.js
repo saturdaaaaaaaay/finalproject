@@ -27,13 +27,17 @@ thingsToLoad = [
   //The `setup` function to initialize your application
   function setup() {
     world_state = "world"
-    loadMap(world_state);
 
-    //Make the world from the Tiled JSON data and the tileset PNG image
-    world = g.makeTiledWorld(
-      "maps/world_map_1.1.json",
-      "images/tileset_1.1.png"
+    // Make a map of inside a building
+    building_world = g.makeTiledWorld(
+        "maps/building.json",
+        "images/tileset_1.1.png"
     );
+    outside_world = g.makeTiledWorld(
+        "maps/world_map_1.1.json",
+        "images/tileset_1.1.png"
+    );
+    world = outside_world;
 
     setupSprites();
     setupDialogue();
@@ -344,38 +348,27 @@ thingsToLoad = [
   }
 
   function loadMap(MAP) {
-  switch(MAP) {
-    case "building":
-      // Make a map of inside a building
-      world = g.makeTiledWorld(
-          "maps/building.json",
-          "images/tileset_1.1.png"
-      );
-      break;
-    case "world":
-      world = g.makeTiledWorld(
-          "maps/world_map_1.1.json",
-          "images/tileset_1.1.png"
-      );
+    world.visible = false;
+    switch(MAP) {
+      case "building":
+        world = building_world;
+        break;
+      case "world":
+        world = outside_world;
+        break;
+    }
+    world.visible = true;
+    // Setup the player
+    player = world.getObject("player");
+    //Give the `player` a `direction` property
+    player.direction = "";
 
-      // Setup the npc and item sprites
-      quest_NPC = world.getObject("quest_NPC");
-      reg_NPC = world.getObject("reg_NPC");
-      item = world.getObject("item");
-      break;
+    // Add a camera to follow the player in both outside and inside worlds
+    camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
+    camera.centerOver(player);
+
+    loadWallsAndDoors(world);
   }
-
-  // Setup the player
-  player = world.getObject("player");
-  //Give the `player` a `direction` property
-  player.direction = "";
-
-  // Add a camera to follow the player in both outside and inside worlds
-  camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
-  camera.centerOver(player);
-
-  loadWallsAndDoors(world);
-}
 
 function loadWallsAndDoors(MAP) {
   wallMapArray = MAP.getObject("wallLayer").data;
