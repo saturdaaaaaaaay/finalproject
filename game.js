@@ -26,14 +26,23 @@ thingsToLoad = [
 
   //The `setup` function to initialize your application
   function setup() {
-    world_state = "world"
+    world_state = "world";
+    buildingWorld = g.makeTiledWorld(
+        "maps/building.json",
+        "images/tileset_1.1.png"
+    );
+    townSquareWorld = g.makeTiledWorld(
+        "maps/world_map_1.1.json",
+        "images/tileset_1.1.png"
+    );
     loadMap(world_state);
-
+/*
     //Make the world from the Tiled JSON data and the tileset PNG image
     world = g.makeTiledWorld(
       "maps/world_map_1.1.json",
       "images/tileset_1.1.png"
     );
+*/
 
     setupSprites();
     setupDialogue();
@@ -111,7 +120,7 @@ thingsToLoad = [
     };
 
     //Change the game state to `play`
-    g.state = play;
+    g.state = dispTitle;
   }
 
   function setupSprites()
@@ -164,14 +173,36 @@ thingsToLoad = [
     menuScene = g.group();
     dialogueScene = g.group();
     questListScene = g.group();
+    titleScene = g.group();
 
+    titleScene.visible = true;
     dialogueScene.visible = false;
     menuScene.visible = false;
     questListScene.visible = false;
-    gameScene.visible = true;
+    gameScene.visible = false;
+    setupTitleScene();
     setupGameScene();
     setupMenuScene();
     setupQuestListScene();
+  }
+
+  function setupTitleScene()
+  {
+    backgroundRect = g.rectangle(800, 600, "black");
+    titleText = g.text("Cool title goes here", "18px Futura", "red", 20, 20);
+    g.stage.putCenter(titleText);
+    playText = g.text("Play", "18px Futura", "red", 20, 20);
+    playText.x = 400;
+    playText.y = 400;
+
+    titleScene.addChild(backgroundRect);
+    titleScene.addChild(titleText);
+    titleScene.addChild(playText);
+
+    playText.interactive = true;
+    playText.buttonMode = true;
+
+    playText.on('mousedown', dispGame);
   }
 
   function setupGameScene()
@@ -289,6 +320,15 @@ thingsToLoad = [
     exitText.on('mousedown', dispGame);
   }
 
+  function dispTitle()
+  {
+    g.state = dispTitle;
+    titleScene.visible = true;
+
+    gameScene.visible = false;
+    menuScene.visible = false;
+  }
+
   function dispGame()
   {
     g.state = play;
@@ -296,6 +336,7 @@ thingsToLoad = [
 
     menuScene.visible = false;
     dialogueScene.visible = false;
+    titleScene.visible = false;
   }
 
   function dispMenu()
@@ -359,9 +400,13 @@ thingsToLoad = [
       );
 
       // Setup the npc and item sprites
+      /*
+      player = world.getObject("player");
       quest_NPC = world.getObject("quest_NPC");
       reg_NPC = world.getObject("reg_NPC");
       item = world.getObject("item");
+      */
+      setupSprites();
       break;
   }
 
@@ -506,6 +551,8 @@ function loadWallsAndDoors(MAP) {
         }
         i++;
       }
+      qFound = false;
+      rFound = false;
     }
 
     tempItem = null; //reset tempItem

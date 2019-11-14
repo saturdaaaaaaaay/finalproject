@@ -27,7 +27,9 @@ let g,
     thingsToLoad,
     world,
     building,
-    camera;
+    camera,
+    buildingWorld,
+    townSquareWorld;
 
 //sprites (objects from world)
 let player,
@@ -63,12 +65,14 @@ let questArray = [];
 let questNPCArray = [];
 let regNPCArray = [];
 let questTextArray = [];
+let itemArray = [];
 //let dialogueArray = [];
 
 let gameScene,
     dialogueScene,
     menuScene,
-    questListScene;
+    questListScene,
+    titleScene;
 
 let menuText,
     questListText,
@@ -76,7 +80,9 @@ let menuText,
     emptyQuestText,
     exitText,
     dialogueText,
-    npcNameText;
+    npcNameText,
+    titleText,
+    playText;
 
 let backgroundRect; //= g.rectangle(300, 300, "green");
 

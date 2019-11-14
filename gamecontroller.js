@@ -62,13 +62,20 @@ class QuestNPC extends NPC
     //display thanks
   }
 
-  interact(item)
+  interact()
   {
     /*
     console.log(this.dialogue.greeting);
     console.log(this.dialogue.needExp);
     this.quest.getItem().interact();
     */
+    var i, tempItem;
+    for (i = 0; i < itemArray.length; i++)
+    {
+      tempItem = itemArray[i];
+      
+    }
+
     var display = this.dispDialogue();
 
     console.log(display);

@@ -21,6 +21,14 @@
      return this.questItem;
    }
 
+   checkMatchingItem(item)
+   {
+     if (item.name = this.questItem.name)
+     {
+       this.changeState(QUEST_COMPLETE);
+     }
+   }
+
    getState() {
      return this.questState;
    }
