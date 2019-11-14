@@ -50,7 +50,7 @@ let leftArrow,
 
 //dialogue
 let thomasDiag,
-    diagTest;
+    miaDiag;
 
 //objects made from classes
 let qNPC,
@@ -63,7 +63,7 @@ let questArray = [];
 let questNPCArray = [];
 let regNPCArray = [];
 let questTextArray = [];
-let dialogueArray = [];
+//let dialogueArray = [];
 
 let gameScene,
     dialogueScene,
@@ -73,7 +73,10 @@ let gameScene,
 let menuText,
     questListText,
     cancelText,
-    emptyQuestText;
+    emptyQuestText,
+    exitText,
+    dialogueText,
+    npcNameText;
 
 let backgroundRect; //= g.rectangle(300, 300, "green");
 
@@ -85,27 +88,28 @@ let items, //
     quests,
     npcs; //
 
-/*
-let g,
-    thingsToLoad,           // loader
-    world,                  // game world
-    world_state,
-    building,               // "world" inside a building
-    camera,                 // world camera
-    player,
-    quest_NPC,
-    reg_NPC,
-    item,
-    message,
-    wallMapArray,           // array of wall tiles from the map
-    doorMapArray,           // array of door tiles from the map
-    leftArrow,              // left key event
-    upArrow,                // up key event
-    downArrow,              // down key event
-    rightArrow,             // right key event
-    interact,               // interact key event
-    npcs,
-    items,
-    quests,
-    doors;
- */
+
+    /*
+    let g,
+        thingsToLoad,           // loader
+        world,                  // game world
+        world_state,
+        building,               // "world" inside a building
+        camera,                 // world camera
+        player,
+        quest_NPC,
+        reg_NPC,
+        item,
+        message,
+        wallMapArray,           // array of wall tiles from the map
+        doorMapArray,           // array of door tiles from the map
+        leftArrow,              // left key event
+        upArrow,                // up key event
+        downArrow,              // down key event
+        rightArrow,             // right key event
+        interact,               // interact key event
+        npcs,
+        items,
+        quests,
+        doors;
+     */

@@ -32,7 +32,7 @@
      {
        state = "still active"
      }
-     else
+     else if (this.questState == QUEST_COMPLETE)
      {
        state = "completed";
      }

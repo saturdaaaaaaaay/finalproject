@@ -27,17 +27,23 @@ class QuestNPC extends NPC
   {
     super(name, object, dialogue);
     this.quest = quest;
-    this.gaveQuest = false;
+    this.counter = 0;
   }
 
   dispDialogue()
   {
     var state = this.quest.questState;
+    this.counter++;
+
+    if (this.counter == 2)
+    {
+      this.quest.changeState(QUEST_ACTIVE);
+    }
 
     if (state == QUEST_AVAILABLE)
     {
       //this.quest.changeState(QUEST_ACTIVE);
-      return this.dialogue.greeting + " " + this.dialogue.needExp;
+      return this.dialogue.greeting + "\n" + this.dialogue.needExp;
     }
     else if (state == QUEST_ACTIVE)
     {
@@ -65,14 +71,12 @@ class QuestNPC extends NPC
     */
     var display = this.dispDialogue();
 
-    if (!this.gaveQuest)
+    console.log(display);
+
+    if (this.quest.questState == QUEST_AVAILABLE)
     {
-      this.gaveQuest = true;
-      this.quest.changeState(QUEST_ACTIVE);
       return this.quest;
     }
-
-    console.log(display);
   }
 }
 
@@ -86,6 +90,11 @@ class RegNPC extends NPC
   interact()
   {
     console.log(this.dialogue.greeting);
+  }
+
+  dispDialogue()
+  {
+    return this.dialogue.greeting;
   }
 }
 

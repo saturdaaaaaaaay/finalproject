@@ -1,5 +1,10 @@
 /*
+Learn how to import and use data from Tiled Editor.
 
+Hexi supports game maps and levels created using the popular Tiled
+Editor level designer:
+
+www.mapeditor.org
 */
 
 // Loader
@@ -9,13 +14,17 @@ thingsToLoad = [
     "maps/world_map_1.1.json"
   ];
 
-  // Create a new Hexi instance, and start it.
+  //Create a new Hexi instance, and start it.
   g = hexi(WIDTH, HEIGHT, setup, thingsToLoad);
 
-  // Start Hexi
+  //Set the background color and scale the canvas
+  //g.backgroundColor = "black";
+  //g.scaleToWindow();
+
+  //Start Hexi
   g.start();
 
-  // Setup the app
+  //The `setup` function to initialize your application
   function setup() {
     world_state = "world"
     loadMap(world_state);
@@ -124,10 +133,10 @@ thingsToLoad = [
 
   function setupDialogue()
   {
-    thomasDiag = new Dialogue("Hey little dude! Welcome to our town. My name is Thomas",
+    thomasDiag = new Dialogue("Hey little dude! Welcome to our town. My name is Thomas.",
           "Man, my hands are so cold. I wish I hadn’t left my gloves at home.",
           "Thank you so much little dude! I actually found my gloves, but I could still use these.");
-    diagTest = new Dialogue("Nice to meet you! I'm Mia.", "", "");
+    miaDiag = new Dialogue("¿TRES leches? ¿En esta economia?", "", "");
   }
 
   function setupItems()
@@ -143,7 +152,7 @@ thingsToLoad = [
   function setupNPCs()
   {
     qNPC = new QuestNPC("Thomas", quest_NPC, thomasDiag, quest1);
-    rNPC = new RegNPC("Mia", reg_NPC, diagTest);
+    rNPC = new RegNPC("Mia", reg_NPC, miaDiag);
 
     questNPCArray.push(qNPC);
     regNPCArray.push(rNPC);
@@ -253,9 +262,31 @@ thingsToLoad = [
     cancelText.on('mousedown', dispMenu);
   }
 
-  function setupDialogueScene()
+  function setupDialogueScene(npc)
   {
+    npcNameText = g.text(npc.name + ":", "18px Futura", "white", 20, 20);
+    npcNameText.y = 475;
 
+    dialogueText = g.text(npc.dispDialogue(), "18px Futura", "white", 20, 20);
+    dialogueText.y = 525;
+
+    backgroundRect = g.rectangle(g.canvas.width, g.canvas.height/4, "black");
+    backgroundRect.x = 0;
+    backgroundRect.y = g.canvas.height/4 * 3;
+
+    exitText = g.text("Exit", "18px Futura", "white", 20, 20);
+    exitText.x = 750;
+    exitText.y = 500;
+
+    dialogueScene.addChild(backgroundRect);
+    dialogueScene.addChild(exitText);
+    dialogueScene.addChild(dialogueText);
+    dialogueScene.addChild(npcNameText);
+
+    exitText.interactive = true;
+    exitText.buttonMode = true;
+
+    exitText.on('mousedown', dispGame);
   }
 
   function dispGame()
@@ -264,7 +295,7 @@ thingsToLoad = [
     gameScene.visible = true;
 
     menuScene.visible = false;
-    dialogueScene = false;
+    dialogueScene.visible = false;
   }
 
   function dispMenu()
@@ -289,6 +320,12 @@ thingsToLoad = [
     gameScene.visible = false;
   }
 
+  function dispDialogue()
+  {
+    g.state = dispDialogue;
+    dialogueScene.visible = true;
+  }
+
   function checkForDoor()
   {
     let playerVsDoor = g.hitTestTile(player, doorMapArray, 3, world, "center");
@@ -302,48 +339,50 @@ thingsToLoad = [
           break;
       }
       loadMap(world_state);
+      console.log("go inside building");
     }
   }
 
   function loadMap(MAP) {
-    switch(MAP) {
-      case "building":
-        // Make a map of inside a building
-        world = g.makeTiledWorld(
-            "maps/building.json",
-            "images/tileset_1.1.png"
-        );
-        break;
-      case "world":
-        world = g.makeTiledWorld(
-            "maps/world_map_1.1.json",
-            "images/tileset_1.1.png"
-        );
+  switch(MAP) {
+    case "building":
+      // Make a map of inside a building
+      world = g.makeTiledWorld(
+          "maps/building.json",
+          "images/tileset_1.1.png"
+      );
+      break;
+    case "world":
+      world = g.makeTiledWorld(
+          "maps/world_map_1.1.json",
+          "images/tileset_1.1.png"
+      );
 
-        // Setup the npc and item sprites
-        quest_NPC = world.getObject("quest_NPC");
-        reg_NPC = world.getObject("reg_NPC");
-        item = world.getObject("item");
-        break;
-    }
-
-    // Setup the player
-    player = world.getObject("player");
-    //Give the `player` a `direction` property
-    player.direction = "";
-
-    // Add a camera to follow the player in both outside and inside worlds
-    camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
-    camera.centerOver(player);
-
-    loadWallsAndDoors(world);
+      // Setup the npc and item sprites
+      quest_NPC = world.getObject("quest_NPC");
+      reg_NPC = world.getObject("reg_NPC");
+      item = world.getObject("item");
+      break;
   }
 
-  function loadWallsAndDoors(MAP) {
-    wallMapArray = MAP.getObject("wallLayer").data;
-    doorMapArray = MAP.getObject("doorLayer").data;
-    doors = MAP.getObjects("door");
-  }
+  // Setup the player
+  player = world.getObject("player");
+  //Give the `player` a `direction` property
+  player.direction = "";
+
+  // Add a camera to follow the player in both outside and inside worlds
+  camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
+  camera.centerOver(player);
+
+  loadWallsAndDoors(world);
+}
+
+function loadWallsAndDoors(MAP) {
+  wallMapArray = MAP.getObject("wallLayer").data;
+  doorMapArray = MAP.getObject("doorLayer").data;
+  doors = MAP.getObjects("door");
+}
+
 
   //The `play` function contains all the game logic and runs in a loop
   function play() {
@@ -439,6 +478,8 @@ thingsToLoad = [
         {
           tempItem = questNPCArray[i].interact();
           qFound = true;
+          setupDialogueScene(questNPCArray[i]);
+          dispDialogue();
         }
         i++;
       }
@@ -458,8 +499,10 @@ thingsToLoad = [
         //compares index of collision boject with index of regular sprite
         if (playerVsNPC.index == regNPCArray[i].object.index)
         {
-          tempItem = regNPCArray[i].interact(); //interact with NPC
+          regNPCArray[i].interact(); //interact with NPC
           rFound = true;
+          setupDialogueScene(regNPCArray[i]);
+          dispDialogue();
         }
         i++;
       }
