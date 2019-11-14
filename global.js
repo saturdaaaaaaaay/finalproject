@@ -26,10 +26,9 @@ const QUEST_KEY = 81;
 let g,
     thingsToLoad,
     world,
-    building,
-    camera,
-    buildingWorld,
-    townSquareWorld;
+    outside_world,
+    building_world,
+    camera;
 
 //sprites (objects from world)
 let player,
