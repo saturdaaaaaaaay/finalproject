@@ -39,12 +39,14 @@ thingsToLoad = [
     );
     world = outside_world;
 
+    //call setup methods
     setupSprites();
     setupDialogue();
     setupItems();
     setupQuests();
     setupNPCs();
     setupScenes();
+
     // Add a world camera to follow the player
     camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
     camera.centerOver(player);
@@ -110,8 +112,10 @@ thingsToLoad = [
       checkForDoor();
     };
 
+    //pull up quests page by pressing 'q'
     questkey.press = function() {
       console.log("quests");
+      dispQuestList();
     };
 
     //Change the game state to `play`
@@ -121,7 +125,7 @@ thingsToLoad = [
   function setupSprites()
   {
     /*
-    Get a reference to the `player` sprite.
+    Get a reference to sprites.
     Use `world.getObject` to do this. `getObject` searches for and
     returns a sprite in the `world` that has a `name` property that
     matches the string in the argument.
@@ -135,6 +139,7 @@ thingsToLoad = [
     doors = world.getObjects("door");
   }
 
+  //sets up dialogue for NPCs
   function setupDialogue()
   {
     thomasDiag = new Dialogue("Hey little dude! Welcome to our town. My name is Thomas.",
@@ -143,16 +148,19 @@ thingsToLoad = [
     miaDiag = new Dialogue("¿TRES leches? ¿En esta economia?", "", "");
   }
 
+  //set up item objects
   function setupItems()
   {
     item1 = new Item("Gloves", item);
   }
 
+  //set up quest objects
   function setupQuests()
   {
     quest1 = new Quest (item1, QUEST_AVAILABLE);
   }
 
+  //set up NPC objects
   function setupNPCs()
   {
     qNPC = new QuestNPC("Thomas", quest_NPC, thomasDiag, quest1);
@@ -162,52 +170,72 @@ thingsToLoad = [
     regNPCArray.push(rNPC);
   }
 
+  //set up scene graphs
   function setupScenes()
   {
+    //create scenes
     gameScene = g.group();
     menuScene = g.group();
     dialogueScene = g.group();
     questListScene = g.group();
     titleScene = g.group();
 
+
+    //make all scenes but title scene invisible
     titleScene.visible = true;
+
     dialogueScene.visible = false;
     menuScene.visible = false;
     questListScene.visible = false;
     gameScene.visible = false;
+
+    //call methods to set up each scene graph
     setupTitleScene();
     setupGameScene();
     setupMenuScene();
     setupQuestListScene();
   }
 
+  //set up title scene
   function setupTitleScene()
   {
+    //background
     backgroundRect = g.rectangle(800, 600, "black");
-    titleText = g.text("Cool title goes here", "18px Futura", "red", 20, 20);
+
+    //creates and positions title text
+    titleText = g.text("Planilandia", "18px Futura", "red", 20, 20);
     g.stage.putCenter(titleText);
+
+    //creates and positions play button
     playText = g.text("Play", "18px Futura", "red", 20, 20);
     playText.x = 400;
     playText.y = 400;
 
+    //add children to scene
     titleScene.addChild(backgroundRect);
     titleScene.addChild(titleText);
     titleScene.addChild(playText);
 
+    //turns play sprite into button
     playText.interactive = true;
     playText.buttonMode = true;
 
+    //displays game when "play" is pressed
     playText.on('mousedown', dispGame);
   }
 
+  //set up game scene
   function setupGameScene()
   {
+    //create and position menu text
     menuText = g.text("Menu", "18px Futura", "red", 20, 20);
     menuText.x = 750;
     menuText.y = 0;//g.canvas.height / 2 - 18;
 
+    //add menu text to game scene
     gameScene.addChild(menuText);
 
+    //creates menu button
     menuText.interactive = true;
     menuText.buttonMode = true;
 
@@ -215,15 +243,16 @@ thingsToLoad = [
     menuText.on('mousedown', dispMenu);
   }
 
+  //set up menu scene
   function setupMenuScene()
   {
+    //background
     backgroundRect = g.rectangle(300, 300, "black");
     g.stage.putCenter(backgroundRect, 0, 0);
     //backgroundRect.x = g.canvas.width / 2;
     //backgroundRect.y = g.canvas.height / 2;
 
-    menuScene.addChild(backgroundRect);
-
+    //create and add quest list and cancel text
     questListText = g.text("Quest List", "18px Futura", "red", 20, 20);
     questListText.x = g.canvas.width/2;
     questListText.y = g.canvas.height / 2 - 18;
@@ -231,42 +260,58 @@ thingsToLoad = [
     cancelText.x = 400;
     cancelText.y = 400;
 
+    //add text to scene
+    menuScene.addChild(backgroundRect);
     menuScene.addChild(questListText);
     menuScene.addChild(cancelText);
 
+    //create buttons
     questListText.interactive = true;
     questListText.buttonMode = true;
     cancelText.interactive = true;
     cancelText.buttonMode = true;
 
-    //when clicked, will display menu scene
+    //when clicked, will display quest list scene
     questListText.on('mousedown', dispQuestList);
+    //when clicked, will display game scene
     cancelText.on('mousedown', dispGame);
   }
 
+  //set up quest list scene
   function setupQuestListScene()
   {
     questListScene.removeChildren(); //reset scene graph
+
+    //background
     backgroundRect = g.rectangle(300, 300, "black");
     g.stage.putCenter(backgroundRect, 0, 0);
 
+    //add background to scene
     questListScene.addChild(backgroundRect);
 
+    //goes through quest array and adds them to quest scene
     if (questArray.length > 0)
     {
-      questTextArray.push(g.text(questArray[0].display(), "18px Futura", "red", 20, 20));
-
-      var i, currentQuest;
+      var i;
+      for (i = 0; i < questArray.length; i++)
+      {
+        questTextArray.push(g.text(questArray[i].display(), "18px Futura", "red", 20, 20));
+      }
+      var currentQuest;
+      //console.log("quest array length: " + questTextArray.length);
       for (i = 0; i < questTextArray.length; i++)
       {
         currentQuest = questTextArray[i];
+        //console.log("quest: " + i);
         questListScene.addChild(currentQuest);
         //g.stage.putCenter(currentQuest, 0, -100);
         currentQuest.x = 300;
-        currentQuest.y = 300;
+        currentQuest.y = 200 + (i * 50);
       }
+
+      questTextArray = [];
     }
-    else
+    else //if no quests, display unavailable text
     {
       emptyQuestText = g.text("No quests available", "18px Futura", "red", 20, 20);
 
@@ -275,6 +320,7 @@ thingsToLoad = [
       emptyQuestText.y = 300;
     }
 
+    //cancel button
     cancelText = g.text("Cancel", "18px Futura", "red", 20, 20);
     cancelText.x = 400;
     cancelText.y = 400;
@@ -313,6 +359,15 @@ thingsToLoad = [
     exitText.buttonMode = true;
 
     exitText.on('mousedown', dispGame);
+
+    document.addEventListener("keydown", event =>
+    {
+      if (event.isComposing || event.keyCode != null)
+      {
+        document.removeEventListener("keydown", event);
+        dispGame();
+      }
+    });
   }
 
   function dispTitle()
@@ -449,30 +504,6 @@ function loadWallsAndDoors(MAP) {
     //Keep the player contained inside the canvas
     //g.contain(player, g.stage);
 
-    /*
-    Prevent the player from walking through walls using the
-    versatile `hitTestTile` method. `hitTestTile` checks for a
-    collision between a sprite and a tile in any map array that you
-    specify. It returns a `collision` object.
-    `collision.hit` is a Boolean that tells you if a sprite is colliding
-    with the tile that you're checking. `collision.index` tells you the
-    map array's index number of the colliding sprite. You can check for
-    a collision with the tile against "every" corner point on the
-    sprite, "some" corner points, or the sprite's "center" point. (Each
-    of these three options has a different and useful effect, so experiment with
-    them.)
-
-    `hitTestTile` arguments:
-    sprite, array, collisionTileGridIdNumber, worldObject, spritesPointsToCheck
-
-    The `world` object (the 4th argument) has to have these properties:
-    `tileheight`, `tilewidth`, `widthInTiles`.
-
-    `hitTestTile` will work for any map array, not just those made with
-    Tiled Editor. So you can use it with your own game maps in the same way.
-
-    */
-
     //checks for collision with wall or NPC
     let playerVsFloor = g.hitTestTile(player, wallMapArray, 0, world, "every");
     let playerVsNPC = g.hitTestTile(player, npcArray, 0, world, "every");
@@ -512,6 +543,7 @@ function loadWallsAndDoors(MAP) {
       if (tempItem != null)
       {
         questArray.push(tempItem);
+        console.log("quest added to array");
       }
 
 
@@ -531,8 +563,6 @@ function loadWallsAndDoors(MAP) {
         }
         i++;
       }
-      qFound = false;
-      rFound = false;
     }
 
     tempItem = null; //reset tempItem
@@ -547,39 +577,4 @@ function loadWallsAndDoors(MAP) {
       }
       counter = 1;
     }
-
-/*
-    //Let the player pick up bombs
-    let playerVsBomb = g.hitTestTile(player, bombMapArray, 5, world, "every");
-
-    //Find out if the player's position in the bomb array matches a bomb gid number
-    if (playerVsBomb.hit) {
-
-      //If it does, filter through the bomb sprites and find the one
-      //that matches the player's position
-      bombSprites = bombSprites.filter(function(bomb) {
-
-        //Does the bomb sprite have the same index number as the player?
-        if (bomb.index === playerVsBomb.index) {
-
-          //If it does, remove the bomb from the
-          //`bombMapArray` by setting its gid to `0`
-          bombMapArray[bomb.index] = 0;
-
-          //Remove the bomb sprite from its container group
-          g.remove(bomb);
-
-          //Alternatively, remove the bomb with `removeChild` on
-          //the `bombLayer` group
-          //bombLayer.removeChild(bomb);
-          //Filter the bomb out of the `bombSprites` array
-          return false;
-        } else {
-
-          //Keep the bomb in the `bombSprites` array if it doesn't match
-          return true;
-        }
-      });
-    }
-*/
   }
