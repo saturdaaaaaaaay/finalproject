@@ -73,7 +73,7 @@ class QuestNPC extends NPC
     for (i = 0; i < itemArray.length; i++)
     {
       tempItem = itemArray[i];
-      
+
     }
 
     var display = this.dispDialogue();
@@ -82,6 +82,7 @@ class QuestNPC extends NPC
 
     if (this.quest.questState == QUEST_AVAILABLE)
     {
+      console.log("quest added");
       return this.quest;
     }
   }
