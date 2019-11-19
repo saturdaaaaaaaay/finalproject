@@ -2,6 +2,9 @@
  * Rock-Paper-Scissors Minigame
  */
 
+let rock_listen;
+let choice = 3;
+
 function startRockPaperScissors(CONTAINER) {
     
     let box = g.rectangle(
@@ -44,26 +47,31 @@ function startRockPaperScissors(CONTAINER) {
         350
     );
     
-    let choice = 1;
-    
-    g.makeInteractive(rock);
-    g.makeInteractive(paper);
-    g.makeInteractive(scissors);
+    rock.interactive = true;
+    rock.buttonMode = true;
+
+    paper.interactive = true;
+    paper.interactive = true;
+
+    scissors.interactive = true;
+    scissors.interactive = true;
 
     CONTAINER.addChild(box);
     CONTAINER.addChild(rock);
     CONTAINER.addChild(paper);
     CONTAINER.addChild(scissors);
 
-    if (testing === 1) rock.release = function() {
+    rock.on("mousedown", function() {
         checkWinner(1, CONTAINER);
-    }
-    if (testing === 2) paper.release = () => checkWinner(2, CONTAINER);
-    if (testing === 3) scissors.release = () => checkWinner(3, CONTAINER);
-   
-    testing++;
+    });
+    paper.on("mousedown", function() {
+        checkWinner(2, CONTAINER);
+    });
+    scissors.on("mousedown", function() {
+        checkWinner(3, CONTAINER);
+    });
+
     g.pause();
-    console.log("finished");
 }
 
 function checkWinner(CHOICE, CONTAINER) {
@@ -82,8 +90,5 @@ function checkWinner(CHOICE, CONTAINER) {
     console.log(result);
     
     g.resume();
-    console.log("resumed");
     g.remove(CONTAINER);
-    console.log("cont removed");
-    //console.log(CONTAINER);
 }

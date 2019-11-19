@@ -362,14 +362,14 @@ thingsToLoad = [
   {
     let playerVsDoor = g.hitTestTile(player, doorMapArray, 3, world, "center");
     if (playerVsDoor.hit) {
-      switch(world_state) {
+      /*switch(world_state) {
         case "building":
           world_state = "world";
           break;
         case "world":
           world_state = "building";
           break;
-      }
+      }*/
       runMiniGame();
     }
   }
