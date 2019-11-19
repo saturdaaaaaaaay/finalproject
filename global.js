@@ -71,7 +71,8 @@ let gameScene,
     dialogueScene,
     menuScene,
     questListScene,
-    titleScene;
+    titleScene,
+    miniGameScene;
 
 let menuText,
     questListText,
@@ -83,13 +84,9 @@ let menuText,
     titleText,
     playText;
 
-let playerVsFloor,
-    playerVsNPC;
-
 let backgroundRect; //= g.rectangle(300, 300, "green");
 
 let counter = 0; //temporary counter for displaying quests
-let alreadyDisplayed = false; //temporary bool to display quests
 
 //stuff I couldn't find in code (delete if not needed)
 let items, //
@@ -97,6 +94,7 @@ let items, //
     quests,
     npcs; //
 
+let testing = 1;
 
     /*
     let g,
