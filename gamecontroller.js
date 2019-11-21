@@ -70,11 +70,6 @@ class QuestNPC extends NPC
     this.quest.getItem().interact();
     */
     var i, tempItem;
-    for (i = 0; i < itemArray.length; i++)
-    {
-      tempItem = itemArray[i];
-      
-    }
 
     var display = this.dispDialogue();
 
@@ -107,11 +102,10 @@ class RegNPC extends NPC
 
 class Item
 {
-  constructor(name, object, state)
+  constructor(name, object)
   {
     this.name = name;
     this.object = object;
-    this.state = state;
   }
   interact()
   {

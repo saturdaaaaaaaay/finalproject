@@ -64,6 +64,7 @@ thingsToLoad = [
 
     wallMapArray = world.getObject("wallLayer").data;
     npcArray = world.getObject("npcLayer").data;
+	itemLayerArray = world.getObject("itemLayer").data;
 
     /*
     We also need a reference to the bomb layer. All Tiled Editor layers are
@@ -72,6 +73,10 @@ thingsToLoad = [
     that layer, if you even need to do that.
     */
     doorMapArray = world.getObject("doorLayer").data;
+	
+	
+	// Gets the item layer to get all the items on the map
+	itemMapArray = world.getObject("itemLayer").data;
 
     /*
     You can use `world.getObjects` (with an "s") to get an array of all
@@ -152,6 +157,7 @@ thingsToLoad = [
   function setupItems()
   {
     item1 = new Item("Gloves", item);
+	itemArray.push(item1);
   }
 
   //set up quest objects
@@ -507,18 +513,24 @@ function loadWallsAndDoors(MAP) {
     //checks for collision with wall or NPC
     let playerVsFloor = g.hitTestTile(player, wallMapArray, 0, world, "every");
     let playerVsNPC = g.hitTestTile(player, npcArray, 0, world, "every");
+	playerVsItem = g.hitTestTile(player, itemLayerArray, 0, world, "every");
 
     //If every corner point on the player isn't touching a floor tile (array gridIDNumber: 0) then
     //prevent the player from moving
     //
-    if (!playerVsFloor.hit || !playerVsNPC.hit) {
+	/*
+    if (!playerVsFloor.hit || !playerVsNPC.hit || !playerVsItem.hit) {
 
       //To prevent the player from moving, subtract its velocity from its position
       player.x -= player.vx;
       player.y -= player.vy;
       player.vx = 0;
       player.vy = 0;
-    }
+    }*/
+	
+	checkForItem();
+	
+	
 
     let tempItem = null; //set up tempItem (catches NPC quest if NPC has a quest)
     //if collided with an NPC...
