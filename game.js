@@ -45,37 +45,10 @@ thingsToLoad = [
     camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
     camera.centerOver(player);
 
-    /*
-    Each Tiled Editor layer has a `name` that can be accessed in your
-    game code using
-    `world.getObject` Tiled Editor's `tilelayers` have a `data` property
-    that is an array containing all the grid index numbers (`gid`) of
-    the tiles in that array. In this example we want to access all the
-    wall sprites. In Tiled Editor, all the wall sprites were added to
-    a tile layer called `wallLayer`. We can access the `wallLayer`'s
-    `data` array of sprites like this:
-    */
-
     wallMapArray = world.getObject("wallLayer").data;
     npcArray = world.getObject("npcLayer").data;
 
-    /*
-    We also need a reference to the bomb layer. All Tiled Editor layers are
-    created as `groups` by Hexi's `makeTiledWorld` method. That means they
-    all have a `children` array that lets' you access all the sprites on
-    that layer, if you even need to do that.
-    */
     doorMapArray = world.getObject("doorLayer").data;
-
-    /*
-    You can use `world.getObjects` (with an "s") to get an array of all
-    the things in the world that have the same `name` properties. There
-    are 5 bombs in the world, all which have share the same `name`
-    property: "bomb". Here's how you can access to all of them in an
-    array:
-    */
-
-
 
     //Give the `player` a `direction` property
     player.direction = "";
@@ -129,6 +102,17 @@ thingsToLoad = [
     item = world.getObject("item");
 
     doors = world.getObjects("door");
+
+    trigger = g.rectangle(
+        100,
+        100,
+        "yellow",
+        "black",
+        0,
+        200,
+        200
+    );
+    world.addChild(trigger);
   }
 
   function setupDialogue()
@@ -362,15 +346,15 @@ thingsToLoad = [
   {
     let playerVsDoor = g.hitTestTile(player, doorMapArray, 3, world, "center");
     if (playerVsDoor.hit) {
-      /*switch(world_state) {
+      switch(world_state) {
         case "building":
           world_state = "world";
           break;
         case "world":
           world_state = "building";
           break;
-      }*/
-      runMiniGame();
+      }
+      loadMap(world_state);
     }
   }
 
@@ -444,44 +428,25 @@ function loadWallsAndDoors(MAP) {
     //Keep the player contained inside the canvas
     //g.contain(player, g.stage);
 
-    /*
-    Prevent the player from walking through walls using the
-    versatile `hitTestTile` method. `hitTestTile` checks for a
-    collision between a sprite and a tile in any map array that you
-    specify. It returns a `collision` object.
-    `collision.hit` is a Boolean that tells you if a sprite is colliding
-    with the tile that you're checking. `collision.index` tells you the
-    map array's index number of the colliding sprite. You can check for
-    a collision with the tile against "every" corner point on the
-    sprite, "some" corner points, or the sprite's "center" point. (Each
-    of these three options has a different and useful effect, so experiment with
-    them.)
-
-    `hitTestTile` arguments:
-    sprite, array, collisionTileGridIdNumber, worldObject, spritesPointsToCheck
-
-    The `world` object (the 4th argument) has to have these properties:
-    `tileheight`, `tilewidth`, `widthInTiles`.
-
-    `hitTestTile` will work for any map array, not just those made with
-    Tiled Editor. So you can use it with your own game maps in the same way.
-
-    */
-
     //checks for collision with wall or NPC
     let playerVsFloor = g.hitTestTile(player, wallMapArray, 0, world, "every");
     let playerVsNPC = g.hitTestTile(player, npcArray, 0, world, "every");
+    let playerVsTrigger = g.hit(player, trigger);
 
     //If every corner point on the player isn't touching a floor tile (array gridIDNumber: 0) then
     //prevent the player from moving
     //
-    if (!playerVsFloor.hit || !playerVsNPC.hit) {
+    if (!playerVsFloor.hit || !playerVsNPC.hit || playerVsTrigger) {
 
       //To prevent the player from moving, subtract its velocity from its position
       player.x -= player.vx;
       player.y -= player.vy;
       player.vx = 0;
       player.vy = 0;
+    }
+
+    if (playerVsTrigger) {
+      runMiniGame(null);
     }
 
     let tempItem = null; //set up tempItem (catches NPC quest if NPC has a quest)
@@ -544,6 +509,12 @@ function loadWallsAndDoors(MAP) {
     }
   }
 
-  function runMiniGame() {
-      startRockPaperScissors(g.group());
+  function runMiniGame(ITEM) {
+      let random_game = Math.floor((Math.random() * NUM_OF_MINI_GAMES) + 1);
+
+      switch(random_game) {
+        case 1:
+          startRockPaperScissors(g.group(), ITEM);
+          break;
+      }
   }

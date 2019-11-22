@@ -20,6 +20,8 @@ const KEY_DOWN_ALT = 83;
 const ACTION_KEY = 32;
 const QUEST_KEY = 81;
 
+const NUM_OF_MINI_GAMES = 1;
+
 //label global variables
 
 //Game declarations
@@ -94,7 +96,7 @@ let items, //
     quests,
     npcs; //
 
-let testing = 1;
+let trigger;
 
     /*
     let g,

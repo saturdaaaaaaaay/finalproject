@@ -5,7 +5,7 @@
 let rock_listen;
 let choice = 3;
 
-function startRockPaperScissors(CONTAINER) {
+function startRockPaperScissors(CONTAINER, ITEM) {
     
     let box = g.rectangle(
         500,
@@ -51,10 +51,10 @@ function startRockPaperScissors(CONTAINER) {
     rock.buttonMode = true;
 
     paper.interactive = true;
-    paper.interactive = true;
+    paper.buttonMode = true;
 
     scissors.interactive = true;
-    scissors.interactive = true;
+    scissors.buttonMode = true;
 
     CONTAINER.addChild(box);
     CONTAINER.addChild(rock);
@@ -63,12 +63,15 @@ function startRockPaperScissors(CONTAINER) {
 
     rock.on("mousedown", function() {
         checkWinner(1, CONTAINER);
+        awardItem(ITEM);
     });
     paper.on("mousedown", function() {
         checkWinner(2, CONTAINER);
+        awardItem(ITEM);
     });
     scissors.on("mousedown", function() {
         checkWinner(3, CONTAINER);
+        awardItem(ITEM);
     });
 
     g.pause();
@@ -91,4 +94,8 @@ function checkWinner(CHOICE, CONTAINER) {
     
     g.resume();
     g.remove(CONTAINER);
+}
+
+function awardItem(ITEM) {
+    console.log("item awarded");
 }
