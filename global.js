@@ -67,14 +67,13 @@ let questNPCArray = [];
 let regNPCArray = [];
 let questTextArray = [];
 let itemArray = [];
-//let dialogueArray = [];
+let triggerArray = [];
 
 let gameScene,
     dialogueScene,
     menuScene,
     questListScene,
-    titleScene,
-    miniGameScene;
+    titleScene;
 
 let menuText,
     questListText,
@@ -93,32 +92,4 @@ let counter = 0; //temporary counter for displaying quests
 //stuff I couldn't find in code (delete if not needed)
 let items, //
     message,//
-    quests,
-    npcs; //
-
-let trigger;
-
-    /*
-    let g,
-        thingsToLoad,           // loader
-        world,                  // game world
-        world_state,
-        building,               // "world" inside a building
-        camera,                 // world camera
-        player,
-        quest_NPC,
-        reg_NPC,
-        item,
-        message,
-        wallMapArray,           // array of wall tiles from the map
-        doorMapArray,           // array of door tiles from the map
-        leftArrow,              // left key event
-        upArrow,                // up key event
-        downArrow,              // down key event
-        rightArrow,             // right key event
-        interact,               // interact key event
-        npcs,
-        items,
-        quests,
-        doors;
-     */
+    quests;

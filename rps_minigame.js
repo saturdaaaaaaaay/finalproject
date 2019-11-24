@@ -5,14 +5,14 @@
 let rock_listen;
 let choice = 3;
 
-function startRockPaperScissors(CONTAINER, ITEM) {
+function startRockPaperScissors(CONTAINER, TRIGGER) {
     
     let box = g.rectangle(
         500,
         500,
         "white",
         "yellow",
-        5,
+        0,
         100,
         50
     );
@@ -62,40 +62,64 @@ function startRockPaperScissors(CONTAINER, ITEM) {
     CONTAINER.addChild(scissors);
 
     rock.on("mousedown", function() {
-        checkWinner(1, CONTAINER);
-        awardItem(ITEM);
+        checkWinner(0, CONTAINER, TRIGGER);
     });
     paper.on("mousedown", function() {
-        checkWinner(2, CONTAINER);
-        awardItem(ITEM);
+        checkWinner(1, CONTAINER, TRIGGER);
     });
     scissors.on("mousedown", function() {
-        checkWinner(3, CONTAINER);
-        awardItem(ITEM);
+        checkWinner(2, CONTAINER, TRIGGER);
+        
     });
 
     g.pause();
 }
 
-function checkWinner(CHOICE, CONTAINER) {
-    let cpu_choice = Math.floor((Math.random() * 3) + 1);
-    let result = "draw";
+function checkWinner(CHOICE, CONTAINER, TRIGGER) {
+    let other_1 = ((CHOICE + 1) % 3) + 1;
+    let other_2 = ((CHOICE + 2) % 3) + 1;
+    removeOthers(CONTAINER.getChildAt(CHOICE + 1), CONTAINER.getChildAt(other_1), CONTAINER.getChildAt(other_2));
+    
+    let cpu_choice = Math.floor(Math.random() * 3);
+    let result;
     if (cpu_choice === CHOICE) {
         result = "draw";
     }
-    else if ((cpu_choice === 1 && CHOICE === 2) || (cpu_choice === 2 && CHOICE === 3) || (cpu_choice === 3 && CHOICE === 1)) {
+    else if ((cpu_choice === 0 && CHOICE === 1) || (cpu_choice === 1 && CHOICE === 2) || (cpu_choice === 2 && CHOICE === 0)) {
         result = "win";
+        awardItem(TRIGGER);
     }
     else {
         result = "lose";
     }
     
-    console.log(result);
+    // Display WIN/LOSE/DRAW result
+    showResult(result);
+
+    let quitButton = g.text("Okay", "18px Futura", "black", 450, 450);
     
-    g.resume();
-    g.remove(CONTAINER);
+    let removeGame = function() {
+        g.resume();
+        g.remove(quitButton);
+        g.remove(CONTAINER);
+    }
+    
+    quitButton.interactive = true;
+    quitButton.buttonMode = true;
+    quitButton.on('mousedown', removeGame);
 }
 
-function awardItem(ITEM) {
-    console.log("item awarded");
+function awardItem(TRIGGER) {
+    console.log("you win! " + TRIGGER.giveItem() + " awarded");
+}
+
+function removeOthers(CHOICE, OTHER_1, OTHER_2) {
+    CHOICE.interactive = false;
+    CHOICE.buttonMode = false;
+    g.remove(OTHER_1);
+    g.remove(OTHER_2);
+}
+
+function showResult(RESULT) {
+    let resultText = g.text(RESULT, "48px Futura", "black", 200, 300)
 }

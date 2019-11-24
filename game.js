@@ -103,16 +103,7 @@ thingsToLoad = [
 
     doors = world.getObjects("door");
 
-    trigger = g.rectangle(
-        100,
-        100,
-        "yellow",
-        "black",
-        0,
-        200,
-        200
-    );
-    world.addChild(trigger);
+    setupTriggers();    
   }
 
   function setupDialogue()
@@ -431,7 +422,7 @@ function loadWallsAndDoors(MAP) {
     //checks for collision with wall or NPC
     let playerVsFloor = g.hitTestTile(player, wallMapArray, 0, world, "every");
     let playerVsNPC = g.hitTestTile(player, npcArray, 0, world, "every");
-    let playerVsTrigger = g.hit(player, trigger);
+    let playerVsTrigger = playerTriggerHitTest();
 
     //If every corner point on the player isn't touching a floor tile (array gridIDNumber: 0) then
     //prevent the player from moving
@@ -443,10 +434,6 @@ function loadWallsAndDoors(MAP) {
       player.y -= player.vy;
       player.vx = 0;
       player.vy = 0;
-    }
-
-    if (playerVsTrigger) {
-      runMiniGame(null);
     }
 
     let tempItem = null; //set up tempItem (catches NPC quest if NPC has a quest)
@@ -507,14 +494,4 @@ function loadWallsAndDoors(MAP) {
       }
       counter = 1;
     }
-  }
-
-  function runMiniGame(ITEM) {
-      let random_game = Math.floor((Math.random() * NUM_OF_MINI_GAMES) + 1);
-
-      switch(random_game) {
-        case 1:
-          startRockPaperScissors(g.group(), ITEM);
-          break;
-      }
   }
