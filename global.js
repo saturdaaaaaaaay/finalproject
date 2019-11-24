@@ -40,7 +40,10 @@ let player,
 //map arrays
 let wallMapArray,
     npcArray,
-    doorMapArray;
+    doorMapArray,
+	itemLayerArray;
+	
+let	playerVsItem;
 
 //keycodes
 let leftArrow,
@@ -65,6 +68,7 @@ let questNPCArray = [];
 let regNPCArray = [];
 let questTextArray = [];
 let itemArray = [];
+let inventory = [];
 //let dialogueArray = [];
 
 let gameScene,
