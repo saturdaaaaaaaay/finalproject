@@ -87,9 +87,13 @@ let menuText,
     titleText,
     playText;
 
+let playerVsFloor,
+    playerVsNPC;
+
 let backgroundRect; //= g.rectangle(300, 300, "green");
 
 let counter = 0; //temporary counter for displaying quests
+let alreadyDisplayed = false; //temporary bool to display quests
 
 //stuff I couldn't find in code (delete if not needed)
 let items, //

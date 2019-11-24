@@ -77,6 +77,7 @@ class QuestNPC extends NPC
 
     if (this.quest.questState == QUEST_AVAILABLE)
     {
+      console.log("quest added");
       return this.quest;
     }
   }

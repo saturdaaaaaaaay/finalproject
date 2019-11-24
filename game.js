@@ -127,6 +127,7 @@ thingsToLoad = [
     g.state = dispTitle;
   }
 
+
   function setupSprites()
   {
     /*
@@ -423,6 +424,7 @@ thingsToLoad = [
     dialogueScene.visible = true;
   }
 
+
   function checkForDoor()
   {
     let playerVsDoor = g.hitTestTile(player, doorMapArray, 3, world, "center");
@@ -511,74 +513,16 @@ function loadWallsAndDoors(MAP) {
     //g.contain(player, g.stage);
 
     //checks for collision with wall or NPC
-    let playerVsFloor = g.hitTestTile(player, wallMapArray, 0, world, "every");
-    let playerVsNPC = g.hitTestTile(player, npcArray, 0, world, "every");
+    playerVsFloor = g.hitTestTile(player, wallMapArray, 0, world, "every");
+    playerVsNPC = g.hitTestTile(player, npcArray, 0, world, "every");
 	playerVsItem = g.hitTestTile(player, itemLayerArray, 0, world, "every");
 
-    //If every corner point on the player isn't touching a floor tile (array gridIDNumber: 0) then
-    //prevent the player from moving
-    //
-	/*
-    if (!playerVsFloor.hit || !playerVsNPC.hit || !playerVsItem.hit) {
 
-      //To prevent the player from moving, subtract its velocity from its position
-      player.x -= player.vx;
-      player.y -= player.vy;
-      player.vx = 0;
-      player.vy = 0;
-    }*/
-	
+    checkForNPC();
 	checkForItem();
-	
-	
-
-    let tempItem = null; //set up tempItem (catches NPC quest if NPC has a quest)
-    //if collided with an NPC...
-    if (!playerVsNPC.hit)
-    {
-      //checks if collided with Quest NPC
-      var i = 0;
-      var qFound = false;
-      while (i < questNPCArray.length && !qFound)
-      {
-        //compares index of collision object with index of quest sprite
-        if (playerVsNPC.index == questNPCArray[i].object.index)
-        {
-          tempItem = questNPCArray[i].interact();
-          qFound = true;
-          setupDialogueScene(questNPCArray[i]);
-          dispDialogue();
-        }
-        i++;
-      }
-      //catches Quest NPC's quest and adds to quest array
-      if (tempItem != null)
-      {
-        questArray.push(tempItem);
-        console.log("quest added to array");
-      }
-
-
-
-      //checks if collided with Regular NPC
-      i = 0;
-      var rFound = false;
-      while (i < regNPCArray.length && !rFound)
-      {
-        //compares index of collision boject with index of regular sprite
-        if (playerVsNPC.index == regNPCArray[i].object.index)
-        {
-          regNPCArray[i].interact(); //interact with NPC
-          rFound = true;
-          setupDialogueScene(regNPCArray[i]);
-          dispDialogue();
-        }
-        i++;
-      }
-    }
 
     tempItem = null; //reset tempItem
-
+    /*
     //display quests
     if (questArray.length > 0 && counter == 0)
     {
@@ -589,4 +533,5 @@ function loadWallsAndDoors(MAP) {
       }
       counter = 1;
     }
+    */
   }
