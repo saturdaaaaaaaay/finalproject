@@ -7,22 +7,26 @@ function setupTriggers() {
     
     // NPC 1
     let trigger = new Trigger(200, 200, "banana");
-    triggerArray.push(trigger);
-    world.addChild(trigger.sprite);
+    worldTriggerArray.push(trigger);
+    outside_world.addChild(trigger.sprite);
     
     // NPC 2
     trigger = new Trigger(300, 200, "perfume");
-    triggerArray.push(trigger);
-    world.addChild(trigger.sprite);
+    buildingTriggerArray.push(trigger);
+    building_world.addChild(trigger.sprite);
 }
 
 // Return true if collision with trigger NPC
 function playerTriggerHitTest() {
     let index;
-    for (index = 0; index < triggerArray.length; index++) {
-        if (g.hit(player, triggerArray[index].sprite)) {
-            if (triggerArray[index].isActive()) {
-                runMiniGame(triggerArray[index]);
+    let arrayToTest = worldTriggerArray;
+    if (world_state === "building") {
+        arrayToTest = buildingTriggerArray;
+    }
+    for (index = 0; index < arrayToTest.length; index++) {
+        if (g.hit(player, arrayToTest[index].sprite)) {
+            if (arrayToTest[index].isActive()) {
+                runMiniGame(arrayToTest[index]);
             }
             return true;
         }

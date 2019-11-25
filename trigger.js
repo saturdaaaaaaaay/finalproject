@@ -30,6 +30,10 @@ class Trigger {
         return this.item;
     }
     
+    inWorld() {
+        return this.world;
+    }
+    
     isActive() {
         return this.active;
     }

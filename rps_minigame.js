@@ -94,13 +94,14 @@ function checkWinner(CHOICE, CONTAINER, TRIGGER) {
     }
     
     // Display WIN/LOSE/DRAW result
-    showResult(result);
+    let resultText = g.text(result, "48px Futura", "black", 200, 300)
 
     let quitButton = g.text("Okay", "18px Futura", "black", 450, 450);
     
     let removeGame = function() {
         g.resume();
         g.remove(quitButton);
+        g.remove(resultText);
         g.remove(CONTAINER);
     }
     
@@ -118,8 +119,4 @@ function removeOthers(CHOICE, OTHER_1, OTHER_2) {
     CHOICE.buttonMode = false;
     g.remove(OTHER_1);
     g.remove(OTHER_2);
-}
-
-function showResult(RESULT) {
-    let resultText = g.text(RESULT, "48px Futura", "black", 200, 300)
 }
