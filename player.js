@@ -23,6 +23,13 @@ function checkForNPC(player_character)
 			{
 				tempItem = questNPCArray[i].interact();
 				qFound = true;
+
+				if (questNPCArray[i].quest.getState() == QUEST_ACTIVE)
+				{
+					console.log("check for receive");
+					questNPCArray[i].receive();
+				}
+
 				setupDialogueScene(questNPCArray[i]);
 				dispDialogue();
 			}
@@ -68,7 +75,7 @@ function checkForItem(player_character)
 		player.y -= player.vy;
 		player.vx = 0;
 		player.vy = 0;
-		
+
 		pickUpItem();
     }
 	//pickUpItem(item);
@@ -79,7 +86,7 @@ function checkForItem(player_character)
 function pickUpItem()
 {
 	let current_item;
-	
+
 	for (let i = 0; i < itemArray.length; i++)
 	{
 		console.log(itemArray[i]);
@@ -93,7 +100,7 @@ function pickUpItem()
 	}
 
 	console.log("finished loop");
-	
+
 	if (inventory.includes(current_item))
 	{
 		console.log("already in list");
@@ -105,4 +112,3 @@ function pickUpItem()
 		console.log("inventory " + inventory);
 	}
 }
-
