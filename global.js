@@ -20,6 +20,10 @@ const KEY_DOWN_ALT = 83;
 
 const ACTION_KEY = 32;
 const QUEST_KEY = 81;
+const INVENT_KEY = 73;
+
+const MENU = 420;
+const DIALOGUE = 1025;
 
 //label global variables
 
@@ -41,10 +45,7 @@ let player,
 //map arrays
 let wallMapArray,
     npcArray,
-    doorMapArray,
-	itemLayerArray;
-	
-let	playerVsItem;
+    doorMapArray;
 
 //keycodes
 let leftArrow,
@@ -61,22 +62,28 @@ let thomasDiag,
 let qNPC,
     rNPC,
     item1,
+    item2,
     quest1;
 
 //object arrays
-let questArray = [];
+let pcQuestArray = [];
 let questNPCArray = [];
 let regNPCArray = [];
 let questTextArray = [];
 let itemArray = [];
+let questArray = [];
 let inventory = [];
+let inventoryTextArray = [];
 //let dialogueArray = [];
 
 let gameScene,
     dialogueScene,
     menuScene,
     questListScene,
-    titleScene;
+    titleScene,
+    popupScene,
+    gameOverScene,
+    inventoryScene;
 
 let menuText,
     questListText,
@@ -86,15 +93,22 @@ let menuText,
     dialogueText,
     npcNameText,
     titleText,
-    playText;
+    playText,
+    popupTitleText,
+    popupContentText,
+    gameOverText;
 
 let playerVsFloor,
-    playerVsNPC,
-    playerVsTrigger;
+    playerVsNPC;
 
-let backgroundRect; //= g.rectangle(300, 300, "green");
+let backgroundRect,
+    backgroundRect2; //= g.rectangle(300, 300, "green");
 
-let counter = 0; //temporary counter for displaying quests
+let button1,
+    button2;
+
+//let counter = 0; //temporary counter for displaying quests
+let inventoryCounter = 0;
 let alreadyDisplayed = false; //temporary bool to display quests
 
 //stuff I couldn't find in code (delete if not needed)
@@ -103,3 +117,28 @@ let items, //
     quests,
     npcs; //
 
+
+    /*
+    let g,
+        thingsToLoad,           // loader
+        world,                  // game world
+        world_state,
+        building,               // "world" inside a building
+        camera,                 // world camera
+        player,
+        quest_NPC,
+        reg_NPC,
+        item,
+        message,
+        wallMapArray,           // array of wall tiles from the map
+        doorMapArray,           // array of door tiles from the map
+        leftArrow,              // left key event
+        upArrow,                // up key event
+        downArrow,              // down key event
+        rightArrow,             // right key event
+        interact,               // interact key event
+        npcs,
+        items,
+        quests,
+        doors;
+     */

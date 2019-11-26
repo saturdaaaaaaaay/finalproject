@@ -5,6 +5,7 @@ function dispTitle()
 
   gameScene.visible = false;
   menuScene.visible = false;
+  inventoryScene.visible = false;
 }
 
 function dispGame()
@@ -15,6 +16,7 @@ function dispGame()
   menuScene.visible = false;
   dialogueScene.visible = false;
   titleScene.visible = false;
+  inventoryScene.visible = false;
 }
 
 function dispMenu()
@@ -25,6 +27,7 @@ function dispMenu()
   dialogueScene.visible = false;
   gameScene.visible = false;
   questListScene.visible = false;
+  inventoryScene.visible = false;
 }
 
 function dispQuestList()
@@ -39,8 +42,28 @@ function dispQuestList()
   gameScene.visible = false;
 }
 
-function dispDialogue()
+function dispDialogue(npc)
 {
   g.state = dispDialogue;
+  //setupDialogueScene(npc);
   dialogueScene.visible = true;
+
+  //console.log(typeof npc);
+}
+
+function dispGameOver()
+{
+  g.state = dispGameOver;
+  gameOverScene.visible = true;
+  gameScene.visible = false;
+}
+
+function dispInventory(location, npc)
+{
+  //console.log(state);
+  //g.state = dispInventory;
+  console.log("display inventory");
+  setupInventoryScene(location, npc);
+
+  inventoryScene.visible = true;
 }
