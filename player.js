@@ -1,26 +1,6 @@
 function checkForNPC(player_character)
 {
-	/*
-	let i;
-	let hit = false;
-	let current_npc;
-	for (i = 0; npcs.length; i++)
-	{
-		hit = false;
-		current_npc = npcs[i];
-		hit = g.hit(player_character, current_npc);
-		if (hit === true)
-		{
-			break;
-		}
-	}
-	if (hit === true)
-	{
-		console.log(current_npc.name);
-		current_npc.interact();
-	}
-	*/
-	if (!playerVsFloor.hit || !playerVsNPC.hit) {
+	if (!playerVsFloor.hit || !playerVsNPC.hit || playerVsTrigger) {
 
 		//To prevent the player from moving, subtract its velocity from its position
 		player.x -= player.vx;
