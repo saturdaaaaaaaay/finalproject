@@ -7,6 +7,7 @@ const WIDTH = 800;
 const HEIGHT = 600;
 const MOVE_SPEED = 4;
 const TILE_SIZE = 64;
+const NUM_OF_MINI_GAMES = 1;
 
 const KEY_LEFT = 37;
 const KEY_RIGHT = 39;
