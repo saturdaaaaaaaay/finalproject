@@ -27,25 +27,13 @@ function setupDialogue()
 //set up item objects
 function setupItems()
 {
-  //button1 = g.text("Gloves", "18px Futura", "white", 20, 20);
-  //button2 g.text("Flower", "18px Futura", "white", 20, 20);
-
-  //button1.interact = true;
-  //button2.interact = true;
-
   item1 = new Item("Gloves", item);
-  item2 = new Item("Flower", item);
-
-  inventory.push(item1);
-  inventory.push(item2);
 }
 
 //set up quest objects
 function setupQuests()
 {
   quest1 = new Quest (item1, QUEST_AVAILABLE);
-
-  questArray.push(quest1);
 }
 
 //set up NPC objects
@@ -67,9 +55,6 @@ function setupScenes()
   dialogueScene = g.group();
   questListScene = g.group();
   titleScene = g.group();
-  popupScene = g.group();
-  gameOverScene = g.group();
-  inventoryScene = g.group();
 
 
   //make all scenes but title scene invisible
@@ -79,18 +64,12 @@ function setupScenes()
   menuScene.visible = false;
   questListScene.visible = false;
   gameScene.visible = false;
-  popupScene.visible = false;
-  gameOverScene.visible = false;
-  inventoryScene.visible = false;
 
   //call methods to set up each scene graph
   setupTitleScene();
   setupGameScene();
   setupMenuScene();
   setupQuestListScene();
-  setupPopUpScene();
-  setupGameOverScene();
-  setupInventoryScene();
 }
 
 //set up title scene
@@ -187,19 +166,26 @@ function setupQuestListScene()
   questListScene.addChild(backgroundRect);
 
   //goes through quest array and adds them to quest scene
-  if (pcQuestArray.length > 0)
+  if (questArray.length > 0)
   {
-    var i, currentQuest;
-    for (i = 0; i < pcQuestArray.length; i++)
+    var i;
+    for (i = 0; i < questArray.length; i++)
     {
-      //questTextArray.push(g.text(pcQuestArray[i].display(), "18px Futura", "red", 20, 20));
-      currentQuest = g.text(pcQuestArray[i].display(), "18px Futura", "red", 20, 20);
-
+      questTextArray.push(g.text(questArray[i].display(), "18px Futura", "red", 20, 20));
+    }
+    var currentQuest;
+    //console.log("quest array length: " + questTextArray.length);
+    for (i = 0; i < questTextArray.length; i++)
+    {
+      currentQuest = questTextArray[i];
+      //console.log("quest: " + i);
       questListScene.addChild(currentQuest);
       //g.stage.putCenter(currentQuest, 0, -100);
       currentQuest.x = 300;
       currentQuest.y = 200 + (i * 50);
     }
+
+    questTextArray = [];
   }
   else //if no quests, display unavailable text
   {
@@ -236,23 +222,19 @@ function setupDialogueScene(npc)
   backgroundRect.x = 0;
   backgroundRect.y = g.canvas.height/4 * 3;
 
-  /*
   exitText = g.text("Exit", "18px Futura", "white", 20, 20);
   exitText.x = 750;
   exitText.y = 500;
-  */
 
   dialogueScene.addChild(backgroundRect);
-  //dialogueScene.addChild(exitText);
+  dialogueScene.addChild(exitText);
   dialogueScene.addChild(dialogueText);
   dialogueScene.addChild(npcNameText);
 
-  /*
   exitText.interactive = true;
   exitText.buttonMode = true;
 
   exitText.on('mousedown', dispGame);
-  */
 
   document.addEventListener("keydown", event =>
   {
@@ -262,59 +244,4 @@ function setupDialogueScene(npc)
       dispGame();
     }
   });
-}
-
-function setupInventoryScene(location, npc)
-{
-  g.state = setupInventoryScene;
-  inventoryScene.removeChildren();
-  backgroundRect2 = g.rectangle(g.canvas.width, g.canvas.height/5, "black");
-
-  inventoryScene.addChild(backgroundRect2);
-
-  backgroundRect2.x = 0;
-  backgroundRect2.y = 0;
-
-  var i, currentItem;
-
-  for (i = 0; i < inventory.length; i++)
-  {
-    //currentItem.push(g.text(inventory[i].name, "18px Futura", "white", 20, 20));
-    currentItem = inventory[i].button;
-    inventoryScene.addChild(currentItem);
-
-    currentItem.x = 10 + 100 * i;
-    currentItem.y = 50;
-    /*
-    if (location == DIALOGUE)
-    {
-      currentItem.interactive = true;
-      currentItem[i].interact = true;
-      currentItem[i].buttonMode = true;
-
-      //console.log("index: " + (i-1));
-      console.log("inventory length: " + inventory.length);
-    }
-    */
-  }
-
-}
-
-function setupPopUpScene(title, content)
-{
-  popupScene.removeChildren();
-  backgroundRect = g.rectangle(g.canvas.width/5, g.canvas.height/5, "black");
-  popupTitleText = g.text(title, "18px Futura", "white", 20, 20);
-  popupContentText = g.text(content, "18px Futura", "white", 20, 20);
-
-  popupScene.addChild(backgroundRect);
-  popupScene.addChild(popupTitleText);
-  popupScene.addChild(popupContentText);
-}
-
-function setupGameOverScene()
-{
-  gameOverText = g.text("You won!", "18px Futura", "white", 20, 20);
-
-  gameOverScene.addChild(gameOverText);
 }
