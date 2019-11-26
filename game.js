@@ -1,11 +1,6 @@
 /*
-Learn how to import and use data from Tiled Editor.
-
-Hexi supports game maps and levels created using the popular Tiled
-Editor level designer:
-
-www.mapeditor.org
-*/
+ * Planilandia - a friend-making RPG
+ */
 
 // Loader
 thingsToLoad = [
@@ -17,14 +12,10 @@ thingsToLoad = [
   //Create a new Hexi instance, and start it.
   g = hexi(WIDTH, HEIGHT, setup, thingsToLoad);
 
-  //Set the background color and scale the canvas
-  //g.backgroundColor = "black";
-  //g.scaleToWindow();
-
   //Start Hexi
   g.start();
 
-  //The `setup` function to initialize your application
+  //The setup function to initialize the application
   function setup() {
     world_state = "world"
 
@@ -51,48 +42,17 @@ thingsToLoad = [
     camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
     camera.centerOver(player);
 
-    /*
-    Each Tiled Editor layer has a `name` that can be accessed in your
-    game code using
-    `world.getObject` Tiled Editor's `tilelayers` have a `data` property
-    that is an array containing all the grid index numbers (`gid`) of
-    the tiles in that array. In this example we want to access all the
-    wall sprites. In Tiled Editor, all the wall sprites were added to
-    a tile layer called `wallLayer`. We can access the `wallLayer`'s
-    `data` array of sprites like this:
-    */
-
+    // Get data from the map
     wallMapArray = world.getObject("wallLayer").data;
     npcArray = world.getObject("npcLayer").data;
 	itemLayerArray = world.getObject("itemLayer").data;
-
-    /*
-    We also need a reference to the bomb layer. All Tiled Editor layers are
-    created as `groups` by Hexi's `makeTiledWorld` method. That means they
-    all have a `children` array that lets' you access all the sprites on
-    that layer, if you even need to do that.
-    */
     doorMapArray = world.getObject("doorLayer").data;
-	
-	
-	// Gets the item layer to get all the items on the map
 	itemMapArray = world.getObject("itemLayer").data;
-
-    /*
-    You can use `world.getObjects` (with an "s") to get an array of all
-    the things in the world that have the same `name` properties. There
-    are 5 bombs in the world, all which have share the same `name`
-    property: "bomb". Here's how you can access to all of them in an
-    array:
-    */
-
-
 
     //Give the `player` a `direction` property
     player.direction = "";
 
-    //Configure Hexi's built in arrow keys to assign the player a direction
-    //Create some keyboard objects
+    // Set directional objects
     leftArrow = g.keyboard(KEY_LEFT);
     upArrow = g.keyboard(KEY_UP);
     rightArrow = g.keyboard(KEY_RIGHT);
@@ -106,6 +66,7 @@ thingsToLoad = [
     rightArrow.press = () => player.direction = "right";
     downArrow.press = () => player.direction = "down";
 
+    // Stop the player when the button is released
     leftArrow.release = () => player.direction = "none";
     upArrow.release = () => player.direction = "none";
     rightArrow.release = () => player.direction = "none";
@@ -130,19 +91,15 @@ thingsToLoad = [
 
   function setupSprites()
   {
-    /*
-    Get a reference to sprites.
-    Use `world.getObject` to do this. `getObject` searches for and
-    returns a sprite in the `world` that has a `name` property that
-    matches the string in the argument.
-    */
+    // Get references to objects
     player = world.getObject("player");
-
     quest_NPC = world.getObject("quest_NPC");
     reg_NPC = world.getObject("reg_NPC");
     item = world.getObject("item");
-
     doors = world.getObjects("door");
+
+    // setup trigger NPC's
+    setupTriggers();
   }
 
   //sets up dialogue for NPCs
@@ -190,7 +147,6 @@ thingsToLoad = [
 
     //make all scenes but title scene invisible
     titleScene.visible = true;
-
     dialogueScene.visible = false;
     menuScene.visible = false;
     questListScene.visible = false;
@@ -438,7 +394,6 @@ thingsToLoad = [
           break;
       }
       loadMap(world_state);
-      console.log("go inside building");
     }
   }
 
@@ -475,11 +430,7 @@ function loadWallsAndDoors(MAP) {
   //The `play` function contains all the game logic and runs in a loop
   function play() {
 
-    //Change the player's direction only if it's at an intersection
-    //(This keeps it aligned to the grid cells. You don't have to do
-    //this but it's a nice effect that you might want to use in your
-    //own games at some point.)
-
+    // Handle player movement
     if (Math.floor(player.x) % world.tilewidth === 0 && Math.floor(player.y) % world.tileheight === 0) {
       switch (player.direction) {
         case "up":
@@ -509,13 +460,11 @@ function loadWallsAndDoors(MAP) {
     g.move(player);
     camera.follow(player);
 
-    //Keep the player contained inside the canvas
-    //g.contain(player, g.stage);
-
-    //checks for collision with wall or NPC
+    //checks for collision with wall, NPC, item, or trigger
     playerVsFloor = g.hitTestTile(player, wallMapArray, 0, world, "every");
     playerVsNPC = g.hitTestTile(player, npcArray, 0, world, "every");
 	playerVsItem = g.hitTestTile(player, itemLayerArray, 0, world, "every");
+	playerVsTrigger = playerTriggerHitTest();
 
 
     checkForNPC();
