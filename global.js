@@ -6,6 +6,7 @@
 const WIDTH = 800;
 const HEIGHT = 600;
 const MOVE_SPEED = 4;
+const TILE_SIZE = 64;
 
 const KEY_LEFT = 37;
 const KEY_RIGHT = 39;
@@ -88,7 +89,8 @@ let menuText,
     playText;
 
 let playerVsFloor,
-    playerVsNPC;
+    playerVsNPC,
+    playerVsTrigger;
 
 let backgroundRect; //= g.rectangle(300, 300, "green");
 
@@ -101,28 +103,3 @@ let items, //
     quests,
     npcs; //
 
-
-    /*
-    let g,
-        thingsToLoad,           // loader
-        world,                  // game world
-        world_state,
-        building,               // "world" inside a building
-        camera,                 // world camera
-        player,
-        quest_NPC,
-        reg_NPC,
-        item,
-        message,
-        wallMapArray,           // array of wall tiles from the map
-        doorMapArray,           // array of door tiles from the map
-        leftArrow,              // left key event
-        upArrow,                // up key event
-        downArrow,              // down key event
-        rightArrow,             // right key event
-        interact,               // interact key event
-        npcs,
-        items,
-        quests,
-        doors;
-     */
