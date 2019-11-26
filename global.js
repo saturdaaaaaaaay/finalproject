@@ -44,7 +44,7 @@ let wallMapArray,
     npcArray,
     doorMapArray,
 	itemLayerArray;
-	
+
 let	playerVsItem;
 
 //keycodes
@@ -66,6 +66,7 @@ let qNPC,
 
 //object arrays
 let questArray = [];
+let allQuestsArray = [];
 let questNPCArray = [];
 let regNPCArray = [];
 let questTextArray = [];
@@ -105,4 +106,3 @@ let items, //
     message,//
     quests,
     npcs; //
-

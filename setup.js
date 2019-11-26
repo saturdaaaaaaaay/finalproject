@@ -13,6 +13,9 @@ function setupSprites()
   item = world.getObject("item");
 
   doors = world.getObjects("door");
+
+  // setup trigger NPC's
+  setupTriggers();
 }
 
 //sets up dialogue for NPCs
@@ -28,6 +31,7 @@ function setupDialogue()
 function setupItems()
 {
   item1 = new Item("Gloves", item);
+  itemArray.push(item1);
 }
 
 //set up quest objects

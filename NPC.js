@@ -45,12 +45,6 @@ class QuestNPC extends NPC
       return this.dialogue.thanks;
     }
     return "";
-    //if item is active
-    //display needExp
-    //if item is not active
-    //display greeting + needExp
-    //if item is completed
-    //display thanks
   }
 
   interact()
