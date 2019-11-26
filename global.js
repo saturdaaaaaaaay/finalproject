@@ -70,6 +70,8 @@ let regNPCArray = [];
 let questTextArray = [];
 let itemArray = [];
 let inventory = [];
+let worldTriggerArray = [];
+let buildingTriggerArray = [];
 //let dialogueArray = [];
 
 let gameScene,
