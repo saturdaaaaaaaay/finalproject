@@ -6,7 +6,6 @@
 const WIDTH = 800;
 const HEIGHT = 600;
 const MOVE_SPEED = 4;
-const TILE_SIZE = 64;
 
 const KEY_LEFT = 37;
 const KEY_RIGHT = 39;
@@ -20,6 +19,8 @@ const KEY_DOWN_ALT = 83;
 
 const ACTION_KEY = 32;
 const QUEST_KEY = 81;
+
+const NUM_OF_MINI_GAMES = 1;
 
 //label global variables
 
@@ -41,10 +42,7 @@ let player,
 //map arrays
 let wallMapArray,
     npcArray,
-    doorMapArray,
-	itemLayerArray;
-	
-let	playerVsItem;
+    doorMapArray;
 
 //keycodes
 let leftArrow,
@@ -69,8 +67,8 @@ let questNPCArray = [];
 let regNPCArray = [];
 let questTextArray = [];
 let itemArray = [];
-let inventory = [];
-//let dialogueArray = [];
+let worldTriggerArray = [];
+let buildingTriggerArray = [];
 
 let gameScene,
     dialogueScene,
@@ -88,18 +86,11 @@ let menuText,
     titleText,
     playText;
 
-let playerVsFloor,
-    playerVsNPC,
-    playerVsTrigger;
-
 let backgroundRect; //= g.rectangle(300, 300, "green");
 
 let counter = 0; //temporary counter for displaying quests
-let alreadyDisplayed = false; //temporary bool to display quests
 
 //stuff I couldn't find in code (delete if not needed)
 let items, //
     message,//
-    quests,
-    npcs; //
-
+    quests;
