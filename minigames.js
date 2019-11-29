@@ -4,14 +4,13 @@
 
 // Setup NPC's that trigger mini games
 function setupTriggers() {
-    
     // NPC 1
-    let trigger = new Trigger(200, 200, item2);
+    let trigger = new Trigger(2, 2, item2);
     worldTriggerArray.push(trigger);
     outside_world.addChild(trigger.sprite);
     
     // NPC 2
-    trigger = new Trigger(300, 200, item4);
+    trigger = new Trigger(3, 2, item4);
     buildingTriggerArray.push(trigger);
     building_world.addChild(trigger.sprite);
 }

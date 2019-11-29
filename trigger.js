@@ -6,8 +6,8 @@ class Trigger {
     
     constructor(X, Y, ITEM) {
         this.item = ITEM;
-        this.x_pos = X;
-        this.y_pos = Y;
+        this.x_pos = X * TILE_SIZE;
+        this.y_pos = Y * TILE_SIZE;
         this.sprite = this.createSprite();
         this.active = true;
     }
@@ -23,6 +23,10 @@ class Trigger {
             this.x_pos,
             this.y_pos
         );
+    }
+    
+    getItem() {
+        return this.item.name;
     }
     
     giveItem() {
