@@ -17,7 +17,7 @@ thingsToLoad = [
 
   //The setup function to initialize the application
   function setup() {
-    world_state = "world"
+    world_state = "world";
 
     // Make a map of inside a building
     building_world = g.makeTiledWorld(

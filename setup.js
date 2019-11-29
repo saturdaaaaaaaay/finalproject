@@ -25,6 +25,15 @@ function setupDialogue()
         "Man, my hands are so cold. I wish I hadn’t left my gloves at home.",
         "Thank you so much little dude! I actually found my gloves, but I could still use these.");
   miaDiag = new Dialogue("¿TRES leches? ¿En esta economia?", "", "");
+  snowyDialog = new Dialogue("...sigh...\nI'm so bored.",
+        "I wish I had something pretty to look at.",
+        "What beautiful flowers! They're not my favorite but they will do for now.");
+  patrickDialog = new Dialogue("I've always dreamt of being a witch, flying around to different cities.",
+        "Do you think you can find something to help me become a witch?",
+        "Wow! This is exactly what I wanted! ありがとう");
+  sethDialog = new Dialogue("Actually my dream is to own a minimalistic farm.", "", "");
+  rebeccaDialog = new Dialogue("Have you seen any delicious bugs around?", "", "");
+  elieDialog = new Dialogue("Let's be friends.", "", "");
 }
 
 //set up item objects
