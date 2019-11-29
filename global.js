@@ -74,6 +74,15 @@ let qNPC,
 	item6,
     quest1;
 
+//sounds
+let sfxStep,
+	sfxBloop,
+	sfxClose,
+	sfxGibberish,
+	sfxLose,
+	sfxPop,
+	sfxWin;
+
 //object arrays
 let questArray = [];
 let allQuestsArray = [];

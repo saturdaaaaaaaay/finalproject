@@ -85,13 +85,16 @@ function checkWinner(CHOICE, CONTAINER, TRIGGER) {
     let addToInv = "";
     if (cpu_choice === CHOICE) {
         result = "Draw";
+        sfxLose.play();
     }
     else if ((cpu_choice === 0 && CHOICE === 1) || (cpu_choice === 1 && CHOICE === 2) || (cpu_choice === 2 && CHOICE === 0)) {
         result = "Win";
+        sfxWin.play();
         addToInv = TRIGGER.getItem() + " added to your inventory.";
         inventory.push(TRIGGER.giveItem());
     }
     else {
+        sfxLose.play();
         result = "Lose";
     }
     
@@ -101,6 +104,7 @@ function checkWinner(CHOICE, CONTAINER, TRIGGER) {
     let quitButton = g.text("Okay", "18px Futura", "black", 450, 450);
     
     let removeGame = function() {
+        sfxClose.play();
         g.resume();
         g.remove(quitButton);
         g.remove(addToInvText);

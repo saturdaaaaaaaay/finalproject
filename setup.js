@@ -120,7 +120,11 @@ function setupTitleScene()
   playText.buttonMode = true;
 
   //displays game when "play" is pressed
-  playText.on('mousedown', dispGame);
+  let buttonFunctions = function() {
+    sfxPop.play();
+    dispGame();
+  }
+  playText.on('mousedown', buttonFunctions);
 }
 
 //set up game scene
@@ -139,7 +143,11 @@ function setupGameScene()
   menuText.buttonMode = true;
 
   //when clicked, will display menu scene
-  menuText.on('mousedown', dispMenu);
+  let buttonFunctions = function() {
+    sfxPop.play();
+    dispMenu();
+  }
+  menuText.on('mousedown', buttonFunctions);
 }
 
 //set up menu scene
@@ -171,9 +179,17 @@ function setupMenuScene()
   cancelText.buttonMode = true;
 
   //when clicked, will display quest list scene
-  questListText.on('mousedown', dispQuestList);
+  let buttonFunctions = function() {
+    sfxPop.play();
+    dispQuestList();
+  }
+  questListText.on('mousedown', buttonFunctions);
   //when clicked, will display game scene
-  cancelText.on('mousedown', dispGame);
+  buttonFunctions = function() {
+    sfxPop.play();
+    dispGame();
+  }
+  cancelText.on('mousedown', buttonFunctions);
 }
 
 //set up quest list scene
@@ -230,7 +246,11 @@ function setupQuestListScene()
   cancelText.buttonMode = true;
 
   //when clicked, will display menu scene
-  cancelText.on('mousedown', dispMenu);
+  let buttonFunctions = function() {
+    sfxPop.play();
+    dispMenu();
+  }
+  cancelText.on('mousedown', buttonFunctions);
 }
 
 function setupDialogueScene(npc)
@@ -257,7 +277,11 @@ function setupDialogueScene(npc)
   exitText.interactive = true;
   exitText.buttonMode = true;
 
-  exitText.on('mousedown', dispGame);
+  let buttonFunctions = function() {
+    sfxPop.play();
+    dispGame();
+  }
+  exitText.on('mousedown', buttonFunctions);
 
   document.addEventListener("keydown", event =>
   {

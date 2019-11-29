@@ -6,22 +6,32 @@
 thingsToLoad = [
     "maps/building.json",
     "images/tileset_1.1.png",
-    "maps/world_map_1.1.json"
+    "maps/world_map_1.1.json",
+    "audio/bloop.mp3",
+    "audio/close.mp3",
+    "audio/gibberish.mp3",
+    "audio/lose.wav",
+    "audio/pop.mp3",
+    "audio/step.mp3",
+    "audio/win.wav"
   ];
-sounds.load([
-    "audio/gibberish.mp3"
-]);
-let gibberish = sounds["audio/gibberish.mp3"];
-gibberish.volume = 0.5;
 
   //Create a new Hexi instance, and start it.
   g = hexi(WIDTH, HEIGHT, setup, thingsToLoad);
 
   //Start Hexi
   g.start();
-
+  
   //The setup function to initialize the application
   function setup() {
+    sfxBloop = g.sound("audio/bloop.mp3");
+    sfxClose = g.sound("audio/close.mp3");
+    sfxGibberish = g.sound("audio/gibberish.mp3");
+    sfxLose = g.sound("audio/lose.wav");
+    sfxPop = g.sound("audio/pop.mp3");
+    sfxStep = g.sound("audio/step.mp3");
+    sfxWin = g.sound("audio/win.wav");
+
     world_state = "world";
 
     // Make a map of inside a building
