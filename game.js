@@ -31,9 +31,10 @@ thingsToLoad = [
     world = outside_world;
 
     //call setup methods
+    setupItems();
     setupSprites();
     setupDialogue();
-    setupItems();
+    
     setupQuests();
     setupNPCs();
     setupScenes();

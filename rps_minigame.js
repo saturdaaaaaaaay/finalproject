@@ -53,10 +53,13 @@ function startRockPaperScissors(CONTAINER, TRIGGER) {
     scissors.interactive = true;
     scissors.buttonMode = true;
 
+    let titleText = g.text("Rock - Paper - Scissors", "36px Futura", "black", 150, 75);
+
     CONTAINER.addChild(box);
     CONTAINER.addChild(rock);
     CONTAINER.addChild(paper);
     CONTAINER.addChild(scissors);
+    CONTAINER.addChild(titleText);
 
     rock.on("mousedown", function() {
         checkWinner(0, CONTAINER, TRIGGER);
@@ -79,25 +82,28 @@ function checkWinner(CHOICE, CONTAINER, TRIGGER) {
     
     let cpu_choice = Math.floor(Math.random() * 3);
     let result;
+    let addToInv = "";
     if (cpu_choice === CHOICE) {
-        result = "draw";
+        result = "Draw";
     }
     else if ((cpu_choice === 0 && CHOICE === 1) || (cpu_choice === 1 && CHOICE === 2) || (cpu_choice === 2 && CHOICE === 0)) {
-        result = "win";
+        result = "Win";
+        addToInv = TRIGGER.getItem() + " added to your inventory.";
         inventory.push(TRIGGER.giveItem());
     }
     else {
-        result = "lose";
+        result = "Lose";
     }
     
     // Display WIN/LOSE/DRAW result
-    let resultText = g.text(result, "48px Futura", "black", 200, 300)
-
+    let resultText = g.text(result, "48px Futura", "black", 200, 300);
+    let addToInvText = g.text(addToInv, "18px Futura", "black", 200, 350);
     let quitButton = g.text("Okay", "18px Futura", "black", 450, 450);
     
     let removeGame = function() {
         g.resume();
         g.remove(quitButton);
+        g.remove(addToInvText);
         g.remove(resultText);
         g.remove(CONTAINER);
     }
