@@ -2,9 +2,6 @@
  * Rock-Paper-Scissors Minigame
  */
 
-let rock_listen;
-let choice = 3;
-
 function startRockPaperScissors(CONTAINER, TRIGGER) {
     
     let box = g.rectangle(
@@ -87,7 +84,7 @@ function checkWinner(CHOICE, CONTAINER, TRIGGER) {
     }
     else if ((cpu_choice === 0 && CHOICE === 1) || (cpu_choice === 1 && CHOICE === 2) || (cpu_choice === 2 && CHOICE === 0)) {
         result = "win";
-        awardItem(TRIGGER);
+        inventory.push(TRIGGER.giveItem());
     }
     else {
         result = "lose";
@@ -108,10 +105,6 @@ function checkWinner(CHOICE, CONTAINER, TRIGGER) {
     quitButton.interactive = true;
     quitButton.buttonMode = true;
     quitButton.on('mousedown', removeGame);
-}
-
-function awardItem(TRIGGER) {
-    console.log("you win! " + TRIGGER.giveItem() + " awarded");
 }
 
 function removeOthers(CHOICE, OTHER_1, OTHER_2) {
