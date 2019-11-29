@@ -6,12 +6,12 @@
 function setupTriggers() {
     
     // NPC 1
-    let trigger = new Trigger(200, 200, "banana");
+    let trigger = new Trigger(200, 200, item2);
     worldTriggerArray.push(trigger);
     outside_world.addChild(trigger.sprite);
     
     // NPC 2
-    trigger = new Trigger(300, 200, "perfume");
+    trigger = new Trigger(300, 200, item4);
     buildingTriggerArray.push(trigger);
     building_world.addChild(trigger.sprite);
 }

@@ -62,6 +62,11 @@ let thomasDiag,
 let qNPC,
     rNPC,
     item1,
+	item2,
+	item3,
+	item4,
+	item5,
+	item6,
     quest1;
 
 //object arrays

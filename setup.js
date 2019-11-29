@@ -32,6 +32,16 @@ function setupItems()
 {
   item1 = new Item("Gloves", item);
   itemArray.push(item1);
+  item2 = new Item("Broom", null);
+  itemArray.push(item2);
+  item3 = new Item("Flowers", null);
+  itemArray.push(item3);
+  item4 = new Item("Perfume", null);
+  itemArray.push(item4);
+  item5 = new Item("Red Herring", null);
+  itemArray.push(item5);
+  item6 = new Item("Magic Wand", null);
+  itemArray.push(item6);
 }
 
 //set up quest objects
