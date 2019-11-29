@@ -29,6 +29,6 @@ class Dialogue
   }
   
   playSound() {
-    gibberish.play();
+    sfxGibberish.play();
   }
 }
