@@ -82,6 +82,7 @@ class RegNPC extends NPC
 
   interact()
   {
+    this.dialogue.playSound();
     console.log(this.dialogue.greeting);
   }
 

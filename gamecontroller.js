@@ -27,4 +27,8 @@ class Dialogue
     this.needExp = needExp;
     this.thanks = thanks;
   }
+  
+  playSound() {
+    gibberish.play();
+  }
 }
