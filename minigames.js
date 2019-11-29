@@ -25,6 +25,7 @@ function playerTriggerHitTest() {
     for (index = 0; index < arrayToTest.length; index++) {
         if (g.hit(player, arrayToTest[index].sprite)) {
             if (arrayToTest[index].isActive()) {
+                gibberish.play();
                 runMiniGame(arrayToTest[index]);
             }
             return true;

@@ -8,6 +8,11 @@ thingsToLoad = [
     "images/tileset_1.1.png",
     "maps/world_map_1.1.json"
   ];
+sounds.load([
+    "audio/gibberish.mp3"
+]);
+let gibberish = sounds["audio/gibberish.mp3"];
+gibberish.volume = 0.5;
 
   //Create a new Hexi instance, and start it.
   g = hexi(WIDTH, HEIGHT, setup, thingsToLoad);
