@@ -186,7 +186,7 @@ function setupMenuScene()
   questListText.on('mousedown', buttonFunctions);
   //when clicked, will display game scene
   buttonFunctions = function() {
-    sfxPop.play();
+    sfxClose.play();
     dispGame();
   }
   cancelText.on('mousedown', buttonFunctions);
@@ -247,7 +247,7 @@ function setupQuestListScene()
 
   //when clicked, will display menu scene
   let buttonFunctions = function() {
-    sfxPop.play();
+    sfxClose.play();
     dispMenu();
   }
   cancelText.on('mousedown', buttonFunctions);
@@ -278,7 +278,7 @@ function setupDialogueScene(npc)
   exitText.buttonMode = true;
 
   let buttonFunctions = function() {
-    sfxPop.play();
+    sfxClose.play();
     dispGame();
   }
   exitText.on('mousedown', buttonFunctions);
