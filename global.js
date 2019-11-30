@@ -34,9 +34,18 @@ let g,
 
 //sprites (objects from world)
 let player,
-    quest_NPC,
-    reg_NPC,
-    item,
+    thomas,
+	patrick,
+	pepe,
+	rebecca,
+    elie,
+	seth,
+	snowy,
+	trig1,
+	trig2,
+	trig3,
+	redherring,
+    gloves,
     doors;
 
 //map arrays
@@ -64,14 +73,19 @@ let thomasDiag,
 	elieDialog;
 
 //objects made from classes
-let qNPC,
-    rNPC,
-    item1,
-	item2,
-	item3,
-	item4,
-	item5,
-	item6,
+let npcThomas,
+	npcPatrck,
+	npcPepe,
+	npcRebecca,
+    npcElie,
+	npcSeth,
+	npcSnowy,
+    itemGloves,
+	itemRedHerring,
+	itemFlowers,
+	itemPerfume,
+	itemBroom,
+	itemWand,
     quest1;
 
 //sounds

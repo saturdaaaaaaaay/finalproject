@@ -1,21 +1,20 @@
 function setupSprites()
 {
-  /*
-  Get a reference to sprites.
-  Use `world.getObject` to do this. `getObject` searches for and
-  returns a sprite in the `world` that has a `name` property that
-  matches the string in the argument.
-  */
+  // player sprite
   player = world.getObject("player");
 
-  quest_NPC = world.getObject("quest_NPC");
-  reg_NPC = world.getObject("reg_NPC");
-  item = world.getObject("item");
+  // npc sprites
+  thomas = outside_world.getObject("thomas");
+  rebecca = outside_world.getObject("rebecca");
+  elie = outside_world.getObject("elie");
+  seth = outside_world.getObject("seth");
+  
+  // item sprites
+  gloves = outside_world.getObject("gloves");
+  redherring = outside_world.getObject("redherring");
 
+  // doors from the world
   doors = world.getObjects("door");
-
-  // setup trigger NPC's
-  setupTriggers();
 }
 
 //sets up dialogue for NPCs
@@ -39,34 +38,39 @@ function setupDialogue()
 //set up item objects
 function setupItems()
 {
-  item1 = new Item("Gloves", item);
-  itemArray.push(item1);
-  item2 = new Item("Broom", null);
-  itemArray.push(item2);
-  item3 = new Item("Flowers", null);
-  itemArray.push(item3);
-  item4 = new Item("Perfume", null);
-  itemArray.push(item4);
-  item5 = new Item("Red Herring", null);
-  itemArray.push(item5);
-  item6 = new Item("Magic Wand", null);
-  itemArray.push(item6);
+  itemGloves = new Item("Gloves", gloves);
+  itemArray.push(itemGloves);
+  itemRedHerring = new Item("Red Herring", redherring);
+  itemArray.push(itemRedHerring);
+  itemFlowers = new Item("Flowers", null);
+  itemArray.push(itemFlowers);
+  itemPerfume = new Item("Perfume", null);
+  itemArray.push(itemPerfume);
+  itemBroom = new Item("Broom", null);
+  itemArray.push(itemBroom);
+  itemWand = new Item("Magic Wand", null);
+  itemArray.push(itemWand);
 }
 
 //set up quest objects
 function setupQuests()
 {
-  quest1 = new Quest (item1, QUEST_AVAILABLE);
+  quest1 = new Quest (itemGloves, QUEST_AVAILABLE);
 }
 
 //set up NPC objects
 function setupNPCs()
 {
-  qNPC = new QuestNPC("Thomas", quest_NPC, thomasDiag, quest1);
-  rNPC = new RegNPC("Mia", reg_NPC, miaDiag);
+  npcThomas = new QuestNPC("Thomas", thomas, thomasDiag, quest1);
+  npcRebecca = new RegNPC("Rebecca", rebecca, rebeccaDialog);
+  npcElie = new RegNPC("Elie", elie, elieDialog);
+  npcSeth = new RegNPC("Seth", seth, sethDialog);
 
-  questNPCArray.push(qNPC);
-  regNPCArray.push(rNPC);
+  questNPCArray.push(npcThomas);
+  
+  regNPCArray.push(npcRebecca);
+  regNPCArray.push(npcElie);
+  regNPCArray.push(npcSeth);
 }
 
 //set up scene graphs
