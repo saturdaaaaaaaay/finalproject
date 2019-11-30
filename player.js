@@ -110,6 +110,6 @@ function pickUpItem()
 	{
 		inventory.push(current_item);
 		g.remove(current_item.object);
-		console.log("inventory " + inventory);
+		console.log("inventory " + current_item.name);
 	}
 }

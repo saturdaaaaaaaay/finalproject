@@ -57,6 +57,9 @@ function dispGameOver()
 function dispInventory()
 {
   g.state = dispInventory;
+
+  setupInventoryScene();
+
   inventoryScene.visible = true;
   menuScene.visible = false;
 }

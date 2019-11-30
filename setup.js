@@ -113,11 +113,11 @@ function setupTitleScene()
   backgroundRect = g.rectangle(800, 600, "black");
 
   //creates and positions title text
-  titleText = g.text("Planilandia", "18px Futura", "red", 20, 20);
+  titleText = g.text("Planilandia", "18px Futura", "white", 20, 20);
   g.stage.putCenter(titleText);
 
   //creates and positions play button
-  playText = g.text("Play", "18px Futura", "red", 20, 20);
+  playText = g.text("Play", "18px Futura", "white", 20, 20);
   playText.x = 400;
   playText.y = 400;
 
@@ -142,7 +142,7 @@ function setupTitleScene()
 function setupGameScene()
 {
   //create and position menu text
-  menuText = g.text("Menu", "18px Futura", "red", 20, 20);
+  menuText = g.text("Menu", "18px Futura", "white", 20, 20);
   menuText.x = 750;
   menuText.y = 0;//g.canvas.height / 2 - 18;
 
@@ -171,13 +171,13 @@ function setupMenuScene()
   //backgroundRect.y = g.canvas.height / 2;
 
   //create and add quest list and cancel text
-  questListText = g.text("Quest List", "18px Futura", "red", 20, 20);
+  questListText = g.text("Quest List", "18px Futura", "white", 20, 20);
   questListText.x = g.canvas.width/2;
   questListText.y = g.canvas.height / 2 - 18;
-  inventoryText = g.text("Inventory", "18px Futura", "red", 20, 20);
+  inventoryText = g.text("Inventory", "18px Futura", "white", 20, 20);
   inventoryText.x = g.canvas.width/2;
   inventoryText.y = g.canvas.height / 2;
-  cancelText = g.text("Cancel", "18px Futura", "red", 20, 20);
+  cancelText = g.text("Cancel", "18px Futura", "white", 20, 20);
   cancelText.x = 400;
   cancelText.y = 400;
 
@@ -233,7 +233,7 @@ function setupQuestListScene()
     var i;
     for (i = 0; i < questArray.length; i++)
     {
-      questTextArray.push(g.text(questArray[i].display(), "18px Futura", "red", 20, 20));
+      questTextArray.push(g.text(questArray[i].display(), "18px Futura", "white", 20, 20));
     }
     var currentQuest;
     //console.log("quest array length: " + questTextArray.length);
@@ -251,7 +251,7 @@ function setupQuestListScene()
   }
   else //if no quests, display unavailable text
   {
-    emptyQuestText = g.text("No quests available", "18px Futura", "red", 20, 20);
+    emptyQuestText = g.text("No quests available", "18px Futura", "white", 20, 20);
 
     questListScene.addChild(emptyQuestText);
     emptyQuestText.x = 300;
@@ -259,7 +259,7 @@ function setupQuestListScene()
   }
 
   //cancel button
-  cancelText = g.text("Cancel", "18px Futura", "red", 20, 20);
+  cancelText = g.text("Cancel", "18px Futura", "white", 20, 20);
   cancelText.x = 400;
   cancelText.y = 400;
 
@@ -333,9 +333,27 @@ function setupInventoryScene()
 
   inventoryScene.addChild(backgroundRect2);
 
-  cancelText = g.text("Cancel", "18px Futura", "red", 20, 20);
+  cancelText = g.text("Cancel", "18px Futura", "white", 20, 20);
   cancelText.x = 0;
   cancelText.y = g.canvas.height/5 - 20;
+
+  if (inventory.length > 0)
+  {
+    var currentItem, i;
+
+    for (i = 0; i < inventory.length; i++)
+    {
+      currentItem = g.text(inventory[i].name, "18px Futura", "white", 20, 20);
+      inventoryScene.addChild(currentItem);
+
+      currentItem.x = 50 + 20 * i;
+      currentItem.y = g.canvas.height/10;
+    }
+  }
+  else
+  {
+    inventoryScene.addChild(g.text("No items", "18px Futura", "white", 20, 20));
+  }
 
   inventoryScene.addChild(cancelText);
 
