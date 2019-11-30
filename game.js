@@ -5,8 +5,9 @@
 // Loader
 thingsToLoad = [
     "maps/building.json",
+    "images/tileset.png",
     "images/tileset_1.1.png",
-    "maps/world_map_1.1.json",
+    "maps/world.json",
     "audio/bloop.mp3",
     "audio/close.mp3",
     "audio/gibberish.mp3",
@@ -40,8 +41,8 @@ thingsToLoad = [
         "images/tileset_1.1.png"
     );
     outside_world = g.makeTiledWorld(
-        "maps/world_map_1.1.json",
-        "images/tileset_1.1.png"
+        "maps/world.json",
+        "images/tileset.png"
     );
     world = outside_world;
 
@@ -49,6 +50,8 @@ thingsToLoad = [
     setupSprites();
     setupItems();
     setupDialogue();
+    // setup trigger NPC's
+    setupTriggers();
     
     setupQuests();
     setupNPCs();
@@ -106,7 +109,7 @@ thingsToLoad = [
 
   function checkForDoor()
   {
-    let playerVsDoor = g.hitTestTile(player, doorMapArray, 3, world, "center");
+    let playerVsDoor = g.hitTestTile(player, doorMapArray, 9, world, "center");
     if (playerVsDoor.hit) {
       switch(world_state) {
         case "building":
@@ -189,7 +192,7 @@ function loadWallsAndDoors(MAP) {
 	playerVsItem = g.hitTestTile(player, itemLayerArray, 0, world, "every");
 	playerVsTrigger = playerTriggerHitTest();
 
-
+    checkForDoor();
     checkForNPC();
 	checkForItem();
 

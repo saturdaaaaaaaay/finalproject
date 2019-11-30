@@ -4,18 +4,20 @@
 
 // Setup NPC's that trigger mini games
 function setupTriggers() {
-    // NPC 1
-    let trigger = new Trigger(2, 2, item2);
+    // NPC in water
+    let trigger = new Trigger(outside_world.getObject("trig-1"), itemWand);
     worldTriggerArray.push(trigger);
-    outside_world.addChild(trigger.sprite);
+    
+    // NPC in front of "L" shaped building
+    trigger = new Trigger(outside_world.getObject("trig-2"), itemPerfume);
+    worldTriggerArray.push(trigger);
     
     // NPC 2
-    trigger = new Trigger(3, 2, item4);
-    buildingTriggerArray.push(trigger);
-    building_world.addChild(trigger.sprite);
+    //trigger = new Trigger(building_world.getObject("trig-3"), item4);
+    //buildingTriggerArray.push(trigger);
 }
 
-// Return true if collision with trigger NPC
+// Return true if collision with a trigger NPC
 function playerTriggerHitTest() {
     let index;
     let arrayToTest = worldTriggerArray;
@@ -23,7 +25,7 @@ function playerTriggerHitTest() {
         arrayToTest = buildingTriggerArray;
     }
     for (index = 0; index < arrayToTest.length; index++) {
-        if (g.hit(player, arrayToTest[index].sprite)) {
+        if (g.hit(player, arrayToTest[index].object)) {
             if (arrayToTest[index].isActive()) {
                 sfxBloop.play();
                 runMiniGame(arrayToTest[index]);
