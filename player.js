@@ -90,7 +90,7 @@ function pickUpItem()
 	for (let i = 0; i < itemArray.length; i++)
 	{
 		console.log(itemArray[i]);
-		if (playerVsItem.index == itemArray[i].object.index)
+		if (itemArray[i].object != null && playerVsItem.index === itemArray[i].object.index)
 		//if (playerVsItem.index == item.index)
 		{
 			current_item = itemArray[i];

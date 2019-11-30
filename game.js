@@ -46,8 +46,8 @@ thingsToLoad = [
     world = outside_world;
 
     //call setup methods
-    setupItems();
     setupSprites();
+    setupItems();
     setupDialogue();
     
     setupQuests();
