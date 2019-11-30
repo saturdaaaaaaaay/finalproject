@@ -21,6 +21,8 @@ const KEY_DOWN_ALT = 83;
 
 const ACTION_KEY = 32;
 const QUEST_KEY = 81;
+const INVENTORY_KEY = 73;
+const MENU_KEY = 77;
 
 //label global variables
 
@@ -61,7 +63,10 @@ let leftArrow,
     upArrow,
     downArrow,
     rightArrow,
-    interact;
+    interact,
+    questkey,
+    menukey,
+    inventorykey;
 
 //dialogue
 let thomasDiag,
@@ -113,7 +118,9 @@ let gameScene,
     dialogueScene,
     menuScene,
     questListScene,
-    titleScene;
+    titleScene,
+    gameOverScene,
+    inventoryScene;
 
 let menuText,
     questListText,
@@ -123,13 +130,16 @@ let menuText,
     dialogueText,
     npcNameText,
     titleText,
-    playText;
+    playText,
+    gameOverText,
+    inventoryText;
 
 let playerVsFloor,
     playerVsNPC,
     playerVsTrigger;
 
-let backgroundRect; //= g.rectangle(300, 300, "green");
+let backgroundRect,
+    backgroundRect2; //= g.rectangle(300, 300, "green");
 
 let counter = 0; //temporary counter for displaying quests
 let alreadyDisplayed = false; //temporary bool to display quests

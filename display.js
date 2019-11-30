@@ -25,6 +25,7 @@ function dispMenu()
   dialogueScene.visible = false;
   gameScene.visible = false;
   questListScene.visible = false;
+  inventoryScene.visible = false;
 }
 
 function dispQuestList()
@@ -43,4 +44,19 @@ function dispDialogue()
 {
   g.state = dispDialogue;
   dialogueScene.visible = true;
+}
+
+function dispGameOver()
+{
+  g.state = dispGameOver;
+  gameScene.visible = false;
+  //gameScene.remove();
+  gameOverScene.visible = true;
+}
+
+function dispInventory()
+{
+  g.state = dispInventory;
+  inventoryScene.visible = true;
+  menuScene.visible = false;
 }

@@ -8,7 +8,7 @@ function setupSprites()
   rebecca = outside_world.getObject("rebecca");
   elie = outside_world.getObject("elie");
   seth = outside_world.getObject("seth");
-  
+
   // item sprites
   gloves = outside_world.getObject("gloves");
   redherring = outside_world.getObject("redherring");
@@ -56,6 +56,7 @@ function setupItems()
 function setupQuests()
 {
   quest1 = new Quest (itemGloves, QUEST_AVAILABLE);
+  allQuestsArray.push(quest1);
 }
 
 //set up NPC objects
@@ -67,7 +68,7 @@ function setupNPCs()
   npcSeth = new RegNPC("Seth", seth, sethDialog);
 
   questNPCArray.push(npcThomas);
-  
+
   regNPCArray.push(npcRebecca);
   regNPCArray.push(npcElie);
   regNPCArray.push(npcSeth);
@@ -82,6 +83,8 @@ function setupScenes()
   dialogueScene = g.group();
   questListScene = g.group();
   titleScene = g.group();
+  gameOverScene = g.group();
+  inventoryScene = g.group();
 
 
   //make all scenes but title scene invisible
@@ -91,12 +94,16 @@ function setupScenes()
   menuScene.visible = false;
   questListScene.visible = false;
   gameScene.visible = false;
+  gameOverScene.visible = false;
+  inventoryScene.visible = false;
 
   //call methods to set up each scene graph
   setupTitleScene();
   setupGameScene();
   setupMenuScene();
   setupQuestListScene();
+  setupGameOverScene();
+  setupInventoryScene();
 }
 
 //set up title scene
@@ -167,6 +174,9 @@ function setupMenuScene()
   questListText = g.text("Quest List", "18px Futura", "red", 20, 20);
   questListText.x = g.canvas.width/2;
   questListText.y = g.canvas.height / 2 - 18;
+  inventoryText = g.text("Inventory", "18px Futura", "red", 20, 20);
+  inventoryText.x = g.canvas.width/2;
+  inventoryText.y = g.canvas.height / 2;
   cancelText = g.text("Cancel", "18px Futura", "red", 20, 20);
   cancelText.x = 400;
   cancelText.y = 400;
@@ -174,11 +184,14 @@ function setupMenuScene()
   //add text to scene
   menuScene.addChild(backgroundRect);
   menuScene.addChild(questListText);
+  menuScene.addChild(inventoryText);
   menuScene.addChild(cancelText);
 
   //create buttons
   questListText.interactive = true;
   questListText.buttonMode = true;
+  inventoryText.interactive = true;
+  inventoryText.buttonMode = true;
   cancelText.interactive = true;
   cancelText.buttonMode = true;
 
@@ -194,6 +207,12 @@ function setupMenuScene()
     dispGame();
   }
   cancelText.on('mousedown', buttonFunctions);
+
+  buttonFunctions = function() {
+    sfxClose.play();
+    dispInventory();
+  }
+  inventoryText.on('mousedown', buttonFunctions);
 }
 
 //set up quest list scene
@@ -295,4 +314,38 @@ function setupDialogueScene(npc)
       dispGame();
     }
   });
+}
+
+function setupGameOverScene()
+{
+  backgroundRect = g.rectangle(g.canvas.width, g.canvas.height, "black");
+  gameOverText =  g.text("Game Over", "18px Futura", "white", 20, 20);
+
+  gameOverScene.addChild(backgroundRect);
+  gameOverScene.addChild(gameOverText);
+}
+
+function setupInventoryScene()
+{
+  backgroundRect2 = g.rectangle(g.canvas.width, g.canvas.height/5, "black");
+  backgroundRect2.x = 0;
+  backgroundRect2.y = 0;
+
+  inventoryScene.addChild(backgroundRect2);
+
+  cancelText = g.text("Cancel", "18px Futura", "red", 20, 20);
+  cancelText.x = 0;
+  cancelText.y = g.canvas.height/5 - 20;
+
+  inventoryScene.addChild(cancelText);
+
+  cancelText.interactive = true;
+  cancelText.buttonMode = true;
+
+  //when clicked, will display menu scene
+  let buttonFunctions = function() {
+    sfxClose.play();
+    dispMenu();
+  }
+  cancelText.on('mousedown', buttonFunctions);
 }

@@ -52,6 +52,7 @@ function checkForNPC(player_character)
 			//compares index of collision boject with index of regular sprite
 			if (playerVsNPC.index == regNPCArray[i].object.index)
 			{
+				consolelog(regNPCArray[i].name);
 				regNPCArray[i].interact(); //interact with NPC
 				rFound = true;
 				setupDialogueScene(regNPCArray[i]);

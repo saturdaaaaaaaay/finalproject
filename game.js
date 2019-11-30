@@ -22,7 +22,7 @@ thingsToLoad = [
 
   //Start Hexi
   g.start();
-  
+
   //The setup function to initialize the application
   function setup() {
     sfxBloop = g.sound("audio/bloop.mp3");
@@ -52,7 +52,7 @@ thingsToLoad = [
     setupDialogue();
     // setup trigger NPC's
     setupTriggers();
-    
+
     setupQuests();
     setupNPCs();
     setupScenes();
@@ -78,6 +78,8 @@ thingsToLoad = [
     downArrow = g.keyboard(KEY_DOWN);
     interact = g.keyboard(ACTION_KEY);
     questkey = g.keyboard(QUEST_KEY);
+    menukey = g.keyboard(MENU_KEY);
+    inventorykey = g.keyboard(INVENTORY_KEY);
 
     //Program the keyboard objects; moves while the key is pressed, stops when released
     leftArrow.press = () => player.direction = "left";
@@ -103,6 +105,16 @@ thingsToLoad = [
       dispQuestList();
     };
 
+    inventorykey.press = function() {
+      console.log("quests");
+      dispInventory();
+    };
+
+    menukey.press = function() {
+      console.log("quests");
+      dispMenu();
+    };
+
     //Change the game state to `play`
     g.state = dispTitle;
   }
@@ -120,6 +132,25 @@ thingsToLoad = [
           break;
       }
       loadMap(world_state);
+    }
+  }
+
+  function checkGameOver()
+  {
+    var i, count = 0;
+    for (i = 0; i < allQuestsArray.length; i++)
+    {
+      if (allQuestsArray[i].questState == QUEST_COMPLETE)
+      {
+        count++;
+        console.log("completed: " + count);
+      }
+    }
+
+    if (count == allQuestsArray.length)
+    {
+      console.log("game over");
+      dispGameOver();
     }
   }
 
@@ -194,7 +225,12 @@ function loadWallsAndDoors(MAP) {
 
     checkForDoor();
     checkForNPC();
-	checkForItem();
+  	checkForItem();
+
+    if (g.state != dispDialogue)
+    {
+      checkGameOver();
+    }
 
     tempItem = null; //reset tempItem
     /*
