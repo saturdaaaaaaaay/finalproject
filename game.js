@@ -56,6 +56,11 @@ thingsToLoad = [
     setupQuests();
     setupNPCs();
     setupScenes();
+    
+    // Setup player sprite that is visible
+    player_tex = g.sprite("penguin_1.png");
+    player_tex.position = player.position;
+    world.addChild(player_tex);
 
     // Add a world camera to follow the player
     camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
@@ -201,6 +206,10 @@ thingsToLoad = [
     //Give the `player` a `direction` property
     player.direction = "";
 
+    world.addChild(player_tex);
+    player_tex.position = player.position;
+    updatePlayerTexture();
+    
     // Add a camera to follow the player in both outside and inside worlds
     camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
     camera.centerOver(player);
@@ -243,6 +252,7 @@ function loadWallsAndDoors(MAP) {
           player.vy = 0;
           break;
       }
+      updatePlayerTexture();
     }
 
     //Move the player and camera
@@ -277,4 +287,9 @@ function loadWallsAndDoors(MAP) {
       counter = 1;
     }
     */
+  }
+
+  function updatePlayerTexture() {
+    player_tex.vx = player.vx;
+    player_tex.vy = player.vy;
   }
