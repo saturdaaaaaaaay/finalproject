@@ -7,7 +7,6 @@ thingsToLoad = [
     "maps/building.json",
     "images/assets.json",
     "images/tileset.png",
-    "images/tileset_1.1.png",
     "maps/world.json",
     "audio/bloop.mp3",
     "audio/close.mp3",
@@ -39,7 +38,7 @@ thingsToLoad = [
     // Make a map of inside a building
     building_world = g.makeTiledWorld(
         "maps/building.json",
-        "images/tileset_1.1.png"
+        "images/tileset.png"
     );
     outside_world = g.makeTiledWorld(
         "maps/world.json",
@@ -126,9 +125,11 @@ thingsToLoad = [
     if (playerVsDoor.hit) {
       switch(world_state) {
         case "building":
+          player.position.y = Math.floor(player.position.y - TILE_SIZE);
           world_state = "world";
           break;
         case "world":
+          player.position.y = Math.floor(player.position.y + TILE_SIZE);
           world_state = "building";
           break;
       }
@@ -181,6 +182,7 @@ thingsToLoad = [
 function loadWallsAndDoors(MAP) {
   wallMapArray = MAP.getObject("wallLayer").data;
   doorMapArray = MAP.getObject("doorLayer").data;
+  npcArray = MAP.getObject("npcLayer").data;
   doors = MAP.getObjects("door");
 }
 

@@ -5,18 +5,21 @@ function setupSprites()
 
   // npc sprites
   thomas = outside_world.getObject("thomas");
-  replaceWithAnimatedSprite(thomas, ["reindeer_1.png", "reindeer_2.png"])
+  replaceWithAnimatedSprite(thomas, ["reindeer_1.png", "reindeer_2.png"], outside_world)
 
   rebecca = outside_world.getObject("rebecca");
   
   elie = outside_world.getObject("elie");
-  replaceWithAnimatedSprite(elie, ["bill-1.png", "bill-2.png"]);
+  replaceWithAnimatedSprite(elie, ["bill-1.png", "bill-2.png"], outside_world);
+  
+  patrick = building_world.getObject("patrick");
+  replaceWithAnimatedSprite(patrick, ["cat_1.png", "cat_2.png"], building_world);
 
   seth = outside_world.getObject("seth");
-  replaceWithAnimatedSprite(seth, ["mog_left-1.png", "mog_left-2.png", "mog_left-3.png", "mog_left-4.png"]);
+  replaceWithAnimatedSprite(seth, ["mog_left-1.png", "mog_left-2.png", "mog_left-3.png", "mog_left-4.png"], outside_world);
 
   snowy = outside_world.getObject("snowy");
-  replaceWithAnimatedSprite(snowy, ["owl_1.png", "owl_2.png"]);
+  replaceWithAnimatedSprite(snowy, ["owl_1.png", "owl_2.png"], outside_world);
 
   // item sprites
   gloves = outside_world.getObject("gloves");
@@ -28,7 +31,7 @@ function setupSprites()
 
 // The NPC texture from the map is transparent.
 // Show the animated textures instead.
-function replaceWithAnimatedSprite(SPRITE, FRAMES) {
+function replaceWithAnimatedSprite(SPRITE, FRAMES, WORLD) {
   let animSprite = g.sprite(FRAMES);
 
   animSprite.position = SPRITE.position;
@@ -36,7 +39,7 @@ function replaceWithAnimatedSprite(SPRITE, FRAMES) {
   animSprite.animationSpeed = ANIM_SPEED;
   animSprite.play();
   
-  world.addChild(animSprite);
+  WORLD.addChild(animSprite);
 }
 //sets up dialogue for NPCs
 function setupDialogue()
@@ -77,6 +80,7 @@ function setupItems()
 function setupQuests()
 {
   quest1 = new Quest (itemGloves, QUEST_AVAILABLE);
+  quest2 = new Quest (itemBroom, QUEST_AVAILABLE);
   allQuestsArray.push(quest1);
 }
 
@@ -84,11 +88,13 @@ function setupQuests()
 function setupNPCs()
 {
   npcThomas = new QuestNPC("Thomas", thomas, thomasDiag, quest1);
+  npcPatrck = new QuestNPC("Patrick", patrick, patrickDialog, quest2);
   npcRebecca = new RegNPC("Rebecca", rebecca, rebeccaDialog);
   npcElie = new RegNPC("Elie", elie, elieDialog);
   npcSeth = new RegNPC("Seth", seth, sethDialog);
 
   questNPCArray.push(npcThomas);
+  questNPCArray.push(npcPatrck);
 
   regNPCArray.push(npcRebecca);
   regNPCArray.push(npcElie);
