@@ -5,16 +5,16 @@
 // Setup NPC's that trigger mini games
 function setupTriggers() {
     // NPC in water
-    let trigger = new Trigger(outside_world.getObject("trig-1"), itemWand);
+    let trigger = new Trigger(outside_world.getObject("trig-1"), itemFlowers);
     worldTriggerArray.push(trigger);
     
     // NPC in front of "L" shaped building
     trigger = new Trigger(outside_world.getObject("trig-2"), itemPerfume);
     worldTriggerArray.push(trigger);
     
-    // NPC 2
-    //trigger = new Trigger(building_world.getObject("trig-3"), item4);
-    //buildingTriggerArray.push(trigger);
+    // NPC inside building
+    trigger = new Trigger(building_world.getObject("trig-3"), itemBroom);
+    buildingTriggerArray.push(trigger);
 }
 
 // Return true if collision with a trigger NPC
