@@ -5,44 +5,23 @@
 function startRockPaperScissors(CONTAINER, TRIGGER) {
     
     let box = g.rectangle(
-        500,
-        500,
+        TILE_SIZE * 7,
+        TILE_SIZE * 5,
         "white",
-        "yellow",
-        0,
-        100,
-        50
+        "black",
+        6,
+        TILE_SIZE * 3,
+        TILE_SIZE * 2
     );
     
-    let rock = g.rectangle(
-        100,
-        100,
-        "gray",
-        "black",
-        2,
-        200,
-        150
-    );
+    let rock = g.sprite("hand-rock.png");
+    rock.position = ({x: TILE_SIZE * 4, y: TILE_SIZE * 3});
 
-    let paper = g.rectangle(
-        100,
-        100,
-        "white",
-        "black",
-        2,
-        400,
-        150
-    );
+    let paper = g.sprite("hand-paper.png");
+    paper.position = ({x: TILE_SIZE * 6, y: TILE_SIZE * 3});
 
-    let scissors = g.rectangle(
-        100,
-        100,
-        "orange",
-        "black",
-        2,
-        300,
-        350
-    );
+    let scissors = g.sprite("hand-scissors.png");
+    scissors.position = ({x: TILE_SIZE * 8, y: TILE_SIZE * 3});
     
     rock.interactive = true;
     rock.buttonMode = true;
@@ -53,13 +32,10 @@ function startRockPaperScissors(CONTAINER, TRIGGER) {
     scissors.interactive = true;
     scissors.buttonMode = true;
 
-    let titleText = g.text("Rock - Paper - Scissors", "36px Futura", "black", 150, 75);
-
     CONTAINER.addChild(box);
     CONTAINER.addChild(rock);
     CONTAINER.addChild(paper);
     CONTAINER.addChild(scissors);
-    CONTAINER.addChild(titleText);
 
     rock.on("mousedown", function() {
         checkWinner(0, CONTAINER, TRIGGER);
@@ -97,20 +73,37 @@ function checkWinner(CHOICE, CONTAINER, TRIGGER) {
         sfxLose.play();
         result = "Lose";
     }
-    
+    let addToInvText = g.group();
     // Display WIN/LOSE/DRAW result
-    let resultText = g.text(result, "48px Futura", "black", 200, 300);
-    let addToInvText = g.text(addToInv, "18px Futura", "black", 200, 350);
-    let quitButton = g.text("Okay", "18px Futura", "black", 450, 450);
+    switch (result) {
+        case "Draw":
+            result = g.sprite("draw.png");
+            break;
+        case "Win":
+            result = g.sprite("win.png");
+            let awarded = g.sprite("awarded.png");
+            awarded.position = ({x: TILE_SIZE * 5, y: TILE_SIZE * 6});
+            let award_item = g.sprite(TRIGGER.getTexture());
+            award_item.position = ({x: TILE_SIZE * 4, y: TILE_SIZE * 6});
+            addToInvText.addChild(awarded);
+            addToInvText.addChild(award_item);
+            break;
+        case "Lose":
+            result = g.sprite("lose.png");
+            break;
+    }
+    result.position = ({x: TILE_SIZE * 6, y: TILE_SIZE * 5});
+    let quitButton = g.sprite("ok.png");
+    quitButton.position = ({x: TILE_SIZE * 9, y: TILE_SIZE * 6});
     
     let removeGame = function() {
         sfxClose.play();
         g.resume();
         g.remove(quitButton);
         g.remove(addToInvText);
-        g.remove(resultText);
+        g.remove(result);
         g.remove(CONTAINER);
-    }
+    };
     
     quitButton.interactive = true;
     quitButton.buttonMode = true;
