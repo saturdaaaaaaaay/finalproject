@@ -8,10 +8,10 @@ function setupSprites()
   replaceWithAnimatedSprite(thomas, ["reindeer_1.png", "reindeer_2.png"], outside_world)
 
   rebecca = outside_world.getObject("rebecca");
-  
+
   elie = outside_world.getObject("elie");
   replaceWithAnimatedSprite(elie, ["bill-1.png", "bill-2.png"], outside_world);
-  
+
   patrick = building_world.getObject("patrick");
   replaceWithAnimatedSprite(patrick, ["cat_1.png", "cat_2.png"], building_world);
 
@@ -38,7 +38,7 @@ function replaceWithAnimatedSprite(SPRITE, FRAMES, WORLD) {
   animSprite.index = SPRITE.index;
   animSprite.animationSpeed = ANIM_SPEED;
   animSprite.play();
-  
+
   WORLD.addChild(animSprite);
 }
 //sets up dialogue for NPCs
@@ -83,7 +83,7 @@ function setupQuests()
   quest2 = new Quest (itemBroom, QUEST_AVAILABLE);
   quest3 = new Quest (itemFlowers, QUEST_AVAILABLE);
   allQuestsArray.push(quest1);
-  allQuestsArray.push(quest2);
+  //allQuestsArray.push(quest2);
   allQuestsArray.push(quest3);
 }
 
@@ -93,7 +93,7 @@ function setupNPCs()
   npcThomas = new QuestNPC("Thomas", thomas, thomasDiag, quest1);
   npcPatrck = new QuestNPC("Patrick", patrick, patrickDialog, quest2);
   npcSnowy = new QuestNPC("Snowy", snowy, snowyDialog, quest3);
-  
+
   npcRebecca = new RegNPC("Rebecca", rebecca, rebeccaDialog);
   npcElie = new RegNPC("Elie", elie, elieDialog);
   npcSeth = new RegNPC("Seth", seth, sethDialog);
@@ -353,9 +353,24 @@ function setupGameOverScene()
 {
   backgroundRect = g.rectangle(g.canvas.width, g.canvas.height, "black");
   gameOverText =  g.text("Game Over", "18px Futura", "white", 20, 20);
+  startOverText =  g.text("Start Over", "18px Futura", "white", 20, 20);
 
   gameOverScene.addChild(backgroundRect);
   gameOverScene.addChild(gameOverText);
+  gameOverScene.addChild(startOverText);
+
+  g.stage.putCenter(startOverText);
+
+  startOverText.interactive = true;
+  startOverText.buttonMode = true;
+
+  //when clicked, will display menu scene
+  let buttonFunctions = function() {
+    sfxClose.play();
+    reset();
+    //dispTitle();
+  }
+  startOverText.on('mousedown', buttonFunctions);
 }
 
 function setupInventoryScene()

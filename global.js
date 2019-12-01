@@ -130,7 +130,8 @@ let menuText,
     titleText,
     playText,
     gameOverText,
-    inventoryText;
+    inventoryText,
+    startOverText;
 
 let playerVsFloor,
     playerVsNPC,
