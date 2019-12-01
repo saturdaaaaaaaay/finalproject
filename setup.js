@@ -81,7 +81,10 @@ function setupQuests()
 {
   quest1 = new Quest (itemGloves, QUEST_AVAILABLE);
   quest2 = new Quest (itemBroom, QUEST_AVAILABLE);
+  quest3 = new Quest (itemFlowers, QUEST_AVAILABLE);
   allQuestsArray.push(quest1);
+  allQuestsArray.push(quest2);
+  allQuestsArray.push(quest3);
 }
 
 //set up NPC objects
@@ -89,12 +92,15 @@ function setupNPCs()
 {
   npcThomas = new QuestNPC("Thomas", thomas, thomasDiag, quest1);
   npcPatrck = new QuestNPC("Patrick", patrick, patrickDialog, quest2);
+  npcSnowy = new QuestNPC("Snowy", snowy, snowyDialog, quest3);
+  
   npcRebecca = new RegNPC("Rebecca", rebecca, rebeccaDialog);
   npcElie = new RegNPC("Elie", elie, elieDialog);
   npcSeth = new RegNPC("Seth", seth, sethDialog);
 
   questNPCArray.push(npcThomas);
   questNPCArray.push(npcPatrck);
+  questNPCArray.push(npcSnowy);
 
   regNPCArray.push(npcRebecca);
   regNPCArray.push(npcElie);

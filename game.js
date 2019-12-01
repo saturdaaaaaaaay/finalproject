@@ -123,13 +123,17 @@ thingsToLoad = [
   {
     let playerVsDoor = g.hitTestTile(player, doorMapArray, 9, world, "center");
     if (playerVsDoor.hit) {
+      player.vx = 0;
+      player.vy = 0;
+      player.direction = "none";
+      
       switch(world_state) {
         case "building":
-          player.position.y = Math.floor(player.position.y - TILE_SIZE);
+          player.position.y = Math.floor(player.position.y / TILE_SIZE) * TILE_SIZE;
           world_state = "world";
           break;
         case "world":
-          player.position.y = Math.floor(player.position.y + TILE_SIZE);
+          player.position.y = Math.floor(player.position.y / TILE_SIZE) * TILE_SIZE + TILE_SIZE;
           world_state = "building";
           break;
       }
@@ -142,14 +146,14 @@ thingsToLoad = [
     var i, count = 0;
     for (i = 0; i < allQuestsArray.length; i++)
     {
-      if (allQuestsArray[i].questState == QUEST_COMPLETE)
+      if (allQuestsArray[i].questState === QUEST_COMPLETE)
       {
         count++;
         console.log("completed: " + count);
       }
     }
 
-    if (count == allQuestsArray.length)
+    if (count === allQuestsArray.length)
     {
       console.log("game over");
       dispGameOver();

@@ -26,21 +26,21 @@ class QuestNPC extends NPC
     var state = this.quest.questState;
     this.counter++;
 
-    if (this.counter == 3)
+    if (this.counter === 3)
     {
       this.quest.changeState(QUEST_ACTIVE);
     }
 
-    if (state == QUEST_AVAILABLE)
+    if (state === QUEST_AVAILABLE)
     {
       //this.quest.changeState(QUEST_ACTIVE);
       return this.dialogue.greeting + "\n" + this.dialogue.needExp;
     }
-    else if (state == QUEST_ACTIVE)
+    else if (state === QUEST_ACTIVE)
     {
       return this.dialogue.needExp;
     }
-    else if (state == QUEST_COMPLETE)
+    else if (state === QUEST_COMPLETE)
     {
       return this.dialogue.thanks;
     }
@@ -53,7 +53,7 @@ class QuestNPC extends NPC
 
     console.log(display);
 
-    if (this.quest.questState == QUEST_AVAILABLE)
+    if (this.quest.questState === QUEST_AVAILABLE)
     {
       console.log("quest added");
       return this.quest;
@@ -68,7 +68,7 @@ class QuestNPC extends NPC
     {
       currentItem = inventory[i];
 
-      (this.quest.checkMatchingItem(currentItem))
+      (this.quest.checkMatchingItem(currentItem));
     }
   }
 }

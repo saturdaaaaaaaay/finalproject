@@ -23,7 +23,7 @@
 
    checkMatchingItem(item)
    {
-     if (item.name = this.questItem.name)
+     if (item.name === this.questItem.name)
      {
        this.changeState(QUEST_COMPLETE);
      }
@@ -36,11 +36,11 @@
    display()
    {
      let state = "";
-     if (this.questState == QUEST_ACTIVE)
+     if (this.questState === QUEST_ACTIVE)
      {
        state = "still active"
      }
-     else if (this.questState == QUEST_COMPLETE)
+     else if (this.questState === QUEST_COMPLETE)
      {
        state = "completed";
      }

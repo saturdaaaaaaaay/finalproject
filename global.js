@@ -88,7 +88,8 @@ let npcThomas,
 	itemBroom,
 	itemWand,
     quest1,
-	quest2;
+	quest2,
+	quest3;
 
 //sounds
 let sfxStep,

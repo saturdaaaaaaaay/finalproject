@@ -19,14 +19,17 @@ function checkForNPC(player_character)
 		while (i < questNPCArray.length && !qFound)
 		{
 			//compares index of collision object with index of quest sprite
-			if (playerVsNPC.index == questNPCArray[i].object.index)
+			if (playerVsNPC.index === questNPCArray[i].object.index)
 			{
 				tempItem = questNPCArray[i].interact();
 				qFound = true;
-
-				if (questNPCArray[i].quest.getState() == QUEST_ACTIVE)
+	
+				// Make sure the NPC has an active quest
+				if (questNPCArray[i].quest.getState() === QUEST_ACTIVE)
 				{
 					console.log("check for receive");
+					
+					// Check that the player has the quest item in inventory
 					questNPCArray[i].receive();
 				}
 
@@ -90,18 +93,12 @@ function pickUpItem()
 
 	for (let i = 0; i < itemArray.length; i++)
 	{
-		console.log(itemArray[i]);
 		if (itemArray[i].object != null && playerVsItem.index === itemArray[i].object.index)
-		//if (playerVsItem.index == item.index)
 		{
 			current_item = itemArray[i];
-			console.log("current item " + current_item);
-			current_item.interact();
 		}
 	}
-
-	console.log("finished loop");
-
+	
 	if (inventory.includes(current_item))
 	{
 		console.log("already in list");
@@ -110,6 +107,5 @@ function pickUpItem()
 	{
 		inventory.push(current_item);
 		g.remove(current_item.object);
-		console.log("inventory " + current_item.name);
 	}
 }
