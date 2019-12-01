@@ -83,7 +83,7 @@ function setupQuests()
   quest2 = new Quest (itemBroom, QUEST_AVAILABLE);
   quest3 = new Quest (itemFlowers, QUEST_AVAILABLE);
   allQuestsArray.push(quest1);
-  //allQuestsArray.push(quest2);
+  allQuestsArray.push(quest2);
   allQuestsArray.push(quest3);
 }
 
