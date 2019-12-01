@@ -40,9 +40,6 @@ let player,
     elie,
 	seth,
 	snowy,
-	trig1,
-	trig2,
-	trig3,
 	redherring,
     gloves,
     doors;
@@ -72,7 +69,8 @@ let thomasDiag,
 	patrickDialog,
 	sethDialog,
 	rebeccaDialog,
-	elieDialog;
+	elieDialog,
+	pepeDialog;
 
 //objects made from classes
 let npcThomas,
