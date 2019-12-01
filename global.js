@@ -32,6 +32,7 @@ let g,
 
 //sprites (objects from world)
 let player,
+	player_tex,
     thomas,
 	patrick,
 	pepe,
