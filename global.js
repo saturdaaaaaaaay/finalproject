@@ -7,6 +7,7 @@ const WIDTH = 800;
 const HEIGHT = 600;
 const MOVE_SPEED = 4;
 const ANIM_SPEED = 0.08;
+const TILE_SIZE = 64;
 const NUM_OF_MINI_GAMES = 1;
 
 const KEY_LEFT = 37;
@@ -86,7 +87,8 @@ let npcThomas,
 	itemPerfume,
 	itemBroom,
 	itemWand,
-    quest1;
+    quest1,
+	quest2;
 
 //sounds
 let sfxStep,
