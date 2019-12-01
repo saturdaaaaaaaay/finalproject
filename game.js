@@ -58,7 +58,9 @@ thingsToLoad = [
     setupScenes();
     
     // Setup player sprite that is visible
-    player_tex = g.sprite("penguin_1.png");
+    let frames = ["penguin_1.png", "penguin_2.png","penguin_1.png", "penguin_3.png", "penguin_4.png", "penguin_5.png", "penguin_6.png", "penguin_7.png", "penguin_6.png", "penguin_8.png"];
+    player_tex = g.sprite(frames);
+    player_tex.show(0);
     player_tex.position = player.position;
     world.addChild(player_tex);
 
@@ -233,18 +235,22 @@ function loadWallsAndDoors(MAP) {
     if (Math.floor(player.x) % world.tilewidth === 0 && Math.floor(player.y) % world.tileheight === 0) {
       switch (player.direction) {
         case "up":
+          player_tex.playAnimation([6, 9]);
           player.vy = -MOVE_SPEED;
           player.vx = 0;
           break;
         case "down":
+          player_tex.playAnimation([0, 3]);
           player.vy = MOVE_SPEED;
           player.vx = 0;
           break;
         case "left":
+          player_tex.playAnimation([4]);
           player.vx = -MOVE_SPEED;
           player.vy = 0;
           break;
         case "right":
+          player_tex.playAnimation([5]);
           player.vx = MOVE_SPEED;
           player.vy = 0;
           break;
@@ -291,6 +297,7 @@ function loadWallsAndDoors(MAP) {
   }
 
   function updatePlayerTexture() {
+    player_tex.animationSpeed = ANIM_SPEED;
     player_tex.vx = player.vx;
     player_tex.vy = player.vy;
   }
