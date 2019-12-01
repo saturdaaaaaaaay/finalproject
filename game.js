@@ -229,6 +229,7 @@ function loadWallsAndDoors(MAP) {
   function play() {
 
     // Handle player movement
+    player_tex.position = player.position;
     if (Math.floor(player.x) % world.tilewidth === 0 && Math.floor(player.y) % world.tileheight === 0) {
       switch (player.direction) {
         case "up":

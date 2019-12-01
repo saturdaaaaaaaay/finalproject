@@ -8,6 +8,7 @@ function setupSprites()
   replaceWithAnimatedSprite(thomas, ["reindeer_1.png", "reindeer_2.png"], outside_world)
 
   rebecca = outside_world.getObject("rebecca");
+  replaceWithAnimatedSprite(rebecca, ["rebecca.png"], outside_world);
 
   elie = outside_world.getObject("elie");
   replaceWithAnimatedSprite(elie, ["bill-1.png", "bill-2.png"], outside_world);
@@ -20,6 +21,9 @@ function setupSprites()
 
   snowy = outside_world.getObject("snowy");
   replaceWithAnimatedSprite(snowy, ["owl_1.png", "owl_2.png"], outside_world);
+  
+  pepe = outside_world.getObject("pepe");
+  replaceWithAnimatedSprite(pepe, ["pepe-1.png", "pepe-2.png"], outside_world);
 
   // item sprites
   gloves = outside_world.getObject("gloves");
@@ -57,6 +61,7 @@ function setupDialogue()
   sethDialog = new Dialogue("Actually my dream is to own a minimalistic farm.", "", "");
   rebeccaDialog = new Dialogue("Have you seen any delicious bugs around?", "", "");
   elieDialog = new Dialogue("Let's be friends.", "", "");
+  pepeDialog = new Dialogue("Hexi stinks!\nWhat's Hexi? I have no idea...", "", "");
 }
 
 //set up item objects
@@ -97,6 +102,7 @@ function setupNPCs()
   npcRebecca = new RegNPC("Rebecca", rebecca, rebeccaDialog);
   npcElie = new RegNPC("Elie", elie, elieDialog);
   npcSeth = new RegNPC("Seth", seth, sethDialog);
+  npcPepe = new RegNPC("Pepe", pepe, pepeDialog);
 
   questNPCArray.push(npcThomas);
   questNPCArray.push(npcPatrck);
@@ -105,6 +111,7 @@ function setupNPCs()
   regNPCArray.push(npcRebecca);
   regNPCArray.push(npcElie);
   regNPCArray.push(npcSeth);
+  regNPCArray.push(npcPepe);
 }
 
 //set up scene graphs
