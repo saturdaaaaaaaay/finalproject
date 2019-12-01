@@ -5,9 +5,18 @@ function setupSprites()
 
   // npc sprites
   thomas = outside_world.getObject("thomas");
+  replaceWithAnimatedSprite(thomas, ["reindeer_1.png", "reindeer_2.png"])
+
   rebecca = outside_world.getObject("rebecca");
+  
   elie = outside_world.getObject("elie");
+  replaceWithAnimatedSprite(elie, ["bill-1.png", "bill-2.png"]);
+
   seth = outside_world.getObject("seth");
+  replaceWithAnimatedSprite(seth, ["mog_left-1.png", "mog_left-2.png", "mog_left-3.png", "mog_left-4.png"]);
+
+  snowy = outside_world.getObject("snowy");
+  replaceWithAnimatedSprite(snowy, ["owl_1.png", "owl_2.png"]);
 
   // item sprites
   gloves = outside_world.getObject("gloves");
@@ -17,6 +26,18 @@ function setupSprites()
   doors = world.getObjects("door");
 }
 
+// The NPC texture from the map is transparent.
+// Show the animated textures instead.
+function replaceWithAnimatedSprite(SPRITE, FRAMES) {
+  let animSprite = g.sprite(FRAMES);
+
+  animSprite.position = SPRITE.position;
+  animSprite.index = SPRITE.index;
+  animSprite.animationSpeed = ANIM_SPEED;
+  animSprite.play();
+  
+  world.addChild(animSprite);
+}
 //sets up dialogue for NPCs
 function setupDialogue()
 {
