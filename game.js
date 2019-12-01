@@ -5,6 +5,7 @@
 // Loader
 thingsToLoad = [
     "maps/building.json",
+    "images/assets.json",
     "images/tileset.png",
     "images/tileset_1.1.png",
     "maps/world.json",
