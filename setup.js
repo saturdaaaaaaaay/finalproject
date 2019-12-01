@@ -174,7 +174,7 @@ function setupTitleScene()
   let buttonFunctions = function() {
     sfxPop.play();
     dispGame();
-  }
+  };
   playText.on('mousedown', buttonFunctions);
 }
 
@@ -197,7 +197,7 @@ function setupGameScene()
   let buttonFunctions = function() {
     sfxPop.play();
     dispMenu();
-  }
+  };
   menuText.on('mousedown', buttonFunctions);
 }
 
@@ -239,19 +239,19 @@ function setupMenuScene()
   let buttonFunctions = function() {
     sfxPop.play();
     dispQuestList();
-  }
+  };
   questListText.on('mousedown', buttonFunctions);
   //when clicked, will display game scene
   buttonFunctions = function() {
     sfxClose.play();
     dispGame();
-  }
+  };
   cancelText.on('mousedown', buttonFunctions);
 
   buttonFunctions = function() {
     sfxClose.play();
     dispInventory();
-  }
+  };
   inventoryText.on('mousedown', buttonFunctions);
 }
 
@@ -312,7 +312,7 @@ function setupQuestListScene()
   let buttonFunctions = function() {
     sfxClose.play();
     dispMenu();
-  }
+  };
   cancelText.on('mousedown', buttonFunctions);
 }
 
@@ -343,7 +343,7 @@ function setupDialogueScene(npc)
   let buttonFunctions = function() {
     sfxClose.play();
     dispGame();
-  }
+  };
   exitText.on('mousedown', buttonFunctions);
 
   document.addEventListener("keydown", event =>
@@ -376,7 +376,7 @@ function setupGameOverScene()
     sfxClose.play();
     reset();
     //dispTitle();
-  }
+  };
   startOverText.on('mousedown', buttonFunctions);
 }
 
@@ -419,6 +419,6 @@ function setupInventoryScene()
   let buttonFunctions = function() {
     sfxClose.play();
     dispMenu();
-  }
+  };
   cancelText.on('mousedown', buttonFunctions);
 }
