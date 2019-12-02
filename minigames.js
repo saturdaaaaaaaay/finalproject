@@ -10,12 +10,12 @@ function setupTriggers() {
     replaceWithAnimatedSprite(outside_world.getObject("trig-1"), ["rebecca.png"], outside_world);
     
     // NPC in front of "L" shaped building
-    trigger = new Trigger(outside_world.getObject("trig-2"), itemPerfume, "perfume.png");
+    trigger = new Trigger(outside_world.getObject("trig-2"), itemBroom, "broom.png");
     worldTriggerArray.push(trigger);
     replaceWithAnimatedSprite(outside_world.getObject("trig-2"), ["rebecca.png"], outside_world);
     
     // NPC inside building
-    trigger = new Trigger(building_world.getObject("trig-3"), itemBroom, "broom.png");
+    trigger = new Trigger(building_world.getObject("trig-3"), itemPerfume, "perfume.png");
     buildingTriggerArray.push(trigger);
     replaceWithAnimatedSprite(building_world.getObject("trig-3"), ["rebecca.png"], building_world);
 }
