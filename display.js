@@ -32,6 +32,8 @@ function dispGame()
 
   menuScene.visible = false;
   dialogueScene.visible = false;
+  inventoryScene.visible = false;
+  questListScene.visible = false;
   titleScene.visible = false;
 }
 

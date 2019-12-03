@@ -110,18 +110,41 @@ thingsToLoad = [
 
     //pull up quests page by pressing 'q'
     questkey.press = function() {
-      console.log("quests");
-      dispQuestList();
+
+      if (g.state == dispQuestList)
+      {
+        dispGame();
+      }
+      else
+      {
+        console.log("quests");
+        dispQuestList();
+      }
     };
 
     inventorykey.press = function() {
-      console.log("quests");
-      dispInventory();
+      if (g.state == dispInventory)
+      {
+        dispGame();
+      }
+      else
+      {
+        console.log("inventory");
+        dispInventory();
+      }
+
     };
 
     menukey.press = function() {
-      console.log("quests");
-      dispMenu();
+      if (g.state == dispMenu)
+      {
+        dispGame();
+      }
+      else
+      {
+        console.log("menu");
+        dispMenu();
+      }
     };
 
     //Change the game state to `play`
