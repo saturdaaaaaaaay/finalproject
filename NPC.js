@@ -68,7 +68,10 @@ class QuestNPC extends NPC
     {
       currentItem = inventory[i];
 
-      (this.quest.checkMatchingItem(currentItem));
+      if (this.quest.checkMatchingItem(currentItem))
+      {
+        inventory.splice(i);
+      }
     }
   }
 }

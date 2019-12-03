@@ -26,7 +26,9 @@
      if (item.name === this.questItem.name)
      {
        this.changeState(QUEST_COMPLETE);
+       return true;
      }
+     return false;
    }
 
    getState() {
