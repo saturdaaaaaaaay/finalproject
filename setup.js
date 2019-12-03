@@ -511,7 +511,7 @@ function setupInventoryScene()
 
       if (inventory[i].name == "Gloves")
       {
-        currentImg = g.sprite("gloves.PNG");
+        currentImg = g.sprite("gloves.png");
       }
       else if (inventory[i].name == "Red Herring")
       {
