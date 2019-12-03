@@ -7,17 +7,17 @@ function setupTriggers() {
     // NPC in water
     let trigger = new Trigger(outside_world.getObject("trig-1"), itemFlowers, "flowers.png");
     worldTriggerArray.push(trigger);
-    replaceWithAnimatedSprite(outside_world.getObject("trig-1"), ["merperson.png", "merperson_2.png"], outside_world);
+    outside_world.add(replaceWithAnimatedSprite(outside_world.getObject("trig-1"), ["merperson.png", "merperson_2.png"]));
     
     // NPC in front of "L" shaped building
     trigger = new Trigger(outside_world.getObject("trig-2"), itemBroom, "broom.png");
     worldTriggerArray.push(trigger);
-    replaceWithAnimatedSprite(outside_world.getObject("trig-2"), ["dragon_3.png", "dragon_4.png"], outside_world);
+    outside_world.add(replaceWithAnimatedSprite(outside_world.getObject("trig-2"), ["dragon_3.png", "dragon_4.png"]));
     
     // NPC inside building
     trigger = new Trigger(building_world.getObject("trig-3"), itemPerfume, "perfume.png");
     buildingTriggerArray.push(trigger);
-    replaceWithAnimatedSprite(building_world.getObject("trig-3"), ["ghost-1.png", "ghost-2.png"], building_world);
+    building_world.add(replaceWithAnimatedSprite(building_world.getObject("trig-3"), ["ghost-1.png", "ghost-2.png"]));
 }
 
 // Return true if collision with a trigger NPC
