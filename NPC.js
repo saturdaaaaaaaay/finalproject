@@ -84,6 +84,7 @@ class QuestNPC extends NPC
 
       if (this.quest.checkMatchingItem(currentItem))
       {
+        inventory.splice(i, 1);
         this.changeDisplaySprite(this.completedDisplay);
       };
     }
