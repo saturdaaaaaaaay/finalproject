@@ -501,15 +501,47 @@ function setupInventoryScene()
 
   if (inventory.length > 0)
   {
-    var currentItem, i;
+    var currentItem, i, text, currentImg = null;
 
     for (i = 0; i < inventory.length; i++)
     {
       currentItem = g.text(inventory[i].name, "18px Futura", "black", 20, 20);
       inventoryScene.addChild(currentItem);
 
+      if (inventory[i].name == "Gloves")
+      {
+        currentImg = g.sprite("gloves.PNG");
+      }
+      else if (inventory[i].name == "Red Herring")
+      {
+        currentImg = g.sprite("redherring.png");
+      }
+      else if (inventory[i].name == "Flowers")
+      {
+        currentImg = g.sprite("flowers.png");
+      }
+      else if (inventory[i].name == "Perfume")
+      {
+        currentImg = g.sprite("perfume.png");
+      }
+      else if (inventory[i].name == "Broom")
+      {
+        currentImg = g.sprite("broom.png");
+      }
+      else if (inventory[i].name == "Magic Wand")
+      {
+        currentImg = g.sprite("wand.png");
+      }
+      inventoryScene.addChild(currentImg);
+
       currentItem.x = 50 + 100 * i;
       currentItem.y = g.canvas.height/10;
+
+      if (currentImg != null)
+      {
+        currentImg.x = 50 + 100 * i;
+        currentImg.y = 10;
+      }
     }
   }
   else

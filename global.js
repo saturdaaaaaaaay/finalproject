@@ -152,6 +152,8 @@ let backgroundRect,
 let counter = 0; //temporary counter for displaying quests
 let alreadyDisplayed = false; //temporary bool to display quests
 
+let sceneState = false;
+
 //stuff I couldn't find in code (delete if not needed)
 let items, //
     message,//

@@ -102,6 +102,8 @@ thingsToLoad = [
     rightArrow.release = () => player.direction = "none";
     downArrow.release = () => player.direction = "none";
 
+    sceneState = "play";
+
     // Player attempts interaction
     interact.press = function() {
       console.log("interaction");
@@ -111,37 +113,43 @@ thingsToLoad = [
     //pull up quests page by pressing 'q'
     questkey.press = function() {
 
-      if (g.state == dispQuestList)
+      if (sceneState == "play")
       {
-        dispGame();
+        sceneState = "quests";
+        console.log("quests");
+        dispQuestList();
       }
       else
       {
-        console.log("quests");
-        dispQuestList();
+        sceneState = "play";
+        dispGame();
       }
     };
 
     inventorykey.press = function() {
-      if (g.state == dispInventory)
+      if (sceneState == "inventory")
       {
+        sceneState = "play";
         dispGame();
       }
       else
       {
         console.log("inventory");
+        sceneState = "inventory";
         dispInventory();
       }
 
     };
 
     menukey.press = function() {
-      if (g.state == dispMenu)
+      if (sceneState == "menu")
       {
+        sceneState = "play";
         dispGame();
       }
       else
       {
+        sceneState = "menu";
         console.log("menu");
         dispMenu();
       }
@@ -306,19 +314,9 @@ function loadWallsAndDoors(MAP) {
       checkGameOver();
     }
 
-    tempItem = null; //reset tempItem
-    /*
-    //display quests
-    if (questArray.length > 0 && counter == 0)
-    {
-      var i;
-      for (i = 0; i < questArray.length; i++)
-      {
-        console.log(questArray[i].display());
-      }
-      counter = 1;
-    }
-    */
+    tempItem = null;
+
+    //console.log("" g.state);
   }
 
   function updatePlayerTexture() {
