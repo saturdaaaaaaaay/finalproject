@@ -21,7 +21,7 @@ function setupSprites()
 
   snowy = outside_world.getObject("snowy");
   replaceWithAnimatedSprite(snowy, ["owl_1.png", "owl_2.png"], outside_world);
-  
+
   pepe = outside_world.getObject("pepe");
   replaceWithAnimatedSprite(pepe, ["pepe-1.png", "pepe-2.png"], outside_world);
 
@@ -125,6 +125,8 @@ function setupScenes()
   titleScene = g.group();
   gameOverScene = g.group();
   inventoryScene = g.group();
+  howToPlayScene = g.group();
+  creditsScene = g.group();
 
 
   //make all scenes but title scene invisible
@@ -136,6 +138,8 @@ function setupScenes()
   gameScene.visible = false;
   gameOverScene.visible = false;
   inventoryScene.visible = false;
+  howToPlayScene.visible = false;
+  creditsScene.visible = false;
 
   //call methods to set up each scene graph
   setupTitleScene();
@@ -144,31 +148,48 @@ function setupScenes()
   setupQuestListScene();
   setupGameOverScene();
   setupInventoryScene();
+  setupCreditsScene();
+  setupHowToPlayScene();
 }
 
 //set up title scene
 function setupTitleScene()
 {
   //background
-  backgroundRect = g.rectangle(800, 600, "black");
+  backgroundRect = g.rectangle(800, 600, "white");
 
   //creates and positions title text
-  titleText = g.text("Planilandia", "18px Futura", "white", 20, 20);
-  g.stage.putCenter(titleText);
+  titleText = g.sprite("title.PNG");//g.text("Planilandia", "18px Futura", "white", 20, 20);
+  titleText.x = 0;
+  titleText.y = 0;
 
   //creates and positions play button
-  playText = g.text("Play", "18px Futura", "white", 20, 20);
-  playText.x = 400;
-  playText.y = 400;
+  playText = g.sprite("play.PNG");//g.text("Play", "18px Futura", "black", 20, 20);
+  playText.x = 300;
+  playText.y = 250;
+
+  howToPlayText = g.sprite("howtoplay.PNG");
+  howToPlayText.x = 300;
+  howToPlayText.y = 350;
+
+  creditsText = g.sprite("credits.PNG");
+  creditsText.x = 300;
+  creditsText.y = 450;
 
   //add children to scene
   titleScene.addChild(backgroundRect);
   titleScene.addChild(titleText);
   titleScene.addChild(playText);
+  titleScene.addChild(howToPlayText);
+  titleScene.addChild(creditsText);
 
-  //turns play sprite into button
+  //turns sprites into button
   playText.interactive = true;
   playText.buttonMode = true;
+  howToPlayText.interactive = true;
+  howToPlayText.buttonMode = true;
+  creditsText.interactive = true;
+  creditsText.buttonMode = true;
 
   //displays game when "play" is pressed
   let buttonFunctions = function() {
@@ -176,14 +197,93 @@ function setupTitleScene()
     dispGame();
   };
   playText.on('mousedown', buttonFunctions);
+
+  buttonFunctions = function() {
+    sfxPop.play();
+    dispHowToPlay();
+  };
+  howToPlayText.on('mousedown', buttonFunctions);
+
+  buttonFunctions = function() {
+    sfxPop.play();
+    dispCredits();
+  };
+  creditsText.on('mousedown', buttonFunctions);
+}
+
+function setupCreditsScene()
+{
+  backgroundRect = g.rectangle(800, 600, "white");
+  cancelText = g.sprite("back.PNG");
+  credits = g.sprite("gameby.PNG");
+  eliename = g.sprite("eliecarlos.PNG");
+  rebeccaname = g.sprite("rebeccaleggett.PNG");
+  sethname = g.sprite("seth_b.png");
+
+  creditsScene.addChild(backgroundRect);
+  creditsScene.addChild(cancelText);
+  creditsScene.addChild(credits);
+  creditsScene.addChild(eliename);
+  creditsScene.addChild(rebeccaname);
+  creditsScene.addChild(sethname);
+
+  cancelText.x = 300;
+  cancelText.y = 500;
+  credits.x = 250;
+  credits.y = 0;
+  sethname.x = 250;
+  sethname.y = 125;
+  eliename.x = 250;
+  eliename.y = 250;
+  rebeccaname.x = 250;
+  rebeccaname.y = 375;
+
+  cancelText.interactive = true;
+  cancelText.buttonMode = true;
+
+  //when clicked, will display title scene
+  let buttonFunctions = function() {
+    sfxClose.play();
+    dispTitle();
+    console.log("display title");
+  };
+  cancelText.on('mousedown', buttonFunctions);
+}
+
+
+function setupHowToPlayScene()
+{
+  backgroundRect = g.rectangle(800, 600, "white");
+  cancelText = g.sprite("back.PNG");
+  instructions = g.sprite("instructions.PNG");
+
+  howToPlayScene.addChild(backgroundRect);
+  howToPlayScene.addChild(cancelText);
+  howToPlayScene.addChild(instructions);
+
+  cancelText.x = 300;
+  cancelText.y = 500;
+  instructions.x = 50;
+  instructions.y = 0;
+
+  cancelText.interactive = true;
+  cancelText.buttonMode = true;
+
+  //when clicked, will display title scene
+  let buttonFunctions = function() {
+    sfxClose.play();
+    dispTitle();
+    console.log("display title");
+  };
+  cancelText.on('mousedown', buttonFunctions);
 }
 
 //set up game scene
 function setupGameScene()
 {
   //create and position menu text
-  menuText = g.text("Menu", "18px Futura", "white", 20, 20);
-  menuText.x = 750;
+  menuText = g.sprite("menu.PNG");//g.text("Menu", "18px Futura", "white", 20, 20);
+  menuText.x = 700;
   menuText.y = 0;//g.canvas.height / 2 - 18;
 
   //add menu text to game scene
@@ -205,21 +305,21 @@ function setupGameScene()
 function setupMenuScene()
 {
   //background
-  backgroundRect = g.rectangle(300, 300, "black");
+  backgroundRect = g.rectangle(400, 400, "white");
   g.stage.putCenter(backgroundRect, 0, 0);
   //backgroundRect.x = g.canvas.width / 2;
   //backgroundRect.y = g.canvas.height / 2;
 
   //create and add quest list and cancel text
-  questListText = g.text("Quest List", "18px Futura", "white", 20, 20);
-  questListText.x = g.canvas.width/2;
-  questListText.y = g.canvas.height / 2 - 18;
-  inventoryText = g.text("Inventory", "18px Futura", "white", 20, 20);
-  inventoryText.x = g.canvas.width/2;
-  inventoryText.y = g.canvas.height / 2;
-  cancelText = g.text("Cancel", "18px Futura", "white", 20, 20);
-  cancelText.x = 400;
-  cancelText.y = 400;
+  questListText = g.sprite("questlist.PNG");//g.text("Quest List", "18px Futura", "white", 20, 20);
+  questListText.x = 225;
+  questListText.y = 150;
+  inventoryText = g.sprite("inventory.PNG");//g.text("Inventory", "18px Futura", "white", 20, 20);
+  inventoryText.x = 225;
+  inventoryText.y = 250;
+  cancelText = g.sprite("back.PNG");//g.text("Cancel", "18px Futura", "white", 20, 20);
+  cancelText.x = 225;
+  cancelText.y = 375;
 
   //add text to scene
   menuScene.addChild(backgroundRect);
@@ -261,7 +361,7 @@ function setupQuestListScene()
   questListScene.removeChildren(); //reset scene graph
 
   //background
-  backgroundRect = g.rectangle(300, 300, "black");
+  backgroundRect = g.rectangle(400, 400, "white");
   g.stage.putCenter(backgroundRect, 0, 0);
 
   //add background to scene
@@ -273,7 +373,7 @@ function setupQuestListScene()
     var i;
     for (i = 0; i < questArray.length; i++)
     {
-      questTextArray.push(g.text(questArray[i].display(), "18px Futura", "white", 20, 20));
+      questTextArray.push(g.text(questArray[i].display(), "18px Futura", "black", 20, 20));
     }
     var currentQuest;
     //console.log("quest array length: " + questTextArray.length);
@@ -291,7 +391,7 @@ function setupQuestListScene()
   }
   else //if no quests, display unavailable text
   {
-    emptyQuestText = g.text("No quests available", "18px Futura", "white", 20, 20);
+    emptyQuestText = g.text("No quests available", "18px Futura", "black", 20, 20);
 
     questListScene.addChild(emptyQuestText);
     emptyQuestText.x = 300;
@@ -299,8 +399,8 @@ function setupQuestListScene()
   }
 
   //cancel button
-  cancelText = g.text("Cancel", "18px Futura", "white", 20, 20);
-  cancelText.x = 400;
+  cancelText = g.sprite("back.PNG");//g.text("Cancel", "18px Futura", "white", 20, 20);
+  cancelText.x = 300;
   cancelText.y = 400;
 
   questListScene.addChild(cancelText);
@@ -328,15 +428,18 @@ function setupDialogueScene(npc)
   backgroundRect.x = 0;
   backgroundRect.y = g.canvas.height/4 * 3;
 
+  /*
   exitText = g.text("Exit", "18px Futura", "white", 20, 20);
   exitText.x = 750;
   exitText.y = 500;
+  */
 
   dialogueScene.addChild(backgroundRect);
-  dialogueScene.addChild(exitText);
+  //dialogueScene.addChild(exitText);
   dialogueScene.addChild(dialogueText);
   dialogueScene.addChild(npcNameText);
 
+  /*
   exitText.interactive = true;
   exitText.buttonMode = true;
 
@@ -345,6 +448,7 @@ function setupDialogueScene(npc)
     dispGame();
   };
   exitText.on('mousedown', buttonFunctions);
+  */
 
   document.addEventListener("keydown", event =>
   {
@@ -358,15 +462,18 @@ function setupDialogueScene(npc)
 
 function setupGameOverScene()
 {
-  backgroundRect = g.rectangle(g.canvas.width, g.canvas.height, "black");
-  gameOverText =  g.text("Game Over", "18px Futura", "white", 20, 20);
-  startOverText =  g.text("Start Over", "18px Futura", "white", 20, 20);
+  backgroundRect = g.rectangle(g.canvas.width, g.canvas.height, "white");
+  gameOverText =  g.sprite("gameover.PNG");//g.text("Game Over", "18px Futura", "white", 20, 20);
+  startOverText =  g.sprite("returntotitle.PNG");//g.text("Start Over", "18px Futura", "white", 20, 20);
 
   gameOverScene.addChild(backgroundRect);
   gameOverScene.addChild(gameOverText);
   gameOverScene.addChild(startOverText);
 
-  g.stage.putCenter(startOverText);
+  gameOverText.x = 0;
+  gameOverText.y = 0;
+  startOverText.x = 250;
+  startOverText.y = 500;
 
   startOverText.interactive = true;
   startOverText.buttonMode = true;
@@ -382,13 +489,13 @@ function setupGameOverScene()
 
 function setupInventoryScene()
 {
-  backgroundRect2 = g.rectangle(g.canvas.width, g.canvas.height/5, "black");
+  backgroundRect2 = g.rectangle(g.canvas.width, g.canvas.height/5, "white");
   backgroundRect2.x = 0;
   backgroundRect2.y = 0;
 
   inventoryScene.addChild(backgroundRect2);
 
-  cancelText = g.text("Cancel", "18px Futura", "white", 20, 20);
+  cancelText = g.text("Cancel", "18px Futura", "black", 20, 20);
   cancelText.x = 0;
   cancelText.y = g.canvas.height/5 - 20;
 
@@ -398,16 +505,16 @@ function setupInventoryScene()
 
     for (i = 0; i < inventory.length; i++)
     {
-      currentItem = g.text(inventory[i].name, "18px Futura", "white", 20, 20);
+      currentItem = g.text(inventory[i].name, "18px Futura", "black", 20, 20);
       inventoryScene.addChild(currentItem);
 
-      currentItem.x = 50 + 20 * i;
+      currentItem.x = 50 + 100 * i;
       currentItem.y = g.canvas.height/10;
     }
   }
   else
   {
-    inventoryScene.addChild(g.text("No items", "18px Futura", "white", 20, 20));
+    inventoryScene.addChild(g.text("No items", "18px Futura", "black", 20, 20));
   }
 
   inventoryScene.addChild(cancelText);

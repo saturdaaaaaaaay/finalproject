@@ -5,6 +5,24 @@ function dispTitle()
 
   gameScene.visible = false;
   menuScene.visible = false;
+  howToPlayScene.visible = false;
+  creditsScene.visible = false;
+}
+
+function dispHowToPlay()
+{
+  g.state = dispHowToPlay;
+  howToPlayScene.visible = true;
+
+  titleScene.visible = false;
+}
+
+function dispCredits()
+{
+  g.state = dispCredits;
+  creditsScene.visible = true;
+
+  titleScene.visible = false;
 }
 
 function dispGame()

@@ -117,8 +117,11 @@ let gameScene,
     questListScene,
     titleScene,
     gameOverScene,
-    inventoryScene;
+    inventoryScene,
+    howToPlayScene,
+    creditsScene;
 
+//text variables
 let menuText,
     questListText,
     cancelText,
@@ -130,7 +133,14 @@ let menuText,
     playText,
     gameOverText,
     inventoryText,
-    startOverText;
+    startOverText,
+    creditsText,
+    howToPlayText,
+    credits,
+    instructions,
+    eliename,
+    rebeccaname,
+    sethname;
 
 let playerVsFloor,
     playerVsNPC,

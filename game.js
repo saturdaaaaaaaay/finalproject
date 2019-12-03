@@ -7,6 +7,8 @@ thingsToLoad = [
     "maps/building.json",
     "images/assets.json",
     "images/tileset.png",
+    "images/buttons.json",
+    "images/buttons.png",
     "maps/world.json",
     "audio/bloop.mp3",
     "audio/close.mp3",
@@ -56,7 +58,7 @@ thingsToLoad = [
     setupQuests();
     setupNPCs();
     setupScenes();
-    
+
     // Setup player sprite that is visible
     let frames = ["penguin_1.png", "penguin_2.png","penguin_1.png", "penguin_3.png", "penguin_4.png", "penguin_5.png", "penguin_6.png", "penguin_7.png", "penguin_6.png", "penguin_8.png"];
     player_tex = g.sprite(frames);
@@ -156,7 +158,7 @@ thingsToLoad = [
       if (allQuestsArray[i].questState === QUEST_COMPLETE)
       {
         count++;
-        console.log("completed: " + count);
+        //console.log("completed: " + count);
       }
     }
 
@@ -211,7 +213,7 @@ thingsToLoad = [
     world.addChild(player_tex);
     player_tex.position = player.position;
     updatePlayerTexture();
-    
+
     // Add a camera to follow the player in both outside and inside worlds
     camera = g.worldCamera(world, world.worldWidth, world.worldHeight);
     camera.centerOver(player);
