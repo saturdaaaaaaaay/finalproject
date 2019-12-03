@@ -1,0 +1,26 @@
+/*#title
+{
+	text-align:center
+}*/
+
+body
+{
+	background-color: #2e2c4f;
+	color: white;
+}
+
+a
+{
+	color: white;
+}
+
+div
+{
+	margin: auto;
+}
+
+h1
+{
+	font-family: Georgia, serif;
+	color: #d694b7;
+}

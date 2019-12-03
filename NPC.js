@@ -19,6 +19,20 @@ class QuestNPC extends NPC
     super(name, object, dialogue);
     this.quest = quest;
     this.counter = 0;
+    this.defaultDisplay = null;
+    this.completedDisplay = null;
+    this.currentSprite = null;
+    this.in_world = null;
+  }
+  
+  changeDisplaySprite(NEW_DISPLAY)
+  {
+    if (this.currentSprite != null)
+    {
+      g.remove(this.currentSprite);
+    }
+    this.currentSprite = replaceWithAnimatedSprite(this.object, NEW_DISPLAY);
+    this.in_world.add(this.currentSprite);
   }
 
   dispDialogue()
@@ -71,8 +85,21 @@ class QuestNPC extends NPC
       if (this.quest.checkMatchingItem(currentItem))
       {
         inventory.splice(i, 1);
-      }
+        this.changeDisplaySprite(this.completedDisplay);
+      };
     }
+  }
+  
+  setDisplays(ARRAY_1, ARRAY_2)
+  {
+    this.defaultDisplay = ARRAY_1;
+    this.completedDisplay = ARRAY_2;
+    this.changeDisplaySprite(this.defaultDisplay);
+  }
+  
+  setWorld(WORLD)
+  {
+    this.in_world = WORLD;
   }
 }
 

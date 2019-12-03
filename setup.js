@@ -5,25 +5,20 @@ function setupSprites()
 
   // npc sprites
   thomas = outside_world.getObject("thomas");
-  replaceWithAnimatedSprite(thomas, ["reindeer_1.png", "reindeer_2.png"], outside_world)
+  snowy = outside_world.getObject("snowy");
+  patrick = building_world.getObject("patrick");
 
   rebecca = outside_world.getObject("rebecca");
-  replaceWithAnimatedSprite(rebecca, ["rebecca.png"], outside_world);
+  outside_world.add(replaceWithAnimatedSprite(rebecca, ["rebecca.png"]));
 
   elie = outside_world.getObject("elie");
-  replaceWithAnimatedSprite(elie, ["bill-1.png", "bill-2.png"], outside_world);
-
-  patrick = building_world.getObject("patrick");
-  replaceWithAnimatedSprite(patrick, ["cat_1.png", "cat_2.png"], building_world);
+  outside_world.add(replaceWithAnimatedSprite(elie, ["bill-1.png", "bill-2.png"]));
 
   seth = outside_world.getObject("seth");
-  replaceWithAnimatedSprite(seth, ["mog_left-1.png", "mog_left-2.png", "mog_left-3.png", "mog_left-4.png"], outside_world);
-
-  snowy = outside_world.getObject("snowy");
-  replaceWithAnimatedSprite(snowy, ["owl_1.png", "owl_2.png"], outside_world);
+  outside_world.add(replaceWithAnimatedSprite(seth, ["mog_left-1.png", "mog_left-2.png", "mog_left-3.png", "mog_left-4.png"]));
 
   pepe = outside_world.getObject("pepe");
-  replaceWithAnimatedSprite(pepe, ["pepe-1.png", "pepe-2.png"], outside_world);
+  outside_world.add(replaceWithAnimatedSprite(pepe, ["pepe-1.png", "pepe-2.png"]));
 
   // item sprites
   gloves = outside_world.getObject("gloves");
@@ -35,7 +30,7 @@ function setupSprites()
 
 // The NPC texture from the map is transparent.
 // Show the animated textures instead.
-function replaceWithAnimatedSprite(SPRITE, FRAMES, WORLD) {
+function replaceWithAnimatedSprite(SPRITE, FRAMES) {
   let animSprite = g.sprite(FRAMES);
 
   animSprite.position = SPRITE.position;
@@ -43,7 +38,7 @@ function replaceWithAnimatedSprite(SPRITE, FRAMES, WORLD) {
   animSprite.animationSpeed = ANIM_SPEED;
   animSprite.play();
 
-  WORLD.addChild(animSprite);
+  return animSprite;
 }
 //sets up dialogue for NPCs
 function setupDialogue()
@@ -96,8 +91,14 @@ function setupQuests()
 function setupNPCs()
 {
   npcThomas = new QuestNPC("Thomas", thomas, thomasDiag, quest1);
+  npcThomas.setWorld(outside_world);
+  npcThomas.setDisplays(["reindeer_1.png", "reindeer_2.png"], ["reindeer_3.png", "reindeer_4.png"]);
   npcPatrck = new QuestNPC("Patrick", patrick, patrickDialog, quest2);
+  npcPatrck.setWorld(building_world);
+  npcPatrck.setDisplays(["cat_1.png", "cat_2.png"], ["cat_3.png", "cat_4.png"]);
   npcSnowy = new QuestNPC("Snowy", snowy, snowyDialog, quest3);
+  npcSnowy.setWorld(outside_world);
+  npcSnowy.setDisplays(["owl_1.png", "owl_2.png"], ["owl_3.png", "owl_4.png"]);
 
   npcRebecca = new RegNPC("Rebecca", rebecca, rebeccaDialog);
   npcElie = new RegNPC("Elie", elie, elieDialog);
